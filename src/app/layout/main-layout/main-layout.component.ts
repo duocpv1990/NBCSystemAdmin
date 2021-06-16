@@ -19,10 +19,7 @@ export class MainLayoutComponent implements OnInit {
         icon: 'assets/img/home.svg',
         name: 'Trang chủ',
         linkURL: 'home',
-        subs: [
-          { name: 'Danh sách doanh nghiệp', path: 'home/enterprise-list' },
-          { name: 'Danh sách sản phẩm', path: 'home/product-list' }
-        ]
+        subs: []
       },
       {
         icon: 'assets/img/enterprise-code.svg',

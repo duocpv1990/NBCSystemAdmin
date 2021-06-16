@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DeleteComponent } from 'src/app/components/dialog/delete/delete.component';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { EnterPriseModel } from 'src/app/models/enterprise.model';
+import { CompanyService } from 'src/app/services/company.service';
 import { DeleteEnterpriseComponent } from '../delete-enterprise/delete-enterprise.component';
 import { EnterpriseCreateComponent } from '../enterprise-create/enterprise-create.component';
 import { EnterpriseEditComponent } from '../enterprise-edit/enterprise-edit.component';
@@ -25,10 +26,10 @@ export class EnterpriseListComponent implements OnInit {
       "status": "Đã duyệt",
       "update": "13:30, 21/04/2021",
       "taxcode": "01234",
-      "country":"Viet Nam",
-      "city" : "1",
+      "country": "Viet Nam",
+      "city": "1",
       "district": "1",
-      "address" : "Ha Noi - Viet Nam",
+      "address": "Ha Noi - Viet Nam",
       "phone": "0987654321",
       "email": "city@gmail.com",
       "website": "https://www.consultindochina.com/"
@@ -42,10 +43,10 @@ export class EnterpriseListComponent implements OnInit {
       "status": "Đã duyệt",
       "update": "13:30, 21/04/2021",
       "taxcode": "01234",
-      "country":"Viet Nam",
-      "city" : "1",
+      "country": "Viet Nam",
+      "city": "1",
       "district": "1",
-      "address" : "Ha Noi - Viet Nam",
+      "address": "Ha Noi - Viet Nam",
       "phone": "0987654321",
       "email": "city@gmail.com",
       "website": "https://www.consultindochina.com/"
@@ -59,10 +60,10 @@ export class EnterpriseListComponent implements OnInit {
       "status": "Đã duyệt",
       "update": "13:30, 21/04/2021",
       "taxcode": "01234",
-      "country":"Viet Nam",
-      "city" : "1",
+      "country": "Viet Nam",
+      "city": "1",
       "district": "1",
-      "address" : "Ha Noi - Viet Nam",
+      "address": "Ha Noi - Viet Nam",
       "phone": "0987654321",
       "email": "city@gmail.com",
       "website": "https://www.consultindochina.com/"
@@ -76,10 +77,10 @@ export class EnterpriseListComponent implements OnInit {
       "status": "Đã duyệt",
       "update": "13:30, 21/04/2021",
       "taxcode": "01234",
-      "country":"Viet Nam",
-      "city" : "1",
+      "country": "Viet Nam",
+      "city": "1",
       "district": "1",
-      "address" : "Ha Noi - Viet Nam",
+      "address": "Ha Noi - Viet Nam",
       "phone": "0987654321",
       "email": "city@gmail.com",
       "website": "https://www.consultindochina.com/"
@@ -93,10 +94,10 @@ export class EnterpriseListComponent implements OnInit {
       "status": "Đã duyệt",
       "update": "13:30, 21/04/2021",
       "taxcode": "01234",
-      "country":"Viet Nam",
-      "city" : "1",
+      "country": "Viet Nam",
+      "city": "1",
       "district": "1",
-      "address" : "Ha Noi - Viet Nam",
+      "address": "Ha Noi - Viet Nam",
       "phone": "0987654321",
       "email": "city@gmail.com",
       "website": "https://www.consultindochina.com/"
@@ -110,10 +111,10 @@ export class EnterpriseListComponent implements OnInit {
       "status": "Đã duyệt",
       "update": "13:30, 21/04/2021",
       "taxcode": "01234",
-      "country":"Viet Nam",
-      "city" : "1",
+      "country": "Viet Nam",
+      "city": "1",
       "district": "1",
-      "address" : "Ha Noi - Viet Nam",
+      "address": "Ha Noi - Viet Nam",
       "phone": "0987654321",
       "email": "city@gmail.com",
       "website": "https://www.consultindochina.com/"
@@ -124,8 +125,16 @@ export class EnterpriseListComponent implements OnInit {
   dataTable;
   listActive;
   dataSub;
+  companyCode = '';
+  name = '';
+  status = '';
+  pageNumber = 1;
+  pageSize = 10;
+  companies = [];
+
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private companyService: CompanyService
   ) { }
 
   ngOnInit(): void {
@@ -133,7 +142,20 @@ export class EnterpriseListComponent implements OnInit {
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
     this.dataSub = this.data;
+    this.getCompanies();
   }
+
+
+  getCompanies() {
+    this.companyService.getCompanies(this.pageNumber, this.pageSize, this.companyCode, this.name, this.status).subscribe(res => {
+      this.companies = res.payload;
+      console.log('companies', this.companies);
+
+    }
+    )
+  }
+
+
   handleCallback(ev) {
     const filter = this.listFilter.filter(x => x.value);
     if (!filter.length) return this.dataSub = this.data;
