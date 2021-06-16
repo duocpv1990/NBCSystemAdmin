@@ -1,0 +1,28 @@
+.auth-layout {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  .auth-layout-banner {
+    width: 50%;
+    height: 100vh;
+    background: var(--color-list-nav);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .auth-layout-banner-img {
+      height: 20%;
+      object-fit: cover;
+    }
+  }
+  .auth-layout-content {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .auth-layout-content-box {
+      max-width: 400px;
+    }
+  }
+}
