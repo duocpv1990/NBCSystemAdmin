@@ -16,112 +16,6 @@ import { EnterpriseEditComponent } from '../enterprise-edit/enterprise-edit.comp
 export class EnterpriseListComponent implements OnInit {
   config = new EnterPriseModel();
   listFilter = [];
-  data = [
-    {
-      "stt": "1",
-      "code": "023456781",
-      "global": '023456781',
-      "register": 'Công ty TNHH Việt An 1',
-      "gt": '1 giấy tờ',
-      "status": "Đã duyệt",
-      "update": "13:30, 21/04/2021",
-      "taxcode": "01234",
-      "country": "Viet Nam",
-      "city": "1",
-      "district": "1",
-      "address": "Ha Noi - Viet Nam",
-      "phone": "0987654321",
-      "email": "city@gmail.com",
-      "website": "https://www.consultindochina.com/"
-    },
-    {
-      "stt": "2",
-      "code": "023456781",
-      "global": '023456781',
-      "register": 'Công ty TNHH Việt An 2 ',
-      "gt": '1 giấy tờ',
-      "status": "Đã duyệt",
-      "update": "13:30, 21/04/2021",
-      "taxcode": "01234",
-      "country": "Viet Nam",
-      "city": "1",
-      "district": "1",
-      "address": "Ha Noi - Viet Nam",
-      "phone": "0987654321",
-      "email": "city@gmail.com",
-      "website": "https://www.consultindochina.com/"
-    },
-    {
-      "stt": "3",
-      "code": "023456781",
-      "global": '023456781',
-      "register": 'Công ty TNHH Việt An 3',
-      "gt": '1 giấy tờ',
-      "status": "Đã duyệt",
-      "update": "13:30, 21/04/2021",
-      "taxcode": "01234",
-      "country": "Viet Nam",
-      "city": "1",
-      "district": "1",
-      "address": "Ha Noi - Viet Nam",
-      "phone": "0987654321",
-      "email": "city@gmail.com",
-      "website": "https://www.consultindochina.com/"
-    },
-    {
-      "stt": "4",
-      "code": "023456781",
-      "global": '023456781',
-      "register": 'Công ty TNHH Việt An 4',
-      "gt": '1 giấy tờ',
-      "status": "Đã duyệt",
-      "update": "13:30, 21/04/2021",
-      "taxcode": "01234",
-      "country": "Viet Nam",
-      "city": "1",
-      "district": "1",
-      "address": "Ha Noi - Viet Nam",
-      "phone": "0987654321",
-      "email": "city@gmail.com",
-      "website": "https://www.consultindochina.com/"
-    },
-    {
-      "stt": "5",
-      "code": "023456781",
-      "global": '023456781',
-      "register": 'Công ty TNHH Việt An 5',
-      "gt": '1 giấy tờ',
-      "status": "Đã duyệt",
-      "update": "13:30, 21/04/2021",
-      "taxcode": "01234",
-      "country": "Viet Nam",
-      "city": "1",
-      "district": "1",
-      "address": "Ha Noi - Viet Nam",
-      "phone": "0987654321",
-      "email": "city@gmail.com",
-      "website": "https://www.consultindochina.com/"
-    },
-    {
-      "stt": "6",
-      "code": "023456781",
-      "global": '023456781',
-      "register": 'Công ty TNHH Việt An 6',
-      "gt": '1 giấy tờ',
-      "status": "Đã duyệt",
-      "update": "13:30, 21/04/2021",
-      "taxcode": "01234",
-      "country": "Viet Nam",
-      "city": "1",
-      "district": "1",
-      "address": "Ha Noi - Viet Nam",
-      "phone": "0987654321",
-      "email": "city@gmail.com",
-      "website": "https://www.consultindochina.com/"
-    },
-
-
-  ];
   dataTable;
   listActive;
   dataSub;
@@ -141,7 +35,6 @@ export class EnterpriseListComponent implements OnInit {
     this.listFilter = this.config.filter;
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
-    this.dataSub = this.data;
     this.getCompanies();
   }
 
@@ -149,6 +42,9 @@ export class EnterpriseListComponent implements OnInit {
   getCompanies() {
     this.companyService.getCompanies(this.pageNumber, this.pageSize, this.companyCode, this.name, this.status).subscribe(res => {
       this.companies = res.payload;
+      this.companies.forEach((item, index) => {
+        item['index'] = index + 1;
+      });
       console.log('companies', this.companies);
 
     }
@@ -158,14 +54,14 @@ export class EnterpriseListComponent implements OnInit {
 
   handleCallback(ev) {
     const filter = this.listFilter.filter(x => x.value);
-    if (!filter.length) return this.dataSub = this.data;
+    if (!filter.length) return this.dataSub = this.companies;
     filter.forEach((x, ix) => {
       if (ix === 0) {
         if (x.type === 'text' || x.type === 'search') {
-          this.dataSub = this.data.filter(
+          this.dataSub = this.companies.filter(
             (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
         } else {
-          this.dataSub = this.data.filter((a) => a[x.condition] == x.value);
+          this.dataSub = this.companies.filter((a) => a[x.condition] == x.value);
         }
       } else {
         if (x.type === 'text' || x.type === 'search') {
@@ -200,6 +96,7 @@ export class EnterpriseListComponent implements OnInit {
         height: '843px',
         data: ev.item
       }).afterClosed().subscribe(result => {
+        this.getCompanies();
       });
     }
     if (ev.type === 'delete') {
@@ -212,6 +109,7 @@ export class EnterpriseListComponent implements OnInit {
           content: "Bạn có muốn xoá thông tin doanh nghiệp trên hệ thống?"
         }
       }).afterClosed().subscribe(result => {
+        this.getCompanies();
       });
     }
   }

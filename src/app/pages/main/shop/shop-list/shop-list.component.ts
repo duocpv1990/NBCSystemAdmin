@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { ShopModel } from 'src/app/models/shop.model';
+import { StoreService } from 'src/app/services/store.service';
 import { ShopCreateComponent } from '../shop-create/shop-create.component';
 import { ShopDeleteComponent } from '../shop-delete/shop-delete.component';
 
@@ -11,9 +12,13 @@ import { ShopDeleteComponent } from '../shop-delete/shop-delete.component';
   styleUrls: ['./shop-list.component.scss']
 })
 export class ShopListComponent implements OnInit {
+  pageNumber = 1;
+  pageSize = 10;
+  stores = [];
 
   constructor(
     private dialog: MatDialog,
+    private storeService: StoreService
   ) { }
   config = new ShopModel();
   listFilter = [];
@@ -106,7 +111,7 @@ export class ShopListComponent implements OnInit {
       "MediaURL": "assets/img/default-avatar.jpg",
     }];
   dataTable;
-  listForm =  [
+  listForm = [
     {
       "name": "Cửa hàng online",
       "value": "1",
@@ -117,16 +122,26 @@ export class ShopListComponent implements OnInit {
     }
   ]
   listActive;
+
+
   ngOnInit(): void {
     this.listFilter = this.config.filter;
     this.listActive = this.config.btnActice;
     this.listFilter[2].data = this.listForm;
     this.dataTable = this.config.collums;
+    this.getStores();
   }
-  handleCallback(ev){
+
+  getStores() {
+    this.storeService.getStores(this.pageNumber, this.pageSize).subscribe(res => {
+      this.stores = res.payload;
+    })
+  }
+
+  handleCallback(ev) {
 
   }
-  handleCallbackTable(ev){
+  handleCallbackTable(ev) {
     if (ev.type === 'create') {
       return this.dialog.open(ShopCreateComponent, {
         width: '940px',

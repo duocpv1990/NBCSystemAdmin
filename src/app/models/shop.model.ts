@@ -31,7 +31,7 @@ export class ShopModel {
                 condition: 'fullText'
             }];
     }
-   
+
     public get btnActice(): Array<any> {
         return [
             {
@@ -45,7 +45,7 @@ export class ShopModel {
                 text: 'Xoá',
                 type: 'delete',
                 icon: ''
-            },            {
+            }, {
                 class: 'btn-export',
                 text: 'Export',
                 type: 'export',
@@ -62,7 +62,7 @@ export class ShopModel {
                 type: 'checkbox',
             },
             {
-                id: 'stt',
+                id: 'index',
                 name: 'STT',
                 width: 100,
                 type: 'text',
@@ -75,25 +75,25 @@ export class ShopModel {
             },
 
             {
-                id: 'name',
+                id: 'Name',
                 name: 'Tên cửa hàng',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'address',
+                id: 'AddressDetail',
                 name: 'Địa chỉ',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'area',
+                id: 'Province',
                 name: 'Khu vực',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'phone',
+                id: 'PhoneNumber',
                 name: 'Điện thoại',
                 width: 200,
                 type: 'text',
@@ -111,7 +111,7 @@ export class ShopModel {
                 type: 'text',
             },
             {
-                id: 'update',
+                id: 'UpdatedOn',
                 name: 'Cập nhập',
                 width: 200,
                 type: 'text',
@@ -180,7 +180,7 @@ export class ShopModel {
                 label: 'Email',
                 name: 'email',
                 type: 'text'
-            },            
+            },
             {
                 id: 'website',
                 label: 'Website',

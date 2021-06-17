@@ -34,7 +34,7 @@ export class DistributorModel {
                 type: 'checkbox',
             },
             {
-                id: 'stt',
+                id: 'index',
                 name: 'STT',
                 width: 100,
                 type: 'text',
@@ -47,52 +47,52 @@ export class DistributorModel {
             },
 
             {
-                id: 'distributor',
+                id: 'Name',
                 name: 'Nhà phân phối',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'address',
+                id: 'AddressDetail',
                 name: 'Địa chỉ',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'area',
+                id: 'Province',
                 name: 'Khu vực',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'code',
+                id: 'TaxCode',
                 name: 'Mã số thuế',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'phone',
+                id: 'PhoneNumber',
                 name: 'Điện thoại',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'production',
+                id: 'ProductNumber',
                 name: 'Sản phẩm',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'update',
-                name: 'Cập nhập',
+                id: 'UpdatedOn',
+                name: 'Cập nhật',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'noun',
-                name: 'Hành động',
+                id: 'Type',
+                name: 'Tình trạng',
                 width: 200,
-                type: 'setting',
+                type: 'status',
             },
 
         ];
@@ -110,7 +110,7 @@ export class DistributorModel {
                 text: 'Gỡ nhà phân phối',
                 type: 'delete',
                 icon: ''
-            },            {
+            }, {
                 class: 'btn-export',
                 text: 'Export',
                 type: 'export',
@@ -173,7 +173,7 @@ export class DistributorModel {
                 label: 'Email',
                 name: 'email',
                 type: 'text'
-            },            
+            },
             {
                 id: 'website',
                 label: 'Website',

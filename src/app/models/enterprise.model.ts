@@ -42,45 +42,45 @@ export class EnterPriseModel {
                 type: 'checkbox',
             },
             {
-                id: 'stt',
+                id: 'index',
                 name: 'STT',
                 width: 100,
                 type: 'text',
             },
             {
-                id: 'code',
+                id: 'CompanyCode',
                 name: 'Mã doanh nghiệp',
                 width: 200,
                 type: 'text',
             },
 
             {
-                id: 'global',
+                id: 'GLN',
                 name: 'Mã địa điểm toàn cầu',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'register',
-                name: 'Tên đăng ký',
+                id: 'Name',
+                name: 'Tên doanh nghiệp',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'gt',
-                name: 'Giấy tờ',
+                id: 'ServicePackage',
+                name: 'Gói dịch vụ',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'status',
+                id: 'Status',
                 name: 'Trạng thái',
                 width: 200,
                 type: 'text',
                 color: '#26A700'
             },
             {
-                id: 'update',
+                id: 'Condition',
                 name: 'Cập nhật',
                 width: 200,
                 type: 'text',
@@ -105,7 +105,7 @@ export class EnterPriseModel {
             },
             {
                 class: 'btn-delete',
-                text: 'Xoá mã doanh nghiệp',
+                text: 'Xoá',
                 type: 'delete',
                 icon: ''
             }, {
@@ -119,63 +119,63 @@ export class EnterPriseModel {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'register',
+                id: 'Name',
                 label: 'Tên doanh nghiệp',
-                name: 'register',
+                name: 'Name',
                 type: 'text'
             },
             {
-                id: 'code',
+                id: 'CompanyCode',
                 label: 'Mã doanh nghiệp',
-                name: 'code',
+                name: 'CompanyCode',
                 type: 'text'
             },
             {
-                id: 'global',
+                id: 'GLN',
                 label: 'Mã địa điểm toàn cầu GLN',
-                name: 'global',
+                name: 'GLN',
                 type: 'text'
             },
             {
-                id: 'taxcode',
+                id: 'TaxCode',
                 label: 'Mã số thuế',
-                name: 'taxcode',
+                name: 'TaxCode',
                 type: 'text'
             },
             {
-                id: 'country',
+                id: 'NationId',
                 label: 'Quốc gia',
-                name: 'country',
+                name: 'NationId',
                 type: 'select'
             },
             {
-                id: 'city',
+                id: 'ProvinceId',
                 label: 'Thành phố/Tỉnh',
-                name: 'city',
+                name: 'ProvinceId',
                 type: 'select'
             },
             {
-                id: 'district',
+                id: 'DistrictId',
                 label: 'Quận/Huyện',
-                name: 'district',
+                name: 'DistrictId',
                 type: 'select'
             },
             {
-                id: 'address',
+                id: 'AddressDetail',
                 label: 'Địa chỉ',
-                name: 'address',
+                name: 'AddressDetail',
                 type: 'text'
             },
             {
-                id: 'phone',
+                id: 'PhoneNumber',
                 label: 'Số điện thoại',
-                name: 'phone',
+                name: 'PhoneNumber',
                 type: 'text'
             },
             {
-                id: 'email',
+                id: 'Email',
                 label: 'Email',
-                name: 'email',
+                name: 'Email',
                 type: 'text'
             },
             {

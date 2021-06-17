@@ -1,5 +1,6 @@
 <div class="content-title">Quản lý doanh nghiệp</div>
 <app-filter [(listFilter)]="listFilter" (callback)="handleCallback($event)">
 </app-filter>
-<app-table [tableData]="dataTable" [data]="dataSub" [listActive]="listActive" (callback)="handleCallbackTable($event)">
+<app-table [tableData]="dataTable" [data]="companies" [listActive]="listActive"
+    (callback)="handleCallbackTable($event)">
 </app-table>

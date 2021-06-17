@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { DistributorModel } from 'src/app/models/distributor.model';
+import { DistributorService } from 'src/app/services/distributor.service';
 import { DeleteEnterpriseComponent } from '../../enterprise/delete-enterprise/delete-enterprise.component';
 import { CreateDistributorComponent } from '../create-distributor/create-distributor.component';
 
@@ -13,7 +14,8 @@ import { CreateDistributorComponent } from '../create-distributor/create-distrib
 export class DistributorListComponent implements OnInit {
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private distributorService: DistributorService
   ) { }
   config = new DistributorModel();
   listFilter = [];
@@ -117,12 +119,34 @@ export class DistributorListComponent implements OnInit {
   dataTable;
   listActive;
   dataSub;
+  distributors = [];
+  pageNumber = 1;
+  pageSize = 10;
+  provinceId = '';
+  name = '';
+  count: number;
+
   ngOnInit(): void {
     this.listFilter = this.config.filter;
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
     this.dataSub = this.data;
+    this.getDistributor();
   }
+
+
+  getDistributor() {
+    this.distributorService.getDistributors(this.pageNumber, this.pageSize, this.name, this.provinceId).subscribe(res => {
+      this.distributors = res.payload;
+      this.count = res.count;
+      console.log('count', this.count);
+
+      this.distributors.forEach((item, index) => {
+        item['index'] = index + 1;
+      })
+    })
+  }
+
   handleCallback(ev) {
     const filter = this.listFilter.filter(x => x.value);
     if (!filter.length) return this.dataSub = this.data;

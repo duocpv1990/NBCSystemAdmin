@@ -25,11 +25,14 @@ export class EditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.model = this.dataModel || {};
+    setTimeout(() => {
+      this.model = this.dataModel;
+    }, 100)
+
   }
 
   preview(files, value) {
-     if (value === 'avatar') {
+    if (value === 'avatar') {
       if (files.length === 0)
         return;
       let reader = new FileReader();
@@ -39,17 +42,17 @@ export class EditComponent implements OnInit {
         this.model.MediaURL = reader.result;
       }
     }
-    else if(value === 'background'){
+    else if (value === 'background') {
       if (files.length === 0)
-      return;
-    let reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event) => {
-      this.model.BackgroundURL = reader.result;
-      console.log(this.model);
-      
-    }
+        return;
+      let reader = new FileReader();
+      this.imagePath = files;
+      reader.readAsDataURL(files[0]);
+      reader.onload = (_event) => {
+        this.model.BackgroundURL = reader.result;
+        console.log(this.model);
+
+      }
     }
 
   }
