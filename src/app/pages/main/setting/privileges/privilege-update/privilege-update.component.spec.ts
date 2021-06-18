@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccountListComponent } from './account-list.component';
+import { PrivilegeUpdateComponent } from './privilege-update.component';
 
-describe('AccountListComponent', () => {
-  let component: AccountListComponent;
-  let fixture: ComponentFixture<AccountListComponent>;
+describe('PrivilegeUpdateComponent', () => {
+  let component: PrivilegeUpdateComponent;
+  let fixture: ComponentFixture<PrivilegeUpdateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AccountListComponent ]
+      declarations: [ PrivilegeUpdateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccountListComponent);
+    fixture = TestBed.createComponent(PrivilegeUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

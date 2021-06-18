@@ -1,0 +1,33 @@
+.authorization-header {
+  .sub-title {
+    color: var(--color-button-blue);
+    font-weight: 600;
+  }
+  select {
+    width: 18%;
+  }
+}
+
+.authorization-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+  ::ng-deep .data-table {
+    text-align: unset;
+  }
+  ::ng-deep .data-table th:nth-child(1) {
+    min-width: unset !important;
+    padding-left: 11px;
+  }
+
+  ::ng-deep .data-table td:nth-child(1) {
+    padding-left: 11px;
+  }
+  ::ng-deep .data-table tbody tr,
+  thead tr {
+    height: 43px;
+  }
+  ::ng-deep .data-table thead tr {
+    height: 43px;
+  }
+}

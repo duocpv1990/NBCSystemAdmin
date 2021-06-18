@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { AccountListComponent } from "./account-list/account-list.component";
+import { AccountComponent } from "./account/account.component";
 import { SettingComponent } from './setting.component';
 import { PrivilegesComponent } from './privileges/privileges.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
@@ -13,7 +13,7 @@ export const settingRoute: Routes = [
         children: [
             {
                 path: 'account-list',
-                component: AccountListComponent
+                component: AccountComponent
             },
             {
                 path: 'privileges',

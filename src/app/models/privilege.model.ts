@@ -2,16 +2,16 @@ import { CollumsModel } from "./base/collums.model";
 import { CreateModel } from "./base/create.model";
 import { FilterModel } from "./base/filter.model";
 
-export class Account {
+export class Privilege {
 
 
     public get filter(): Array<FilterModel> {
         return [
             {
-                Text: 'Tên tài khoản',
+                Text: 'Nhóm quyền',
                 type: 'text',
                 data: [],
-                condition: 'Name'
+                condition: 'privilege'
             },
             {
                 Text: 'Người tạo',
@@ -20,18 +20,24 @@ export class Account {
                 condition: 'CreatePerson'
             },
             {
-                Text: 'Nhóm quyền',
-                type: 'select',
+                Text: 'Người sửa đổi lần cuối',
+                type: 'text',
                 data: [],
-                condition: 'Privileges'
+                condition: 'LastUpdatedPerson'
             },
+
             {
                 Text: 'Tình trạng',
                 type: 'select',
                 data: [],
                 condition: 'status'
             },
-
+            {
+                Text: 'Thời gian tạo',
+                type: 'select',
+                data: [],
+                condition: 'CreatedOn'
+            },
             {
                 Text: 'Tìm kiếm',
                 type: 'button',
@@ -50,31 +56,6 @@ export class Account {
             },
 
             {
-                id: 'Name',
-                name: 'Tên tài khoản',
-                width: 200,
-                type: 'text'
-            },
-            {
-                id: 'UserName',
-                name: 'Tên đăng nhập',
-                width: 200,
-                type: 'text',
-            },
-            {
-                id: 'PhoneNumber',
-                name: 'Số điện thoại',
-                width: 200,
-                type: 'text',
-            },
-
-            {
-                id: 'Email',
-                name: 'Email',
-                width: 200,
-                type: 'text',
-            },
-            {
                 id: 'Privileges',
                 name: 'Nhóm quyền',
                 width: 200,
@@ -86,18 +67,50 @@ export class Account {
                 width: 200,
                 type: 'text',
             },
+
             {
                 id: 'CreateDate',
-                name: 'Thời gian tạo',
+                name: 'Ngày tạo',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'status',
+                id: 'LastUpdatedDate',
+                name: 'Ngày sửa đổi lần cuối',
+                width: 200,
+                type: 'text',
+            },
+            {
+                id: 'LastUpdatedPerson',
+                name: 'Người sửa đổi lần cuối',
+                width: 200,
+                type: 'object',
+            },
+            {
+                id: 'AccountNumber',
+                name: 'Số lượng người dùng',
+                width: 200,
+                type: 'text',
+            },
+            {
+                id: 'Condition',
                 name: 'Tình trạng',
                 width: 200,
                 type: 'text',
             },
+            {
+                id: 'Status',
+                name: 'Trạng thái',
+                width: 200,
+                type: 'text',
+            },
+            {
+                id: 'noun',
+                name: 'Hành động',
+                width: 200,
+                type: 'setting',
+            },
+
         ];
     }
 

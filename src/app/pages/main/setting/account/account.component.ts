@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
-import { Privilege } from 'src/app/models/privilege.model';
-import { PrivilegeAddComponent } from './privilege-add/privilege-add.component';
-import { PrivilegeDeleteComponent } from './privilege-delete/privilege-delete.component';
-import { PrivilegeUpdateComponent } from './privilege-update/privilege-update.component';
+import { Account } from 'src/app/models/account.model';
+import { AccountAddComponent } from './account-add/account-add.component';
+import { AccountDeleteComponent } from './account-delete/account-delete.component';
+import { AccountUpdateComponent } from './account-update/account-update.component';
 
 @Component({
-  selector: 'app-privileges',
-  templateUrl: './privileges.component.html',
-  styleUrls: ['./privileges.component.scss']
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss']
 })
-export class PrivilegesComponent implements OnInit {
-
+export class AccountComponent implements OnInit {
   listFilter;
-  config = new Privilege();
+  config = new Account();
   value: string;
   dataSub = [];
   tableData = [];
@@ -22,17 +21,14 @@ export class PrivilegesComponent implements OnInit {
   dataTable;
   data = [
     {
-      Privileges: 'Leader Sale Admin',
-      CreatePerson: 'admin',
-      CreateDate: '18/06/2021',
+      Name: 'Vũ Đức Thái',
       UserName: 'thaivu',
       PhoneNumber: '0325641234',
       Email: 'thaivu@ci.com',
-      LastUpdatedDate: '18/06/2021',
-      LastUpdatedPerson: 'admin',
-      AccountNumber: '01',
-      Condition: 'Hoạt động',
-      Status: 'Khóa'
+      Privileges: 'Leader Sale Admin',
+      CreatePerson: 'admin',
+      CreateDate: '18/06/2021',
+      status: 'Hoạt động'
     },
 
   ];
@@ -76,7 +72,7 @@ export class PrivilegesComponent implements OnInit {
   handleCallbackTable(ev) {
     console.log(ev);
     if (ev.type === 'create') {
-      return this.dialog.open(PrivilegeAddComponent, {
+      return this.dialog.open(AccountAddComponent, {
         width: '940px',
         height: '843px'
       }).afterClosed().subscribe(result => {
@@ -90,7 +86,7 @@ export class PrivilegesComponent implements OnInit {
       });
     }
     if (ev.type === 'edit') {
-      return this.dialog.open(PrivilegeUpdateComponent, {
+      return this.dialog.open(AccountUpdateComponent, {
         width: '940px',
         height: '843px',
         data: ev.item
@@ -98,7 +94,7 @@ export class PrivilegesComponent implements OnInit {
       });
     }
     if (ev.type === 'delete') {
-      return this.dialog.open(PrivilegeDeleteComponent, {
+      return this.dialog.open(AccountDeleteComponent, {
         width: '400px',
         height: '250px',
         data: {

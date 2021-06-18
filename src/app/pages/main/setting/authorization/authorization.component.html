@@ -1,1 +1,26 @@
-<p>authorization works!</p>
+<div class="authorization-header">
+    <div class="content-title">Phân quyền</div>
+    <div class="sub-title">Tên nhóm quyền</div>
+    <select class="form-control" name="" id="">
+        <option value="">Leader sale admin</option>
+    </select>
+</div>
+
+<div class="authorization-content">
+    <div class="card-checkbox">
+        <app-table [tableData]="enterpriseDataTable" [data]="enterpriseData">
+        </app-table>
+    </div>
+    <div class="card-checkbox">
+        <app-table [tableData]="distributorDataTable" [data]="distributorData">
+        </app-table>
+    </div>
+    <div class="card-checkbox">
+        <app-table [tableData]="productDataTable" [data]="productData">
+        </app-table>
+    </div>
+    <div class="card-checkbox">
+        <app-table [tableData]="servicePackageDataTable" [data]="servicePackageData">
+        </app-table>
+    </div>
+</div>
