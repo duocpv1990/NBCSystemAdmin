@@ -146,19 +146,25 @@ export class EnterPriseModel {
                 id: 'NationId',
                 label: 'Quốc gia',
                 name: 'NationId',
-                type: 'select'
+                type: '',
+                data: [],
+                ward: "Nation"
             },
             {
                 id: 'ProvinceId',
                 label: 'Thành phố/Tỉnh',
                 name: 'ProvinceId',
-                type: 'select'
+                type: '',
+                ward: "Province",
+                data: []
             },
             {
                 id: 'DistrictId',
                 label: 'Quận/Huyện',
                 name: 'DistrictId',
-                type: 'select'
+                type: '',
+                ward: "District",
+                data: []
             },
             {
                 id: 'AddressDetail',
@@ -179,10 +185,16 @@ export class EnterPriseModel {
                 type: 'text'
             },
             {
-                id: 'website',
+                id: 'Website',
                 label: 'Website',
-                name: 'website',
+                name: 'Website',
                 type: 'text'
+            },
+            {
+                id: 'ServicePackage',
+                label: 'Gói dịch vụ',
+                name: 'ServicePackage',
+                type: 'select'
             },
             {
                 id: 'avatar',
@@ -202,7 +214,9 @@ export class EnterPriseModel {
                 name: 'addnew',
                 type: 'button'
             },
+
         ];
+
     }
 
 

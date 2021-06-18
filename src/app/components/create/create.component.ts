@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { BaseUploadComponent, S3FileService } from '@consult-indochina/common';
 import { AddCertificateComponent } from '../dialog/add-certificate/add-certificate.component';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent extends BaseUploadComponent implements OnInit {
   @Input() data: any;
   @Input() option: any;
   @Input() arrayButton: any;
@@ -22,35 +23,49 @@ export class CreateComponent implements OnInit {
   imagePath;
   imgURL;
   constructor(
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    public s3Service: S3FileService
+  ) {
+    super(s3Service)
+  }
 
   ngOnInit() {
     this.model = this.dataModel || {};
+  }
+
+  chooseLocation(event, check) {
+    this.callback.emit(
+      {
+        check: check,
+        value: event
+      }
+    );
   }
 
   preview(files, value) {
     if (value === 'avatar') {
       if (files.length === 0)
         return;
-      let reader = new FileReader();
-      this.imagePath = files;
-      reader.readAsDataURL(files[0]);
-      reader.onload = (_event) => {
-        this.model.MediaURL = reader.result;
-      }
+
+      this.multipleUpload(files).subscribe(
+        (res) => { },
+        (err) => { },
+        () => {
+          console.log(this.fileLinkList);
+          this.model.MediaURL = this.fileLinkList[0];
+        });
+
     }
     else if (value === 'background') {
       if (files.length === 0)
         return;
-      let reader = new FileReader();
-      this.imagePath = files;
-      reader.readAsDataURL(files[0]);
-      reader.onload = (_event) => {
-        this.model.BackgroundURL = reader.result;
-        console.log(this.model);
-
-      }
+      this.multipleUpload(files).subscribe(
+        (res) => { },
+        (err) => { },
+        () => {
+          console.log(this.fileLinkList);
+          this.model.BackgroundURL = this.fileLinkList[0];
+        });
     }
 
   }

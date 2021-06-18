@@ -78,6 +78,7 @@ export class EnterpriseListComponent implements OnInit {
     console.log(ev);
     if (ev.type === 'create') {
       return this.dialog.open(EnterpriseCreateComponent, {
+        disableClose: true,
         width: '940px',
         height: '843px'
       }).afterClosed().subscribe(result => {

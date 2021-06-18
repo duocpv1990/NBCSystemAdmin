@@ -15,7 +15,7 @@ export abstract class BaseApiService<T> {
 
     return this.http
       .get(`${this.actionUrl}`, this.httpOptions)
-      .pipe(map((res: any) => res));
+      .pipe(map((res: any) => res.payload));
   }
 
   get(id: any, params?): Observable<T> {
