@@ -94,6 +94,12 @@ export class DistributorModel {
                 width: 200,
                 type: 'status',
             },
+            {
+                id: 'noun',
+                name: 'Hành động',
+                width: 200,
+                type: 'setting',
+            },
 
         ];
     }
@@ -121,63 +127,63 @@ export class DistributorModel {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'name',
-                label: 'Tên doanh nghiệp',
-                name: 'name',
+                id: 'Name',
+                label: 'Tên nhà phân phối',
+                name: 'Name',
                 type: 'text'
             },
             {
-                id: 'distributorName',
-                label: 'Mã doanh nghiệp',
-                name: 'distributorName',
-                type: 'text'
-            },
-            {
-                id: 'mst',
+                id: 'TaxCode',
                 label: 'Mã số thuế',
-                name: 'mst',
+                name: 'TaxCode',
                 type: 'text'
             },
             {
-                id: 'country',
+                id: 'NationId',
                 label: 'Quốc gia',
-                name: 'country',
-                type: 'select'
+                name: 'NationId',
+                type: '',
+                data: [],
+                ward: "Nation"
             },
             {
-                id: 'city',
+                id: 'ProvinceId',
                 label: 'Thành phố/Tỉnh',
-                name: 'city',
-                type: 'select'
+                name: 'ProvinceId',
+                type: '',
+                ward: "Province",
+                data: []
             },
             {
-                id: 'district',
+                id: 'DistrictId',
                 label: 'Quận/Huyện',
-                name: 'district',
-                type: 'select'
+                name: 'DistrictId',
+                type: '',
+                ward: "District",
+                data: []
             },
             {
-                id: 'address',
+                id: 'AddressDetail',
                 label: 'Địa chỉ',
-                name: 'address',
+                name: 'AddressDetail',
                 type: 'text'
             },
             {
-                id: 'phone',
+                id: 'PhoneNumber',
                 label: 'Số điện thoại',
-                name: 'phone',
+                name: 'PhoneNumber',
                 type: 'text'
             },
             {
-                id: 'email',
+                id: 'Email',
                 label: 'Email',
-                name: 'email',
+                name: 'Email',
                 type: 'text'
             },
             {
-                id: 'website',
+                id: 'Website',
                 label: 'Website',
-                name: 'website',
+                name: 'Website',
                 type: 'text'
             },
             {

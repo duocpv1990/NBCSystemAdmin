@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, NgModule, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, NgModule, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
@@ -12,24 +12,58 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() tableData: any;
     @Input() listActive?: any;
     @Output() callback = new EventEmitter<any>();
+    masterSelected: boolean;
+    checklist: any;
+    checkedList: any;
 
     totalPage: number;
     currentPage: number = 1;
     dataSub = [];
     pageSive = 5;
 
-    constructor() { }
+    constructor() {
 
-    ngOnChanges() {
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
         this.totalPage = Math.ceil((this.data.length / this.pageSive));
         this.currentPage = 1;
+        this.masterSelected = false;
         this.onLoadDatePagitor();
+        this.checklist = changes.data.currentValue;
+        this.getCheckedItemList();
     }
 
     ngOnInit() {
         this.totalPage = Math.ceil((this.data.length / this.pageSive));
         this.onLoadDatePagitor();
+
     }
+
+    checkUncheckAll() {
+        for (var i = 0; i < this.checklist.length; i++) {
+            this.checklist[i].isSelected = this.masterSelected;
+        }
+        this.getCheckedItemList();
+    }
+    isSelected() {
+        this.masterSelected = this.checklist.every(function (item: any) {
+            return item.isSelected == true;
+        })
+        this.getCheckedItemList();
+    }
+
+    getCheckedItemList() {
+        this.checkedList = [];
+        console.log(this.checklist);
+        for (var i = 0; i < this.checklist.length; i++) {
+            if (this.checklist[i].isSelected)
+                this.checkedList.push(this.checklist[i]);
+        }
+        console.log(this.checkedList);
+
+    }
+
 
     nextPage = () => {
         if (this.currentPage + 1 > this.totalPage) return;

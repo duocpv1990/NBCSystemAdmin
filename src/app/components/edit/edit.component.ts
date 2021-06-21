@@ -21,6 +21,7 @@ export class EditComponent implements OnInit {
   model: any = {};
   imagePath;
   imgURL;
+
   constructor(
   ) { }
 
@@ -29,6 +30,15 @@ export class EditComponent implements OnInit {
       this.model = this.dataModel;
     }, 100)
 
+  }
+
+  chooseLocation(event, check) {
+    this.callback.emit(
+      {
+        check: check,
+        value: event
+      }
+    );
   }
 
   preview(files, value) {

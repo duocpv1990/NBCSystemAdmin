@@ -23,6 +23,15 @@
             </option>
           </select>
         </div>
+
+        <div *ngIf="item.ward === 'Nation' || item.ward === 'Province' || 
+                   item.ward === 'District'">
+          <select [(ngModel)]="model[item.id]" (change)="chooseLocation($event.target.value, item.ward)">
+            <option *ngFor="let i of item.data" [value]="i.value">
+              {{ i.name}}
+            </option>
+          </select>
+        </div>
         <!-- <div *ngIf="item.type === 'htmlText'">
             <div class="NgxEditor__Wrapper">
               <ngx-editor-menu [editor]="editor"></ngx-editor-menu>

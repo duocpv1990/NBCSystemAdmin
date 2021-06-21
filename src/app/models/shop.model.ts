@@ -128,63 +128,64 @@ export class ShopModel {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'name',
+                id: 'Name',
                 label: 'Tên doanh nghiệp',
-                name: 'name',
+                name: 'Name',
                 type: 'text'
             },
+
             {
-                id: 'distributorName',
-                label: 'Tên nhà phân phối',
-                name: 'distributorName',
-                type: 'text'
-            },
-            {
-                id: 'location',
+                id: 'StoreName',
                 label: 'Điểm bán',
-                name: 'location',
+                name: 'StoreName',
                 type: 'text'
             },
             {
-                id: 'country',
+                id: 'NationId',
                 label: 'Quốc gia',
-                name: 'country',
-                type: 'select'
+                name: 'NationId',
+                type: '',
+                data: [],
+                ward: "Nation"
             },
             {
-                id: 'city',
+                id: 'ProvinceId',
                 label: 'Thành phố/Tỉnh',
-                name: 'city',
-                type: 'select'
+                name: 'ProvinceId',
+                type: '',
+                ward: "Province",
+                data: []
             },
             {
-                id: 'district',
+                id: 'DistrictId',
                 label: 'Quận/Huyện',
-                name: 'district',
-                type: 'select'
+                name: 'DistrictId',
+                type: '',
+                ward: "District",
+                data: []
             },
             {
-                id: 'address',
+                id: 'AddressDetail',
                 label: 'Địa chỉ',
-                name: 'address',
+                name: 'AddressDetail',
                 type: 'text'
             },
             {
-                id: 'phone',
+                id: 'PhoneNumber',
                 label: 'Số điện thoại',
-                name: 'phone',
+                name: 'PhoneNumber',
                 type: 'text'
             },
             {
-                id: 'email',
+                id: 'Email',
                 label: 'Email',
-                name: 'email',
+                name: 'Email',
                 type: 'text'
             },
             {
-                id: 'website',
+                id: 'Website',
                 label: 'Website',
-                name: 'website',
+                name: 'Website',
                 type: 'text'
             },
             {

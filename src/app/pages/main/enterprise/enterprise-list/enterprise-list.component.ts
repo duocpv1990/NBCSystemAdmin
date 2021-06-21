@@ -44,6 +44,7 @@ export class EnterpriseListComponent implements OnInit {
       this.companies = res.payload;
       this.companies.forEach((item, index) => {
         item['index'] = index + 1;
+        item['isSelected'] = false;
       });
       console.log('companies', this.companies);
 
@@ -78,7 +79,6 @@ export class EnterpriseListComponent implements OnInit {
     console.log(ev);
     if (ev.type === 'create') {
       return this.dialog.open(EnterpriseCreateComponent, {
-        disableClose: true,
         width: '940px',
         height: '843px'
       }).afterClosed().subscribe(result => {

@@ -66,17 +66,17 @@ export class EnterPriseModel {
                 width: 200,
                 type: 'text',
             },
-            {
-                id: 'ServicePackage',
-                name: 'Gói dịch vụ',
-                width: 200,
-                type: 'text',
-            },
+            // {
+            //     id: 'ServicePackage',
+            //     name: 'Gói dịch vụ',
+            //     width: 200,
+            //     type: 'text',
+            // },
             {
                 id: 'Status',
                 name: 'Trạng thái',
                 width: 200,
-                type: 'text',
+                type: 'status',
                 color: '#26A700'
             },
             {

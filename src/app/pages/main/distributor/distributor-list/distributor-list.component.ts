@@ -5,6 +5,7 @@ import { DistributorModel } from 'src/app/models/distributor.model';
 import { DistributorService } from 'src/app/services/distributor.service';
 import { DeleteEnterpriseComponent } from '../../enterprise/delete-enterprise/delete-enterprise.component';
 import { CreateDistributorComponent } from '../create-distributor/create-distributor.component';
+import { EditDistributorComponent } from '../edit-distributor/edit-distributor.component';
 
 @Component({
   selector: 'app-distributor-list',
@@ -177,6 +178,16 @@ export class DistributorListComponent implements OnInit {
         width: '940px',
         height: '843px'
       }).afterClosed().subscribe(result => {
+        this.getDistributor();
+      });
+    }
+    if (ev.type === 'edit') {
+      return this.dialog.open(EditDistributorComponent, {
+        width: '940px',
+        height: '843px',
+        data: ev.item
+      }).afterClosed().subscribe(result => {
+        this.getDistributor();
       });
     }
     if (ev.type === 'import') {
@@ -184,6 +195,7 @@ export class DistributorListComponent implements OnInit {
         width: '500px',
         height: '350px'
       }).afterClosed().subscribe(result => {
+        this.getDistributor();
       });
     }
     if (ev.type === 'delete') {
@@ -196,6 +208,7 @@ export class DistributorListComponent implements OnInit {
           content: "Bạn có muốn xoá thông tin nhà phân phối trên hệ thống?"
         }
       }).afterClosed().subscribe(result => {
+        this.getDistributor();
       });
     }
 

@@ -82,7 +82,6 @@ export class EnterpriseCreateComponent implements OnInit {
     }
 
     handleCallbackEvent = (event) => {
-        console.log(event);
         if (event.check === 'Province') {
             this.provinceId = event.value;
             this.getDistricts();
