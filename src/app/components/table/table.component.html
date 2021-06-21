@@ -2,9 +2,12 @@
   <div class="row btn-header">
     <div class="group-btn">
       <div class="group-btn-item" *ngFor="let i of listActive">
-        <button *ngIf="i.type !== 'create'" class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
-          {{ i?.text }}
-        </button>
+        <span *ngIf="checkedList.length !== 0">
+          <button *ngIf="i.type !== 'create'" class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
+            {{ i?.text }}
+          </button>
+        </span>
+
         <button [matMenuTriggerFor]="menu" *ngIf="i.type === 'create'" class="btn" [class]="i.class"
           (click)="onClickBtnActive(i)">
           {{ i?.text }}
@@ -34,8 +37,8 @@
         <tr>
           <th scope="col" *ngFor="let item of tableData" [style.min-width.px]="item.width">
             {{ item.name }}
-            <input [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"
-              class="checkbox" *ngIf="item.type === 'checkbox'" type="checkbox" />
+            <input [(ngModel)]="masterSelected" (change)="checkUncheckAll()" class="checkbox"
+              *ngIf="item.type === 'checkbox'" type="checkbox" />
           </th>
         </tr>
       </thead>

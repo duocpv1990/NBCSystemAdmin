@@ -12,7 +12,7 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() tableData: any;
     @Input() listActive?: any;
     @Output() callback = new EventEmitter<any>();
-    masterSelected: boolean;
+    masterSelected = false;
     checklist: any;
     checkedList: any;
 
@@ -28,7 +28,7 @@ export class TableComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         this.totalPage = Math.ceil((this.data.length / this.pageSive));
         this.currentPage = 1;
-        this.masterSelected = false;
+
         this.onLoadDatePagitor();
         this.checklist = changes.data.currentValue;
         this.getCheckedItemList();
@@ -37,10 +37,11 @@ export class TableComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.totalPage = Math.ceil((this.data.length / this.pageSive));
         this.onLoadDatePagitor();
-
     }
 
     checkUncheckAll() {
+        console.log('masterSelected', this.masterSelected);
+        this.masterSelected = !this.masterSelected;
         for (var i = 0; i < this.checklist.length; i++) {
             this.checklist[i].isSelected = this.masterSelected;
         }
