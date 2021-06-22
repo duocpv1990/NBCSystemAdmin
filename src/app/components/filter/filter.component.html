@@ -24,6 +24,10 @@
                            *ngIf="item.condition == 'name'"
                            class="base-input"
                            (input)="onChangeValueDate($event.target.value, item)" />
+                    <input type="text"
+                           *ngIf="item.condition !== 'name' && item.condition !== 'companyCode'"
+                           class="base-input"
+                           (input)="onChangeValueDate($event.target.value, item)" />
                 </div>
                 <div class="input-filter"
                      *ngIf="item.type === 'date'">
