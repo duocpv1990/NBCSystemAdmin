@@ -14,6 +14,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { BaseUploadComponent, S3FileService } from '@consult-indochina/common';
 import { CertService } from 'src/app/services/cert.service';
+import { CompanyService } from 'src/app/services/company.service';
 import { AddCertificateComponent } from '../dialog/add-certificate/add-certificate.component';
 
 @Component({
@@ -38,7 +39,8 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     public s3Service: S3FileService,
-    private certService: CertService
+    private certService: CertService,
+    private companyService: CompanyService
   ) {
     super(s3Service);
   }
@@ -108,8 +110,8 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
   };
 
   addCertificate() {
-    this.certService
-      .list({
+    this.companyService
+      .get('certificate', {
         companyId: this.dataModel.CompanyId,
       })
       .subscribe((res: any) => {
