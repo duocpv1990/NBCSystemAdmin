@@ -98,6 +98,12 @@ export class Account {
                 width: 200,
                 type: 'text',
             },
+            {
+                id: 'noun',
+                name: 'Hành động',
+                width: 200,
+                type: 'setting',
+            },
         ];
     }
 
@@ -133,60 +139,42 @@ export class Account {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'barcode',
-                label: 'Mã số sản phẩm toàn cầu(GTIN) (*)',
-                name: 'barcode',
+                id: 'UserName',
+                label: 'Tên đăng nhập',
+                name: 'UserName',
                 type: 'text'
             },
             {
-                id: 'productName',
-                label: 'Tên sản phẩm (*)',
-                name: 'productName',
+                id: 'Password',
+                label: 'Mật khẩu',
+                name: 'Password',
                 type: 'text'
             },
             {
-                id: 'price',
-                label: 'Giá niêm yết (*)',
-                name: 'price',
+                id: 'Email',
+                label: 'Email',
+                name: 'Email',
                 type: 'text'
             },
             {
-                id: 'category',
-                label: 'Ngành hàng (*)',
-                name: 'category',
+                id: 'PhoneNumber',
+                label: 'Số điện thoại',
+                name: 'PhoneNumber',
+                type: 'text'
+            },
+            {
+                id: 'AccountName',
+                label: 'Tên tài khoản',
+                name: 'AccountName',
+                type: 'text'
+            },
+            {
+                id: 'Privileges',
+                label: 'Nhóm quyền',
+                name: 'Privileges',
                 type: 'select'
             },
-            {
-                id: 'productDetail',
-                label: 'Mô tả sản phẩm',
-                name: 'productDetail',
-                type: 'text'
-            },
-            {
-                id: 'companyInfo',
-                label: 'Nhãn hiệu',
-                name: 'companyInfo',
-                type: 'text'
-            },
-            {
-                id: 'distributor',
-                label: 'Nhà phân phối (*)',
-                name: 'distributor',
-                type: 'text'
-            },
-            {
-                id: 'shop',
-                label: 'Điểm bán',
-                name: 'shop',
-                type: 'text'
-            },
 
-            {
-                id: 'avatar',
-                label: 'Ảnh đại diện',
-                name: 'avatar',
-                type: 'img'
-            }
         ];
     }
 

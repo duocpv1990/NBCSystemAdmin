@@ -74,7 +74,7 @@ export class AccountComponent implements OnInit {
     if (ev.type === 'create') {
       return this.dialog.open(AccountAddComponent, {
         width: '940px',
-        height: '843px'
+        height: '588px'
       }).afterClosed().subscribe(result => {
       });
     }
@@ -88,7 +88,7 @@ export class AccountComponent implements OnInit {
     if (ev.type === 'edit') {
       return this.dialog.open(AccountUpdateComponent, {
         width: '940px',
-        height: '843px',
+        height: '588px',
         data: ev.item
       }).afterClosed().subscribe(result => {
       });

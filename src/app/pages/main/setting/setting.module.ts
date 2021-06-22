@@ -15,6 +15,8 @@ import { AccountDeleteComponent } from './account/account-delete/account-delete.
 import { PrivilegeAddComponent } from './privileges/privilege-add/privilege-add.component';
 import { PrivilegeUpdateComponent } from './privileges/privilege-update/privilege-update.component';
 import { PrivilegeDeleteComponent } from './privileges/privilege-delete/privilege-delete.component';
+import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
+import { EditModule } from 'src/app/components/edit/edit.component';
 
 @NgModule({
   declarations: [SettingComponent, AccountComponent, AuthorizationComponent, PrivilegesComponent, AccountAddComponent, AccountUpdateComponent, AccountDeleteComponent, PrivilegeAddComponent, PrivilegeUpdateComponent, PrivilegeDeleteComponent],
@@ -23,7 +25,9 @@ import { PrivilegeDeleteComponent } from './privileges/privilege-delete/privileg
     RouterModule.forChild(settingRoute),
     FilterBaseModule,
     TableBaseModule,
-    CreateModule
+    CreateModule,
+    DeleteModule,
+    EditModule,
   ]
 })
 export class SettingModule { }

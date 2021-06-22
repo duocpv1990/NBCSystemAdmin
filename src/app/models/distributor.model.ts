@@ -8,13 +8,31 @@ export class DistributorModel {
     public get filter(): Array<FilterModel> {
         return [
             {
-                Text: 'Mã doanh nghiệp',
+                Text: 'Tên nhà phân phối',
                 type: 'text',
                 data: [],
-                condition: 'code'
+                condition: 'Name'
             },
             {
-                Text: 'Thành phố',
+                Text: 'Tên doanh nghiệp',
+                type: 'text',
+                data: [],
+                condition: 'city'
+            },
+            {
+                Text: 'Điện thoại',
+                type: 'text',
+                data: [],
+                condition: 'PhoneNumber'
+            },
+            {
+                Text: 'Tình trạng',
+                type: 'select',
+                data: [],
+                condition: 'Status'
+            },
+            {
+                Text: 'Khu vực',
                 type: 'select',
                 data: [],
                 condition: 'city'
