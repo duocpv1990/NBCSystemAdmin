@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EnterPriseModel } from 'src/app/models/enterprise.model';
 import { ShopModel } from 'src/app/models/shop.model';
+import { CompanyService } from 'src/app/services/company.service';
 import { LocationService } from 'src/app/services/location.service';
 import { StoreService } from 'src/app/services/store.service';
 import { EnterpriseCreateComponent } from '../../enterprise/enterprise-create/enterprise-create.component';
@@ -13,10 +14,10 @@ import { EnterpriseCreateComponent } from '../../enterprise/enterprise-create/en
 })
 export class ShopCreateComponent implements OnInit {
 
-    conFig = new ShopModel;
+    conFig = new ShopModel();
     dataModel = {};
     option = {
-        title: 'Thêm mới điểm bán',
+        title: 'THÔNG TIN ĐIỂM BÁN',
         type: 'create'
     };
 
@@ -34,11 +35,18 @@ export class ShopCreateComponent implements OnInit {
     districts = [];
     nationId = 916;
     provinceId = 1;
+    name = '';
+    status = '';
+    pageNumber = 1;
+    pageSize = 10;
+    companies = [];
+    companyCode = '';
 
     constructor(
         private dialogRef: MatDialogRef<ShopCreateComponent>,
         private locationService: LocationService,
-        private storeService: StoreService
+        private storeService: StoreService,
+        private companyService: CompanyService
     ) { }
 
 
@@ -46,6 +54,21 @@ export class ShopCreateComponent implements OnInit {
         this.listCreate = this.conFig.create;
         this.getNations();
         this.getProvinces();
+        this.getCompanies();
+    }
+
+    getCompanies() {
+        this.companyService.getCompanies(this.pageNumber, this.pageSize, this.companyCode, this.name, this.status)
+            .subscribe((res) => {
+                this.companies = res.payload;
+                this.listCreate[0].data = this.companies.map(company => {
+                    return {
+                        name: company.Name,
+                        value: company.CompanyId
+                    }
+                })
+                console.log('companies', this.companies);
+            });
     }
 
     handleCallbackEvent = (event) => {

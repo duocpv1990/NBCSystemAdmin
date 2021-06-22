@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { DistributorModel } from 'src/app/models/distributor.model';
 import { DistributorService } from 'src/app/services/distributor.service';
-import { DeleteEnterpriseComponent } from '../../enterprise/delete-enterprise/delete-enterprise.component';
 import { CreateDistributorComponent } from '../create-distributor/create-distributor.component';
 import { EditDistributorComponent } from '../edit-distributor/edit-distributor.component';
-
+import { DeleteDistributorComponent } from '../delete-distributor/delete-distributor.component';
 @Component({
   selector: 'app-distributor-list',
   templateUrl: './distributor-list.component.html',
@@ -199,7 +198,7 @@ export class DistributorListComponent implements OnInit {
       });
     }
     if (ev.type === 'delete') {
-      return this.dialog.open(DeleteEnterpriseComponent, {
+      return this.dialog.open(DeleteDistributorComponent, {
         width: '400px',
         height: '250px',
         data: {

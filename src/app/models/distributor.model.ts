@@ -7,17 +7,12 @@ export class DistributorModel {
 
     public get filter(): Array<FilterModel> {
         return [
+
             {
                 Text: 'Tên nhà phân phối',
                 type: 'text',
                 data: [],
                 condition: 'Name'
-            },
-            {
-                Text: 'Tên doanh nghiệp',
-                type: 'text',
-                data: [],
-                condition: 'city'
             },
             {
                 Text: 'Điện thoại',
@@ -144,6 +139,12 @@ export class DistributorModel {
     }
     public get create(): Array<CreateModel> {
         return [
+            {
+                id: 'CompanyId',
+                label: 'Tên doanh nghiệp',
+                name: 'Name',
+                type: 'select',
+            },
             {
                 id: 'Name',
                 label: 'Tên nhà phân phối',

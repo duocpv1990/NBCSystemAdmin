@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DistributorModel } from 'src/app/models/distributor.model';
+import { CompanyService } from 'src/app/services/company.service';
 import { DistributorService } from 'src/app/services/distributor.service';
 import { LocationService } from 'src/app/services/location.service';
 
@@ -32,11 +33,18 @@ export class CreateDistributorComponent implements OnInit {
     districts = [];
     nationId = 916;
     provinceId = 1;
+    companyCode = '';
+    name = '';
+    status = '';
+    pageNumber = 1;
+    pageSize = 10;
+    companies = [];
 
     constructor(
         private dialogRef: MatDialogRef<CreateDistributorComponent>,
         private locationService: LocationService,
-        private distributorService: DistributorService
+        private distributorService: DistributorService,
+        private companyService: CompanyService
     ) { }
 
 
@@ -44,6 +52,7 @@ export class CreateDistributorComponent implements OnInit {
         this.listCreate = this.conFig.create;
         this.getNations();
         this.getProvinces();
+        this.getCompanies();
     }
 
     handleCallbackEvent = (event) => {
@@ -72,13 +81,27 @@ export class CreateDistributorComponent implements OnInit {
         this.dataModel = value;
         this.distributorService.create(this.dataModel).subscribe(res => {
             this.dialogRef.close();
-        })
+        });
+    }
+
+    getCompanies() {
+        this.companyService.getCompanies(this.pageNumber, this.pageSize, this.companyCode, this.name, this.status)
+            .subscribe((res) => {
+                this.companies = res.payload;
+                this.listCreate[0].data = this.companies.map(company => {
+                    return {
+                        name: company.Name,
+                        value: company.CompanyId
+                    }
+                })
+                console.log('companies', this.companies);
+            });
     }
 
     getNations() {
         this.locationService.list().subscribe(res => {
             this.nations = res.reverse();
-            this.listCreate[2].data = this.nations.map(nation => {
+            this.listCreate[3].data = this.nations.map(nation => {
                 return {
                     name: nation.Name,
                     value: nation.NationId
@@ -90,7 +113,7 @@ export class CreateDistributorComponent implements OnInit {
     getProvinces() {
         this.locationService.getProvince(this.nationId).subscribe(res => {
             this.provinces = res;
-            this.listCreate[3].data = this.provinces.map(province => {
+            this.listCreate[4].data = this.provinces.map(province => {
                 return {
                     name: province.Name,
                     value: province.ProvinceId
@@ -103,7 +126,7 @@ export class CreateDistributorComponent implements OnInit {
     getDistricts() {
         this.locationService.getDistrict(this.provinceId).subscribe(res => {
             this.districts = res;
-            this.listCreate[4].data = this.districts.map(district => {
+            this.listCreate[5].data = this.districts.map(district => {
                 return {
                     name: district.Name,
                     value: district.DistrictId

@@ -5,6 +5,7 @@ import { ShopModel } from 'src/app/models/shop.model';
 import { StoreService } from 'src/app/services/store.service';
 import { ShopCreateComponent } from '../shop-create/shop-create.component';
 import { ShopDeleteComponent } from '../shop-delete/shop-delete.component';
+import { ShopEditComponent } from '../shop-edit/shop-edit.component';
 
 @Component({
   selector: 'app-shop-list',
@@ -147,6 +148,7 @@ export class ShopListComponent implements OnInit {
         width: '940px',
         height: '843px'
       }).afterClosed().subscribe(result => {
+        this.getStores();
       });
     }
     if (ev.type === 'import') {
@@ -154,8 +156,19 @@ export class ShopListComponent implements OnInit {
         width: '500px',
         height: '350px'
       }).afterClosed().subscribe(result => {
+        this.getStores();
       });
     }
+    if (ev.type === 'edit') {
+      return this.dialog.open(ShopEditComponent, {
+        width: '940px',
+        height: '843px',
+        data: ev.item
+      }).afterClosed().subscribe(result => {
+        this.getStores();
+      });
+    }
+
     if (ev.type === 'delete') {
       return this.dialog.open(ShopDeleteComponent, {
         width: '400px',
@@ -166,6 +179,7 @@ export class ShopListComponent implements OnInit {
           content: "Bạn có muốn xoá thông tin điểm bán trên hệ thống?"
         }
       }).afterClosed().subscribe(result => {
+        this.getStores();
       });
     }
   }

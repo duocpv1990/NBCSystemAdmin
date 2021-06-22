@@ -24,5 +24,8 @@ export class DistributorService extends BaseApiService<any> {
         return this.http.put(`company?distributorId=${distributorId}`, data);
     }
 
+    deleteDistributor(distributorId) {
+        return this.http.delete(`distributor?distributorId=${distributorId}`);
+    }
 
 }

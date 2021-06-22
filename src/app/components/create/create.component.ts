@@ -58,8 +58,13 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
     switch (this.typeForms) {
       case 'enterprise':
         this.model.companyMedias = [];
+        break;
       case 'distributor':
         this.model.distributorMedias = [];
+        break;
+      case 'store':
+        this.model.storeMedias = [];
+        break;
     }
     // if (this.typeForms == 'enterprise') {
     //   this.model.companyMedias = [];
@@ -73,13 +78,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.mediaUrl = this.fileLinkList[0];
-          // if (this.typeForms == 'enterprise') {
-          //   this.model.companyMedias.push({
-          //     MediaURL: this.fileLinkList[0],
-          //     Type: 1,
-          //     Status: 1,
-          //   });
-          // }
+
           switch (this.typeForms) {
             case 'enterprise':
               this.model.companyMedias.push({
@@ -87,12 +86,21 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
                 Type: 1,
                 Status: 1,
               });
+              break;
             case 'distributor':
               this.model.distributorMedias.push({
                 MediaURL: this.fileLinkList[0],
                 Type: 1,
                 Status: 1,
               });
+              break;
+            case 'store':
+              this.model.storeMedias.push({
+                MediaURL: this.fileLinkList[0],
+                Type: 1,
+                Status: 1,
+              });
+              break;
           }
         }
       );
@@ -104,13 +112,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.backgroundURL = this.fileLinkList[0];
-          // if (this.typeForms == 'enterprise') {
-          //   this.model.companyMedias.push({
-          //     MediaURL: this.fileLinkList[0],
-          //     Type: 2,
-          //     Status: 1,
-          //   });
-          // }
           switch (this.typeForms) {
             case 'enterprise':
               this.model.companyMedias.push({
@@ -118,12 +119,21 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
                 Type: 2,
                 Status: 1,
               });
+              break;
             case 'distributor':
               this.model.distributorMedias.push({
                 MediaURL: this.fileLinkList[0],
                 Type: 2,
                 Status: 1,
               });
+              break;
+            case 'store':
+              this.model.storeMedias.push({
+                MediaURL: this.fileLinkList[0],
+                Type: 2,
+                Status: 1,
+              });
+              break;
           }
         }
       );
