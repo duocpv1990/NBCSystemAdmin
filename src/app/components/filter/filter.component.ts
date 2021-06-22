@@ -6,6 +6,7 @@ import {
   NgModule,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { FormatDateService } from '../../services/format-date.service';
 
 @Component({
@@ -23,19 +24,6 @@ export class FilterComponent {
   constructor(private serviceDate: FormatDateService) {}
 
   onChangeValueDate = (valueDate, item) => {
-    // switch (item.condition) {
-    //   case 'companyCode':
-    //     this.companyCode = item.value;
-    //     break;
-    //   case 'name':
-    //     this.name = item.value;
-    //     break;
-    //   case 'status':
-    //     this.status = item.value;
-    //     break;
-    //   default:
-    //     break;
-    // }
     if (item.type === 'date') {
       item.value = this.serviceDate.formatDate(valueDate, 'MM-DD-YYYY');
     } else {
@@ -54,7 +42,7 @@ export class FilterComponent {
 
 @NgModule({
   declarations: [FilterComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   exports: [FilterComponent],
 })
 export class FilterBaseModule {}
