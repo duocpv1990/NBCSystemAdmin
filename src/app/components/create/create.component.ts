@@ -55,9 +55,15 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   }
 
   preview(files, value) {
-    if (this.typeForms == 'enterprise') {
-      this.model.companyMedias = [];
+    switch (this.typeForms) {
+      case 'enterprise':
+        this.model.companyMedias = [];
+      case 'distributor':
+        this.model.distributorMedias = [];
     }
+    // if (this.typeForms == 'enterprise') {
+    //   this.model.companyMedias = [];
+    // }
     this.fileLinkList = [];
     if (value === 'avatar') {
       if (files.length === 0) return;
@@ -67,12 +73,26 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.mediaUrl = this.fileLinkList[0];
-          if (this.typeForms == 'enterprise') {
-            this.model.companyMedias.push({
-              MediaURL: this.fileLinkList[0],
-              Type: 1,
-              Status: 1,
-            });
+          // if (this.typeForms == 'enterprise') {
+          //   this.model.companyMedias.push({
+          //     MediaURL: this.fileLinkList[0],
+          //     Type: 1,
+          //     Status: 1,
+          //   });
+          // }
+          switch (this.typeForms) {
+            case 'enterprise':
+              this.model.companyMedias.push({
+                MediaURL: this.fileLinkList[0],
+                Type: 1,
+                Status: 1,
+              });
+            case 'distributor':
+              this.model.distributorMedias.push({
+                MediaURL: this.fileLinkList[0],
+                Type: 1,
+                Status: 1,
+              });
           }
         }
       );
@@ -84,12 +104,26 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.backgroundURL = this.fileLinkList[0];
-          if (this.typeForms == 'enterprise') {
-            this.model.companyMedias.push({
-              MediaURL: this.fileLinkList[0],
-              Type: 2,
-              Status: 1,
-            });
+          // if (this.typeForms == 'enterprise') {
+          //   this.model.companyMedias.push({
+          //     MediaURL: this.fileLinkList[0],
+          //     Type: 2,
+          //     Status: 1,
+          //   });
+          // }
+          switch (this.typeForms) {
+            case 'enterprise':
+              this.model.companyMedias.push({
+                MediaURL: this.fileLinkList[0],
+                Type: 2,
+                Status: 1,
+              });
+            case 'distributor':
+              this.model.distributorMedias.push({
+                MediaURL: this.fileLinkList[0],
+                Type: 2,
+                Status: 1,
+              });
           }
         }
       );
