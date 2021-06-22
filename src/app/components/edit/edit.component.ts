@@ -26,6 +26,7 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
   @Input() data: any;
   @Input() option: any;
   @Input() arrayButton: any;
+  @Input() typeForms: string;
   @Input() dataModel?: any;
   @Output() callback = new EventEmitter<any>();
 
@@ -48,14 +49,16 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.model = this.dataModel;
-      this.certList = this.dataModel.CompanyCertifications;
-      this.dataModel.CompanyMedias.forEach((el) => {
-        if (el.Type == 1) {
-          this.mediaUrl = el.MediaURL;
-        } else {
-          this.backgroundURL = el.MediaURL;
-        }
-      });
+      if (this.typeForms == 'enterprise') {
+        this.certList = this.dataModel.CompanyCertifications;
+        this.dataModel.CompanyMedias.forEach((el) => {
+          if (el.Type == 1) {
+            this.mediaUrl = el.MediaURL;
+          } else {
+            this.backgroundURL = el.MediaURL;
+          }
+        });
+      }
     }, 100);
   }
 
@@ -74,12 +77,14 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
         (err) => {},
         () => {
           this.mediaUrl = this.fileLinkList[0];
-          this.model.CompanyMedias.push({
-            CompanyId: this.model.CompanyId,
-            MediaURL: this.fileLinkList[0],
-            Type: 1,
-            Status: 1,
-          });
+          if (this.typeForms == 'enterprise') {
+            this.model.CompanyMedias.push({
+              CompanyId: this.model.CompanyId,
+              MediaURL: this.fileLinkList[0],
+              Type: 1,
+              Status: 1,
+            });
+          }
         }
       );
     } else if (value === 'background') {
@@ -90,12 +95,14 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.backgroundURL = this.fileLinkList[0];
-          this.model.CompanyMedias.push({
-            CompanyId: this.model.CompanyId,
-            MediaURL: this.fileLinkList[0],
-            Type: 2,
-            Status: 1,
-          });
+          if (this.typeForms == 'enterprise') {
+            this.model.CompanyMedias.push({
+              CompanyId: this.model.CompanyId,
+              MediaURL: this.fileLinkList[0],
+              Type: 2,
+              Status: 1,
+            });
+          }
         }
       );
     }
@@ -104,7 +111,9 @@ export class EditComponent extends BaseUploadComponent implements OnInit {
 
   onClickButton = (i) => {
     this.model.Type = 1;
-    this.model.CertificationIdList = this.certList;
+    if (this.typeForms == 'enterprise') {
+      this.model.CertificationIdList = this.certList;
+    }
     i.data = this.model;
     this.callback.emit(i);
   };
