@@ -45,6 +45,9 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.dataModel || {};
+    if (this.typeForms == 'enterprise') {
+      this.model.companyMedias = [];
+    }
   }
 
   chooseLocation(event, check) {
@@ -55,9 +58,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   }
 
   preview(files, value) {
-    if (this.typeForms == 'enterprise') {
-      this.model.companyMedias = [];
-    }
     this.fileLinkList = [];
     if (value === 'avatar') {
       if (files.length === 0) return;
