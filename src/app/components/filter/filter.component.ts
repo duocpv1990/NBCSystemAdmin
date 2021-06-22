@@ -17,6 +17,7 @@ import { FormatDateService } from '../../services/format-date.service';
 export class FilterComponent {
   @Input() listFilter: any;
   @Input() data: any;
+  @Input() typeForms: string;
   @Output() callback = new EventEmitter<any>();
   companyCode = '';
   name = '';
@@ -29,14 +30,19 @@ export class FilterComponent {
     } else {
       item.value = valueDate;
     }
+    if (this.typeForms !== 'enterprise') {
+      this.callback.emit(item);
+    }
   };
 
   emitEventFilter() {
-    this.callback.emit({
-      companyCode: this.companyCode,
-      name: this.name,
-      status: this.status,
-    });
+    if (this.typeForms == 'enterprise') {
+      this.callback.emit({
+        companyCode: this.companyCode,
+        name: this.name,
+        status: this.status,
+      });
+    }
   }
 }
 
