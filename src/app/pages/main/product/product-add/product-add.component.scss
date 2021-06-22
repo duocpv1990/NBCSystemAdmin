@@ -186,3 +186,43 @@
   color: #1894ff;
   border-radius: 20px;
 }
+mat-form-field {
+  width: 100%;
+}
+form {
+  padding: 20px;
+  .group_form {
+    display: grid;
+    grid-template-columns: auto;
+  }
+}
+
+.grid_form {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid_form2 {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.col-span-full {
+  grid-column: span 2 / span 2;
+}
+.col-span-1 {
+  grid-column: span 1 / span 1;
+}
+.price_input {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+span {
+  color: red;
+}
+.form_action {
+  display: flex;
+  align-items: center;
+}

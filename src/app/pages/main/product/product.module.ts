@@ -13,22 +13,42 @@ import { ProductDeleteComponent } from './product-delete/product-delete.componen
 import { CreateModule } from 'src/app/components/create/create.component';
 import { EditModule } from 'src/app/components/edit/edit.component';
 import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleDirectiveModule } from 'src/app/utils/directives/role.directive';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [ProductComponent, ProductListComponent, ProductAddComponent, ProductUpdateComponent, ProductDeleteComponent],
+  declarations: [
+    ProductComponent,
+    ProductListComponent,
+    ProductAddComponent,
+    ProductUpdateComponent,
+    ProductDeleteComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(productRoute),
     FilterBaseModule,
     TableBaseModule,
     CreateModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatChipsModule,
     EditModule,
     DeleteModule,
     FormsModule,
-    RoleDirectiveModule
+    RoleDirectiveModule,
   ],
-  exports: [ProductComponent]
+  exports: [ProductComponent],
 })
-export class ProductModule { }
+export class ProductModule {}

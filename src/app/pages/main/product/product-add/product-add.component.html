@@ -1,181 +1,209 @@
-<!-- <app-create [(data)]="listCreate" [(option)]="option" [(arrayButton)]="arrayButton"
-    (callback)="handleCallbackEvent($event)"></app-create> -->
-<div class="form-create">
-    <div class="title">
-        THÊM MỚI SẢN PHẨM
-    </div>
-    <div class="subtitle">
-        THÔNG TIN CHUNG
-    </div>
-    <div class="layout">
-
-        <div class="content row align-items-center">
-            <div class="label"> Mã số sản phẩm toàn cầu (GTIN) (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
+<form [formGroup]="productForms">
+    <div class="group_form">
+        <h3>THÔNG TIN CHUNG</h3>
+        <div class="grid_form">
+            <div class="form_item">
+                <h5>Mã số sản phẩm toàn cầu (GTIN) (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
+            </div>
+            <div class="form_item">
+                <h5>Tên sản phẩm (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
+            </div>
+            <div class="form_item ">
+                <h5>Giá niêm yết </h5>
+                <div class="price_input">
+                    <mat-form-field class="col-span-full"
+                                    appearance="outline"
+                                    [hideRequiredMarker]="false">
+                        <input matInput
+                               required>
+                    </mat-form-field>
+                    <mat-form-field class="col-span-1"
+                                    appearance="outline"
+                                    [hideRequiredMarker]="false">
+                        <input matInput
+                               placeholder="VNĐ"
+                               required>
+                    </mat-form-field>
                 </div>
 
             </div>
-
-
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Tên sản phẩm (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-
+            <div class="form_item">
+                <h5>Ngành hàng (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <mat-select>
+                        <mat-option value="one">First option</mat-option>
+                        <mat-option value="two">Second option</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-
-
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Gía niêm yết (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Ngành hàng (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <select>
-                        <option *ngFor="let category of categories">
-                            {{category}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Nhà phân phối (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Điểm bán (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Thị trường mục tiêu (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <select name="" id="">
-                        <option value="" *ngFor="let country of contries">
-                            {{country.name}}
-                        </option>
-                    </select>
-                </div>
+            <div class="form_item col-span-full">
+                <h5>Thị trường mục tiêu (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
             </div>
         </div>
     </div>
-    <div class="upload-img">
-        <div class="content row align-items-center">
-            <div class="label"> Ảnh đại diện (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div class="avatar insideShadow">
-                    <img [src]="imageUrl">
-                    <label for="imageProcess">
-                        <span class="material-icons">
-                            add_a_photo
-                        </span>
-                    </label>
-                    <input #imageProcess type="file" accept='image/*' id="imageProcess"
-                        (change)="processFile(imageProcess.files)" hidden>
-                </div>
+    <div class="group_form"
+         formArrayName="DistributorProducts">
+        <h3>KÊNH PHÂN PHỐI</h3>
+        <div class="grid_form2"
+             *ngFor="let child of distributorProducts.controls; let i = index"
+             [formGroupName]="i">
+            <div class="form_item col-span-full">
+                <h5>Nhà phân phối (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input type="text"
+                           #distributeProduct
+                           placeholder="Pick one"
+                           aria-label="Number"
+                           matInput
+                           required
+                           formControlName="ProductId"
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption
+                                      (optionSelected)="disSelected($event,i)"
+                                      #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of distributors | async"
+                                    [value]="option.DistributorId">
+                            {{option.Name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="form_item col-span-full">
+                <h5>Điểm bán (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <mat-chip-list #chipList2
+                                   aria-label="Fruit selection">
+                        <mat-chip *ngFor="let ingradient of selectedDistributorsProduct"
+                                  [selectable]="selectable"
+                                  [removable]="removable"
+                                  (removed)="removeDis(ingradient)">
+                            {{ingradient?.Name}}
+                            <mat-icon matChipRemove
+                                      *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input [matChipInputFor]="chipList2"
+                               [matAutocomplete]="auto2"
+                               #selectedDistributorsProductInput
+                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                               [matChipInputAddOnBlur]="addOnBlur"
+                               (matChipInputTokenEnd)="addDis($event)">
+                        <mat-autocomplete autoActiveFirstOption
+                                          (optionSelected)="selected($event,i)"
+                                          #auto2="matAutocomplete">
+                            <mat-option *ngFor="let option of distributorsProduct "
+                                        [value]="option.DistributorProductId">
+                                {{option.Name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-chip-list>
+                </mat-form-field>
+            </div>
+            <div class="form_action col-span-1">
+                <mat-icon (click)="getDistributorProducts()">add</mat-icon>
+                <mat-icon (click)="removeControl(i)">close</mat-icon>
+            </div>
+        </div>
+
+    </div>
+    <div class="group_form">
+        <h3>GIẤY CHỨNG NHẬN</h3>
+        <div class="grid_form"></div>
+
+    </div>
+    <div class="group_form">
+        <h3>THÔNG TIN CHI TIẾT</h3>
+        <div class="grid_form">
+            <div class="form_item">
+                <h5>Thành phần (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <mat-chip-list #chipList
+                                   aria-label="Fruit selection">
+                        <mat-chip *ngFor="let ingradient of ingradients"
+                                  [selectable]="selectable"
+                                  [removable]="removable"
+                                  (removed)="remove(ingradient)">
+                            {{ingradient.name}}
+                            <mat-icon matChipRemove
+                                      *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="New fruit..."
+                               [matChipInputFor]="chipList"
+                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                               [matChipInputAddOnBlur]="addOnBlur"
+                               (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+            </div>
+            <div class="form_item">
+                <h5>Nhãn hiệu (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
+            </div>
+            <div class="form_item">
+                <h5>Khối lượng/dung tích sản phẩm (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
+            </div>
+            <div class="form_item">
+                <h5>Đơn vị (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
+            </div>
+            <div class="form_item">
+                <h5>Ngày sản xuất (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
+            </div>
+            <div class="form_item">
+                <h5>Thời gian sử dụng (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <mat-select>
+                        <mat-option value="one">First option</mat-option>
+                        <mat-option value="two">Second option</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form_item col-span-full">
+                <h5>Hướng dẫn sử dụng (<span>*</span>)</h5>
+                <mat-form-field appearance="outline"
+                                [hideRequiredMarker]="false">
+                    <input matInput
+                           required>
+                </mat-form-field>
             </div>
         </div>
     </div>
 
-    <div class="subtitle">
-        GIẤY CHỨNG NHẬN &nbsp; &nbsp; <button class="btn-add-new" (click)="addCertificate()">Thêm mới</button>
-    </div>
-
-    <div class="subtitle">
-        THÔNG TIN CHI TIẾT
-    </div>
-
-    <div class="layout">
-
-        <div class="content row align-items-center">
-            <div class="label"> Thành phần (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div class="chip-block">
-                    <div class="chip-item" *ngFor="let chip of chips">
-                        {{chip}} &nbsp; &nbsp; <span (click)="removeChip()">x</span>
-                    </div>
-                    <input [(ngModel)]="chipInput" name="chipInput" type="text"
-                        (keyup.enter)=addChip($event.target.value) />
-                </div>
-
-            </div>
-
-
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Nhãn hiệu (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-
-            </div>
-
-
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Khối lượng/dung tích sản phẩm (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Đơn vị (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Ngày sản xuất (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-        <div class="content row align-items-center">
-            <div class="label"> Hạn sử dụng (<span class="require-icon">*</span>) </div>
-            <div class="input-text">
-                <div>
-                    <input type="text" id="" name="" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="text-area">
-        <label for="">Hướng dẫn sử dụng (<span class="require-icon">*</span>)</label>
-        <textarea rows="5"></textarea>
-    </div>
-
-    <div class="button-block">
-        <button (click)="closeDialog()" class="action-btn cancel-btn">Hủy bỏ</button>
-        &nbsp;
-        <button (click)="closeDialog()" class="action-btn save-btn">Lưu</button>
-    </div>
-
-</div>
+</form>
