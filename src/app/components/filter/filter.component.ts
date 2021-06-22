@@ -6,6 +6,7 @@ import {
   NgModule,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { FormatDateService } from '../../services/format-date.service';
 
 @Component({
@@ -16,6 +17,7 @@ import { FormatDateService } from '../../services/format-date.service';
 export class FilterComponent {
   @Input() listFilter: any;
   @Input() data: any;
+  @Input() typeForms: string;
   @Output() callback = new EventEmitter<any>();
   companyCode = '';
   name = '';
@@ -23,38 +25,30 @@ export class FilterComponent {
   constructor(private serviceDate: FormatDateService) {}
 
   onChangeValueDate = (valueDate, item) => {
-    switch (item.condition) {
-      case 'companyCode':
-        this.companyCode = item.value;
-        break;
-      case 'name':
-        this.name = item.value;
-        break;
-      case 'status':
-        this.status = item.value;
-        break;
-      default:
-        break;
-    }
     if (item.type === 'date') {
       item.value = this.serviceDate.formatDate(valueDate, 'MM-DD-YYYY');
     } else {
       item.value = valueDate;
     }
+    if (this.typeForms !== 'enterprise') {
+      this.callback.emit(item);
+    }
   };
 
   emitEventFilter() {
-    this.callback.emit({
-      companyCode: this.companyCode,
-      name: this.name,
-      status: this.status,
-    });
+    if (this.typeForms == 'enterprise') {
+      this.callback.emit({
+        companyCode: this.companyCode,
+        name: this.name,
+        status: this.status,
+      });
+    }
   }
 }
 
 @NgModule({
   declarations: [FilterComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   exports: [FilterComponent],
 })
 export class FilterBaseModule {}

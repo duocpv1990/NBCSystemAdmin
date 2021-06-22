@@ -1,2 +1,5 @@
-<app-create [(data)]="listCreate" [(option)]="option" [(arrayButton)]="arrayButton"
-  (callback)="handleCallbackEvent($event)"></app-create>
+<app-create [(data)]="listCreate"
+            [typeForms]="'enterprise'"
+            [(option)]="option"
+            [(arrayButton)]="arrayButton"
+            (callback)="handleCallbackEvent($event)"></app-create>

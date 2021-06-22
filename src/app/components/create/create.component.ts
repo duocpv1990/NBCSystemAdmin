@@ -24,6 +24,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   @Input() data: any;
   @Input() option: any;
   @Input() arrayButton: any;
+  @Input() typeForms: string;
   @Input() dataModel?: any;
   @Output() callback = new EventEmitter<any>();
   @Output() imgData = new EventEmitter<any>();
@@ -43,7 +44,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   }
 
   ngOnInit() {
-   
     this.model = this.dataModel || {};
   }
 
@@ -55,7 +55,9 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   }
 
   preview(files, value) {
-    this.model.companyMedias = [];
+    if (this.typeForms == 'enterprise') {
+      this.model.companyMedias = [];
+    }
     this.fileLinkList = [];
     if (value === 'avatar') {
       if (files.length === 0) return;
@@ -65,11 +67,13 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.mediaUrl = this.fileLinkList[0];
-          this.model.companyMedias.push({
-            MediaURL: this.fileLinkList[0],
-            Type: 1,
-            Status: 1,
-          });
+          if (this.typeForms == 'enterprise') {
+            this.model.companyMedias.push({
+              MediaURL: this.fileLinkList[0],
+              Type: 1,
+              Status: 1,
+            });
+          }
         }
       );
     } else if (value === 'background') {
@@ -80,11 +84,13 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         () => {
           console.log(this.fileLinkList);
           this.backgroundURL = this.fileLinkList[0];
-          this.model.companyMedias.push({
-            MediaURL: this.fileLinkList[0],
-            Type: 2,
-            Status: 1,
-          });
+          if (this.typeForms == 'enterprise') {
+            this.model.companyMedias.push({
+              MediaURL: this.fileLinkList[0],
+              Type: 2,
+              Status: 1,
+            });
+          }
         }
       );
     }
@@ -93,7 +99,11 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
   onClickButton = (i) => {
     this.model.Type = 1;
-    this.model.CertificationIdList = this.certList;
+
+    if (this.typeForms == 'enterprise') {
+      this.model.CertificationIdList = this.certList;
+    }
+
     i.data = this.model;
     this.callback.emit(i);
   };

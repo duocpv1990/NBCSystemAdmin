@@ -17,13 +17,11 @@
                     <input type="text"
                            *ngIf="item.condition == 'companyCode'"
                            [(ngModel)]="companyCode"
-                           class="base-input"
-                           (input)="onChangeValueDate($event.target.value, item)" />
+                           class="base-input" />
                     <input type="text"
                            [(ngModel)]="name"
                            *ngIf="item.condition == 'name'"
-                           class="base-input"
-                           (input)="onChangeValueDate($event.target.value, item)" />
+                           class="base-input" />
                     <input type="text"
                            *ngIf="item.condition !== 'name' && item.condition !== 'companyCode'"
                            class="base-input"
