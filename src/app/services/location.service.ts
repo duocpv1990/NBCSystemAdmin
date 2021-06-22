@@ -9,15 +9,15 @@ import { BaseApiService } from "./base-api.service";
 })
 export class LocationService extends BaseApiService<any> {
     constructor(http: HttpClient) {
-        super(http, 'api/nation');
+        super(http, 'nation');
     }
 
     getProvince(nationId) {
-        return this.http.get(`api/province?nationId=${nationId}`).pipe(map((res: any) => res.payload));
+        return this.http.get(`province?nationId=${nationId}`).pipe(map((res: any) => res.payload));
     }
 
     getDistrict(provinceId) {
-        return this.http.get(`api/district?provinceId=${provinceId}`).pipe(map((res: any) => res.payload));
+        return this.http.get(`district?provinceId=${provinceId}`).pipe(map((res: any) => res.payload));
     }
 
 }

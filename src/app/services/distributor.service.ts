@@ -9,19 +9,19 @@ import { BaseApiService } from "./base-api.service";
 })
 export class DistributorService extends BaseApiService<any> {
     constructor(http: HttpClient) {
-        super(http, 'api/distributor');
+        super(http, 'distributor');
     }
 
     getDistributors(pageNumber, pageSize, name, provinceId) {
-        return this.http.get(`api/distributor?pageNumber=${pageNumber}&pageSize=${pageSize}&name=${name}&provinceId=${provinceId}`).pipe(map((res: any) => res));
+        return this.http.get(`distributor?pageNumber=${pageNumber}&pageSize=${pageSize}&name=${name}&provinceId=${provinceId}`).pipe(map((res: any) => res));
     }
 
     getDistributor(distributorId) {
-        return this.http.get(`api/distributor/detail?distributorId=${distributorId}`).pipe(map((res: any) => res.payload));
+        return this.http.get(`distributor/detail?distributorId=${distributorId}`).pipe(map((res: any) => res.payload));
     }
 
     updateDistributor(distributorId, data) {
-        return this.http.put(`api/company?distributorId=${distributorId}`, data);
+        return this.http.put(`company?distributorId=${distributorId}`, data);
     }
 
 

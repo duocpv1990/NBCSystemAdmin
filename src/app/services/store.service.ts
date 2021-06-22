@@ -9,11 +9,11 @@ import { BaseApiService } from "./base-api.service";
 })
 export class StoreService extends BaseApiService<any> {
     constructor(http: HttpClient) {
-        super(http, 'api/store');
+        super(http, 'store');
     }
 
     getStores(pageNumber, pageSize) {
-        return this.http.get(`api/store?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(map((res: any) => res));
+        return this.http.get(`store?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(map((res: any) => res));
     }
 
 }
