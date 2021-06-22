@@ -35,6 +35,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   backgroundURL;
   mediaUrl;
   certList = [];
+  listMedia: any = [];
   constructor(
     private dialog: MatDialog,
     public s3Service: S3FileService,
@@ -45,6 +46,8 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.dataModel || {};
+    console.log(this.typeForms);
+
   }
 
   chooseLocation(event, check) {
@@ -55,6 +58,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   }
 
   preview(files, value) {
+    if (!files) return;
     switch (this.typeForms) {
       case 'enterprise':
         this.model.companyMedias = [];
@@ -71,32 +75,34 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
     // }
     this.fileLinkList = [];
     if (value === 'avatar') {
-      if (files.length === 0) return;
-      this.multipleUpload(files).subscribe(
+
+      this.selectImage(files).subscribe(
         (res) => { },
         (err) => { },
         () => {
-          console.log(this.fileLinkList);
-          this.mediaUrl = this.fileLinkList[0];
-
+          console.log(this.imageLinkUpload);
+          this.mediaUrl = this.imageLinkUpload;
           switch (this.typeForms) {
             case 'enterprise':
               this.model.companyMedias.push({
-                MediaURL: this.fileLinkList[0],
+                MediaURL: this.imageLinkUpload,
                 Type: 1,
                 Status: 1,
               });
               break;
             case 'distributor':
-              this.model.distributorMedias.push({
-                MediaURL: this.fileLinkList[0],
+              let model = {
+                MediaURL: this.imageLinkUpload,
                 Type: 1,
                 Status: 1,
-              });
+              }
+              this.listMedia.push(model);
+              console.log(this.listMedia);
+
               break;
             case 'store':
               this.model.storeMedias.push({
-                MediaURL: this.fileLinkList[0],
+                MediaURL: this.imageLinkUpload,
                 Type: 1,
                 Status: 1,
               });
@@ -105,31 +111,35 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         }
       );
     } else if (value === 'background') {
-      if (files.length === 0) return;
-      this.multipleUpload(files).subscribe(
+
+      this.selectImage(files).subscribe(
         (res) => { },
         (err) => { },
         () => {
-          console.log(this.fileLinkList);
-          this.backgroundURL = this.fileLinkList[0];
+          console.log(this.imageLinkUpload);
+          this.backgroundURL = this.imageLinkUpload;
           switch (this.typeForms) {
             case 'enterprise':
               this.model.companyMedias.push({
-                MediaURL: this.fileLinkList[0],
+                MediaURL: this.imageLinkUpload,
                 Type: 2,
                 Status: 1,
               });
               break;
             case 'distributor':
-              this.model.distributorMedias.push({
-                MediaURL: this.fileLinkList[0],
+
+              let background = {
+                MediaURL: this.imageLinkUpload,
                 Type: 2,
                 Status: 1,
-              });
+              };
+              this.listMedia.push(background);
+              console.log(this.listMedia);
+
               break;
             case 'store':
               this.model.storeMedias.push({
-                MediaURL: this.fileLinkList[0],
+                MediaURL: this.imageLinkUpload,
                 Type: 2,
                 Status: 1,
               });
@@ -143,7 +153,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
   onClickButton = (i) => {
     this.model.Type = 1;
-
+    this.model.distributorMedias = this.listMedia;
     if (this.typeForms == 'enterprise') {
       this.model.CertificationIdList = this.certList;
     }

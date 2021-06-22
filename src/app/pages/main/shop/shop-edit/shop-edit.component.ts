@@ -59,8 +59,6 @@ export class ShopEditComponent implements OnInit {
   getStore() {
     this.storeService.getStore(this.data.StoreId).subscribe(res => {
       this.dataModel = res;
-      console.log('store', this.dataModel);
-
     })
   }
 
@@ -74,7 +72,6 @@ export class ShopEditComponent implements OnInit {
             value: company.CompanyId
           }
         })
-        console.log('companies', this.companies);
       });
   }
 
@@ -102,7 +99,7 @@ export class ShopEditComponent implements OnInit {
 
   save = (value) => {
     this.dataModel = value;
-    this.storeService.create(this.dataModel).subscribe(res => {
+    this.storeService.updateStore(this.data.StoreId, this.dataModel).subscribe(res => {
       this.dialogRef.close();
     })
   }

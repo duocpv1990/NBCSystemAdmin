@@ -21,7 +21,7 @@ export class DistributorService extends BaseApiService<any> {
     }
 
     updateDistributor(distributorId, data) {
-        return this.http.put(`company?distributorId=${distributorId}`, data);
+        return this.http.put(`distributor?distributorId=${distributorId}`, data);
     }
 
     deleteDistributor(distributorId) {

@@ -58,8 +58,6 @@ export class EditDistributorComponent implements OnInit {
   getDistributor() {
     this.distributorService.getDistributor(this.data.DistributorId).subscribe(res => {
       this.dataModel = res;
-      console.log('Distributor', this.dataModel);
-
     })
   }
 
@@ -72,8 +70,7 @@ export class EditDistributorComponent implements OnInit {
             name: company.Name,
             value: company.CompanyId
           }
-        })
-        console.log('companies', this.companies);
+        });
       });
   }
 
