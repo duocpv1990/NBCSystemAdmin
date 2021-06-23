@@ -22,6 +22,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { MatNativeDateModule } from '@angular/material/core';
+import { AddCertificateModule } from 'src/app/components/dialog/add-certificate/add-certificate.component';
 @NgModule({
   declarations: [
     ProductComponent,
@@ -32,10 +36,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   ],
   imports: [
     CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     RouterModule.forChild(productRoute),
     FilterBaseModule,
     TableBaseModule,
     CreateModule,
+    AddCertificateModule,
     MatIconModule,
     MatAutocompleteModule,
     MatSelectModule,

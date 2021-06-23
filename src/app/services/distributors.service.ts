@@ -12,9 +12,12 @@ export class DistributorsService extends BaseApiService<any> {
   }
 
   getDistributorProduct(disId): Observable<any> {
-    return this.http.get('product/distributor', {
+    return this.http.get('store', {
       params: {
-        distributorProductId: disId,
+        name: '',
+        provinceId: '',
+        pageSize: '1000',
+        pageNumber: '1',
       },
     });
   }
