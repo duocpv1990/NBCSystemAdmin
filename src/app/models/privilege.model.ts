@@ -56,20 +56,20 @@ export class Privilege {
             },
 
             {
-                id: 'Privileges',
+                id: 'Name',
                 name: 'Nhóm quyền',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'CreatePerson',
+                id: 'Creator',
                 name: 'Người tạo',
                 width: 200,
                 type: 'text',
             },
 
             {
-                id: 'CreateDate',
+                id: 'CreatedOn',
                 name: 'Ngày tạo',
                 width: 200,
                 type: 'text',
@@ -84,7 +84,7 @@ export class Privilege {
                 id: 'LastUpdatedPerson',
                 name: 'Người sửa đổi lần cuối',
                 width: 200,
-                type: 'object',
+                type: 'text',
             },
             {
                 id: 'AccountNumber',

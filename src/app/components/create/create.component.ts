@@ -33,9 +33,11 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   imagePath;
   imgURL;
   backgroundURL;
-  mediaUrl;
+  avatarUrl;
   certList = [];
   listMedia: any = [];
+
+
   constructor(
     private dialog: MatDialog,
     public s3Service: S3FileService,
@@ -81,7 +83,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         (err) => { },
         () => {
           console.log(this.imageLinkUpload);
-          this.mediaUrl = this.imageLinkUpload;
+          this.avatarUrl = this.imageLinkUpload;
           switch (this.typeForms) {
             case 'enterprise':
               this.model.companyMedias.push({

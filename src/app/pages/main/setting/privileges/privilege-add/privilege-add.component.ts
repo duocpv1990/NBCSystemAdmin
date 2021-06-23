@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Privilege } from 'src/app/models/privilege.model';
+import { PrivilegeService } from 'src/app/services/privilege.service';
 
 @Component({
   selector: 'app-privilege-add',
@@ -26,6 +27,7 @@ export class PrivilegeAddComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<PrivilegeAddComponent>,
+    private privilegeService: PrivilegeService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,9 @@ export class PrivilegeAddComponent implements OnInit {
 
   save = (value) => {
     this.dataModel = value;
+    this.privilegeService.create(this.dataModel).subscribe(res => {
+      this.dialogRef.close();
+    })
   }
 
 }

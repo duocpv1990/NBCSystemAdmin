@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Authorization } from 'src/app/models/authorization.model';
+import { PrivilegeService } from 'src/app/services/privilege.service';
 
 @Component({
   selector: 'app-authorization',
@@ -8,52 +9,77 @@ import { Authorization } from 'src/app/models/authorization.model';
 })
 export class AuthorizationComponent implements OnInit {
   config = new Authorization();
-  enterpriseDataTable;
-  enterpriseData = [
-    { Enterprise: 'Thêm doanh nghiệp' },
-    { Enterprise: 'Xem thông tin doanh nghiệp' },
-    { Enterprise: 'Sửa thông tin doanh nghiệp' },
-    { Enterprise: 'Xóa thông tin doanh nghiệp' },
-    { Enterprise: 'Duyệt thông tin doanh nghiệp' },
-  ];
 
-  distributorDataTable;
-  distributorData = [
-    { Distributor: 'Thêm nhà phân phối' },
-    { Distributor: 'Xem thông tin nhà phân phối' },
-    { Distributor: 'Sửa thông tin nhà phân phối' },
-    { Distributor: 'Xóa thông tin nhà phân phối' },
-    { Distributor: 'Duyệt thông tin nhà phân phối' },
-  ];
+  name = '';
+  createdBy = '';
+  updatedBy = '';
+  createdDate = '';
+  pageNumber = 1;
+  pageSize = 10;
+  roles = [];
+  roleId: number;
+  rolePolicies = [];
+  masterSelected = false;
+  checklist: any;
+  checkedList: any;
 
-  productDataTable;
-  productData = [
-    { Product: 'Thêm sản phẩm' },
-    { Product: 'Xem thông tin sản phẩm' },
-    { Product: 'Sửa thông tin sản phẩm' },
-    { Product: 'Xóa thông tin sản phẩm' },
-  ];
-
-  servicePackageDataTable;
-  servicePackageData = [
-    { ServicePackage: 'Thêm gói dịch vụ' },
-    { ServicePackage: 'Xem thông tin gói dịch vụ' },
-    { ServicePackage: 'Sửa thông tin gói dịch vụ' },
-    { ServicePackage: 'Xóa thông tin gói dịch vụ' },
-  ];
-
-
-  constructor() { }
+  constructor(
+    private privilegeService: PrivilegeService
+  ) { }
 
   ngOnInit(): void {
-    this.tableDataInit();
+    this.getRoles();
+    this.getCheckedItemList();
   }
 
-  tableDataInit() {
-    this.enterpriseDataTable = this.config.enterpriseCollums;
-    this.distributorDataTable = this.config.distributorCollums;
-    this.productDataTable = this.config.productCollums;
-    this.servicePackageDataTable = this.config.servicePackageCollums;
+
+  getRoles() {
+    this.privilegeService.getRoles(this.pageNumber, this.pageSize, this.createdDate, this.updatedBy, this.createdBy, this.name).subscribe(res => {
+      this.roles = res.payload.reverse();
+      this.roleId = this.roles[0].RoleId;
+      this.getRolePolicies();
+    });
   }
+
+  getRolePolicies() {
+    this.privilegeService.getRolePolicy(this.roleId).subscribe(res => {
+      this.rolePolicies = res;
+      this.rolePolicies.forEach(item => item['isSelected'] = false);
+      console.log('rolePolicies', this.rolePolicies);
+
+    })
+  }
+
+  changeRole(event) {
+    this.roleId = event;
+    this.getRolePolicies();
+  }
+
+  checkUncheckAll() {
+    this.masterSelected = !this.masterSelected;
+    for (var i = 0; i < this.rolePolicies.length; i++) {
+      this.rolePolicies[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+  isAllSelected() {
+    this.masterSelected = this.rolePolicies.every(function (item: any) {
+      return item.isSelected == true;
+    });
+    this.getCheckedItemList();
+  }
+
+  getCheckedItemList() {
+    this.checkedList = [];
+    for (var i = 0; i < this.rolePolicies.length; i++) {
+      if (this.rolePolicies[i].isSelected)
+        this.checkedList.push(this.rolePolicies[i]);
+    }
+    console.log('checkedList', this.checkedList);
+
+    this.checkedList = JSON.stringify(this.checkedList);
+  }
+
+
 
 }
