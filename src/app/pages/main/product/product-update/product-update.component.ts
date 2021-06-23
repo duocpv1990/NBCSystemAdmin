@@ -1,88 +1,368 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { BaseUploadComponent, S3FileService } from '@consult-indochina/common';
+import moment from 'moment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AddCertificateComponent } from 'src/app/components/dialog/add-certificate/add-certificate.component';
 import { Product } from 'src/app/models/product.model';
+import { CategoryService } from 'src/app/services/category.service';
+import { CertService } from 'src/app/services/cert.service';
+import { DistributorsService } from 'src/app/services/distributors.service';
+import { ProductService } from 'src/app/services/product.service';
+import { ProductAddComponent } from '../product-add/product-add.component';
 import { categories, contries } from '../product-add/product-mock';
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
-  styleUrls: ['./product-update.component.scss']
+  styleUrls: ['./product-update.component.scss'],
 })
-export class ProductUpdateComponent implements OnInit {
+export class ProductUpdateComponent
+  extends BaseUploadComponent
+  implements OnInit
+{
   conFig = new Product();
-  dataModel;
+  dataModel = {};
   option = {
-    title: 'THÔNG TIN SẢN PHẨM',
-    type: 'edit'
+    title: 'Thêm mới sản phẩm',
+    type: 'create',
   };
 
-  arrayButton = [{
-    class: 'btn-cancel',
-    text: 'Hủy bỏ'
-  },
-  {
-    class: 'btn-save',
-    text: 'Chỉnh sửa'
-  }]
+  arrayButton = [
+    {
+      class: 'btn-cancel',
+      text: 'Hủy bỏ',
+    },
+    {
+      class: 'btn-save',
+      text: 'Lưu',
+    },
+  ];
+
   listCreate = [];
-  imageUrl: string = 'https://lh4.ggpht.com/-Z_ue0VfOfsk/V4WroOv9Y7I/AAAAAAAAEjc/6mDfRJsMMYoU5q-drqGfQb6oT1Cm4UYOQCLcB/s1600/but%2Bthien%2Blong.jpg';
+  imageUrl: string;
   chips = [];
   chipInput = '';
   categories = categories;
   contries = contries;
-
-
+  productForms: FormGroup;
+  distributors: Observable<any[]>;
+  distributorsProduct: any = [];
+  distributorProduct: any;
+  category$: Observable<any>;
+  targetMarket$: Observable<any>;
+  certList = [];
+  bindingCertList: any = [];
+  selectedDistributorsProduct: any = [];
+  @ViewChildren('selectedDistributorsProductInput')
+  selectedDistributorsProductInput: QueryList<ElementRef>;
+  @ViewChildren('distributeProduct')
+  selectedDistributeProduct: QueryList<ElementRef>;
   constructor(
+    private certService: CertService,
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private distributorsService: DistributorsService,
+    private dialogRef: MatDialogRef<ProductAddComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ProductUpdateComponent>,
-  ) { }
+    public s3Service: S3FileService
+  ) {
+    super(s3Service);
+    this.distributorProduct = [
+      {
+        DistributorId: [''],
+        Type: 1,
+        Status: 1,
+        DistributorProductStores: [
+          {
+            StoreId: [''],
+            Type: 1,
+            Status: 1,
+          },
+        ],
+      },
+    ];
+    this.productForms = this.fb.group({
+      CompanyId: [7],
+      ProductCode: [''],
+      TargetMarketId: [''],
+      Name: [''],
+      Description: [''],
+      Price: [''],
+      CategoryId: [''],
+      Ingradient: [''],
+      Label: [''],
+      Capacity: [''],
+      Unit: [''],
+      ManufacturedOn: [moment()],
+      ExpiredOn: [moment()],
+      Manual: [''],
+      Type: [1],
+      Status: [1],
+      CertificationIdList: [[]],
+      ProductMedias: [[]],
+      DistributorProducts: this.fb.array([]),
+    });
+  }
 
   ngOnInit(): void {
-    this.dataModel = this.data;
+    this.productService
+      .get('detail', {
+        productId: this.data.ProductId,
+      })
+      .subscribe((res) => {
+        console.log(res);
+        this.initForm(res.payload);
+      });
+
+    this.distributors = this.distributorsService.list({
+      name: '',
+      provinceId: '',
+      pageSize: 1000,
+      pageNumber: 1,
+    });
+
     this.listCreate = this.conFig.create;
+
+    this.getDistributorProducts();
+    this.getCategoryProduct();
   }
 
-  handleCallbackEvent = (value) => {
-    console.log(value);
-
-    switch (value.class) {
-      case 'btn-cancel':
-        this.cancel();
-        break;
-      case 'btn-save':
-        this.save(value.data)
-        break;
-      default:
-        break;
-    }
-    this.dialogRef.close();
+  initForm(data) {
+    this.productForms.setValue({
+      CompanyId: data.CompanyId,
+      ProductCode: data.ProductCode,
+      TargetMarketId: data.TargetMarketId,
+      Name: data.Name,
+      Description: data.Description,
+      Price: data.Price,
+      CategoryId: data.CategoryId,
+      Ingradient: data.Ingradient,
+      Label: data.Label,
+      Capacity: data.Capacity,
+      Unit: data.Unit,
+      ManufacturedOn: data.ManufacturedOn,
+      ExpiredOn: data.ExpiredOn,
+      Manual: data.Manual,
+      Type: data.Type,
+      Status: data.Status,
+      CertificationIdList: data.CertificationIdList,
+      ProductMedias: data.ProductMedias,
+      DistributorProducts: this.distributorProducts.setValue([
+        data.DistributorProducts,
+      ]),
+    });
   }
 
-  cancel = () => {
+  getCategoryProduct() {
+    this.category$ = this.categoryService.list();
+    this.targetMarket$ = this.categoryService
+      .getTargetMarket()
+      .pipe(map((res) => res.payload));
   }
+
+  get distributorProducts() {
+    return this.productForms.get('DistributorProducts') as FormArray;
+  }
+
+  getDistributorProducts() {
+    const control = this.distributorProducts;
+    this.distributorProduct.forEach((res) => {
+      control.push(this.getDistributorProductsVal(res));
+    });
+  }
+
+  disSelected(ev, i) {
+    this.distributorsService
+      .getDistributorProduct(ev.option.value)
+      .subscribe((res) => {
+        // if (i >= this.distributorsProduct.length && res.payload[0]) {
+        //   this.distributorsProduct.push([]);
+        // }
+        // if (res.payload.length == 0) {
+        //   this.distributorsProduct[i] = [];
+        // }
+        this.distributorsProduct = res.payload;
+        // if (res.payload[0]) {
+        //   this.distributorsProduct[i].push(res.payload[0]);
+        // } else {
+        //   this.distributorsProduct[i] = [];
+        // }
+
+        console.log(this.distributorsProduct);
+
+        this.selectedDistributeProduct.toArray()[i].nativeElement.value =
+          ev.option.viewValue;
+      });
+  }
+
+  removeControl(i) {
+    const control = this.distributorProducts;
+    control.removeAt(i);
+  }
+
+  getDistributorProductsVal(res) {
+    return this.fb.group({
+      ...res,
+    });
+  }
+
+  cancel = () => {};
 
   save = (value) => {
     this.dataModel = value;
+  };
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  ingradients: any[] = [];
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.ingradients.push(value);
+      this.productForms.get('Ingradient').setValue(this.ingradients.toString());
+    }
+
+    // Clear the input value
+    event.input!.value = '';
   }
 
-  processFile(files: File) {
-    var reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = _event => {
-      this.imageUrl = reader.result.toString();
-    };
+  addDis(event: MatChipInputEvent, i): void {
+    const value = (event.value || '').trim();
+    console.log(event.value);
+
+    // Add our fruit
+    if (value) {
+      console.log(this.distributorsProduct);
+
+      // this.selectedDistributorsProduct.push({
+      //   name: this.distributorsProduct.find(
+      //     (res) => res.DistributorProductId == value
+      //   ).Name,
+      // });
+    }
+
+    // Clear the input value
+    // event.input!.value = '';
   }
 
-  addChip(value) {
-    this.chips.push(value);
-    this.chipInput = '';
+  remove(fruit: any): void {
+    const index = this.ingradients.indexOf(fruit);
+    console.log(index);
+
+    if (index >= 0) {
+      this.ingradients.splice(index, 1);
+    }
   }
 
-  removeChip() {
-    this.chips.pop();
+  removeDis(fruit: any, i): void {
+    const index = this.selectedDistributorsProduct[i].indexOf(fruit);
+    if (index >= 0) {
+      this.selectedDistributorsProduct[i].splice(index, 1);
+    }
   }
 
   closeDialog() {
     this.dialogRef.close();
   }
 
+  selected(event: MatAutocompleteSelectedEvent, i, parent): void {
+    const control = this.distributorProducts;
+
+    let dataPush = [control.at(i).get('DistributorProductStores').value];
+    // dataPush.concat();
+    // dataPush.push(event.option.value);
+    dataPush.push(event.option.value);
+    console.log(dataPush);
+
+    // console.log(control.at(i).get('DistributorProductStores'));
+    this.selectedDistributorsProduct.push([]);
+    this.selectedDistributorsProduct[i].push({
+      Name: event.option.viewValue,
+      ...event.option.value,
+    });
+    control
+      .at(i)
+      .get('DistributorProductStores')
+      .setValue(this.selectedDistributorsProduct[i]);
+    console.log(this.selectedDistributorsProduct[i]);
+
+    this.selectedDistributorsProductInput.toArray()[i].nativeElement.value = '';
+    // this.fruitCtrl.setValue(null);
+  }
+  addCertificate() {
+    this.dialog.open(AddCertificateComponent);
+  }
+
+  submitForm() {
+    this.productForms.get('CertificationIdList').setValue(this.certList);
+    this.productForms
+      .get('ExpiredOn')
+      .setValue(this.productForms.get('ExpiredOn').value.toISOString());
+    this.productForms
+      .get('ManufacturedOn')
+      .setValue(this.productForms.get('ManufacturedOn').value.toISOString());
+    console.log(this.productForms.value);
+    this.productService.create(this.productForms.value).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  uploadFilesS3(files: File[]) {
+    this.multipleUpload(files).subscribe({
+      complete: () => {
+        console.log(this.fileLinkList);
+        let completeArr = this.fileLinkList.map((res) => ({
+          MediaURL: res,
+          Type: 3,
+          Status: 1,
+        }));
+        this.productForms.get('ProductMedias').setValue(completeArr);
+      },
+    });
+  }
+
+  trackByFunc(index) {
+    return index;
+  }
+
+  addNewCert() {
+    this.dialog
+      .open(AddCertificateComponent)
+      .afterClosed()
+      .subscribe((data) => {
+        console.log(data);
+        console.log(data.data);
+        if (data.type == 'save') {
+          this.bindingCertList.push(data.data);
+          this.certService.create(data.data).subscribe((res: any) => {
+            console.log(res);
+            this.certList.push(res.payload);
+          });
+        }
+      });
+  }
 }
