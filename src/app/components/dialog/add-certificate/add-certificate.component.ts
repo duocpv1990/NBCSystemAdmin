@@ -50,6 +50,7 @@ export class AddCertificateComponent
         },
       ];
     }
+    this.model.fileNameList = this.fileNames;
     this.dialogRef.close({
       type,
       data: this.model,
