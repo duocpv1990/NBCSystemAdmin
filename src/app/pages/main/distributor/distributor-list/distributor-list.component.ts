@@ -139,8 +139,6 @@ export class DistributorListComponent implements OnInit {
     this.distributorService.getDistributors(this.pageNumber, this.pageSize, this.name, this.provinceId).subscribe(res => {
       this.distributors = res.payload;
       this.count = res.count;
-      console.log('count', this.count);
-
       this.distributors.forEach((item, index) => {
         item['index'] = index + 1;
       })

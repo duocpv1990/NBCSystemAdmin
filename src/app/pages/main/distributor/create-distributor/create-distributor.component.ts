@@ -56,7 +56,6 @@ export class CreateDistributorComponent implements OnInit {
     }
 
     handleCallbackEvent = (event) => {
-        console.log(event);
         if (event.check === 'Province') {
             this.provinceId = event.value;
             this.getDistricts();
@@ -93,8 +92,7 @@ export class CreateDistributorComponent implements OnInit {
                         name: company.Name,
                         value: company.CompanyId
                     }
-                })
-                console.log('companies', this.companies);
+                });
             });
     }
 

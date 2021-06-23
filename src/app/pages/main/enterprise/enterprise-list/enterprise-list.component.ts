@@ -29,7 +29,7 @@ export class EnterpriseListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private companyService: CompanyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listFilter = this.config.filter;
@@ -53,7 +53,7 @@ export class EnterpriseListComponent implements OnInit {
           item['index'] = index + 1;
           item['isSelected'] = false;
         });
-        console.log('companies', this.companies);
+
       });
   }
 
@@ -73,7 +73,6 @@ export class EnterpriseListComponent implements OnInit {
           item['index'] = index + 1;
           item['isSelected'] = false;
         });
-        console.log('companies', this.companies);
       });
     // const filter = this.listFilter.filter(x => x.value);
     // if (!filter.length) return this.dataSub = this.companies;
@@ -105,7 +104,7 @@ export class EnterpriseListComponent implements OnInit {
           height: '843px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => { });
     }
     if (ev.type === 'import') {
       return this.dialog
@@ -114,7 +113,7 @@ export class EnterpriseListComponent implements OnInit {
           height: '350px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => { });
     }
     if (ev.type === 'edit') {
       return this.dialog
