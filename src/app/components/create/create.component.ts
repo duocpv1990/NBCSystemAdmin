@@ -37,7 +37,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   certList = [];
   listMedia: any = [];
 
-
   constructor(
     private dialog: MatDialog,
     public s3Service: S3FileService,
@@ -48,6 +47,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.dataModel || {};
+    console.log(this.typeForms);
   }
 
   chooseLocation(event, check) {
@@ -73,7 +73,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
     this.fileLinkList = [];
     if (value === 'avatar') {
-
       this.selectImage(files).subscribe(
         (res) => { },
         (err) => { },
@@ -93,7 +92,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
                 MediaURL: this.imageLinkUpload,
                 Type: 1,
                 Status: 1,
-              }
+              };
               this.listMedia.push(model);
               console.log(this.listMedia);
 
@@ -109,7 +108,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         }
       );
     } else if (value === 'background') {
-
       this.selectImage(files).subscribe(
         (res) => { },
         (err) => { },
@@ -125,7 +123,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
               });
               break;
             case 'distributor':
-
               let background = {
                 MediaURL: this.imageLinkUpload,
                 Type: 2,

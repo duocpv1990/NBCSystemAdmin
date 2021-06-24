@@ -25,7 +25,7 @@ export class DistributorListComponent implements OnInit {
   dataSub;
   distributors = [];
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 50;
   provinceId = '';
   name = '';
   count: number;
