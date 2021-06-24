@@ -6,6 +6,13 @@ import { ProductUpdateComponent } from '../product-update/product-update.compone
 import { ProductDeleteComponent } from '../product-delete/product-delete.component';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { ProductService } from 'src/app/services/product.service';
+import {
+  DynamicFormGroupModel,
+  DynamicInputModel,
+  DynamicSelectModel,
+} from '@ng-dynamic-forms/core';
+import { from } from 'rxjs';
+import { concatMap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
@@ -35,6 +42,106 @@ export class ProductListComponent implements OnInit {
     },
   ];
 
+  formModel = [
+    new DynamicInputModel({
+      id: 'productCode',
+      label: 'Mã sản phẩm',
+    }),
+    new DynamicInputModel({
+      id: 'name',
+      label: 'Tên sản phẩm',
+    }),
+    new DynamicInputModel({
+      id: 'companyName',
+      label: 'Công ty sở hữu',
+    }),
+    new DynamicSelectModel({
+      id: 'authorize',
+      label: 'Quyền quản lý',
+      value: '1',
+      options: [
+        {
+          value: '1',
+          label: 'Tất cả',
+        },
+      ],
+    }),
+    new DynamicSelectModel({
+      id: 'status',
+      label: 'Trạng thái',
+      value: '1',
+      options: [
+        {
+          value: '1',
+          label: 'Tất cả',
+        },
+      ],
+    }),
+    new DynamicSelectModel({
+      id: 'type',
+      label: 'Trạng thái thông tin',
+      value: '1',
+      options: [
+        {
+          value: '1',
+          label: 'Tất cả',
+        },
+      ],
+    }),
+  ];
+  pageNum = 1;
+  pageSize = 10;
+  configHeader = [
+    { key: 'index', label: 'STT' },
+    {
+      key: 'MediaURL',
+      label: 'Ảnh',
+    },
+    {
+      key: 'Status',
+      label: 'Tình trạng',
+    },
+    {
+      key: 'ScanNumber',
+      label: 'Lượt quét',
+    },
+    {
+      key: 'RatingNumber',
+      label: 'Lượt đánh giá',
+    },
+    {
+      key: 'ProductCode',
+      label: 'Mã sản phẩm',
+    },
+    {
+      key: 'Price',
+      label: 'Giá',
+    },
+    {
+      key: 'Name',
+      label: 'Tên sản phẩm',
+    },
+    {
+      key: 'Type',
+      label: 'Trạng thái quét',
+    },
+  ];
+  pagination = {
+    itemsPerPage: 10,
+    currentPage: 1,
+    totalItems: null,
+    id: 'product',
+  };
+  filter = {
+    name: '',
+    companyName: '',
+    productCode: '',
+    type: '',
+    status: '',
+    authorize: '',
+    pageNumber: 1,
+    pageSize: 10,
+  };
   constructor(
     private dialog: MatDialog,
     private productService: ProductService
@@ -48,21 +155,37 @@ export class ProductListComponent implements OnInit {
     this.listActive = this.config.btnActice;
     // this.dataSub = this.data;
   }
-  
-  getProductList(
-    filter = {
-      name: '',
-      companyName: '',
-      productCode: '',
-      type: '',
-      status: '',
-      pageNumber: '1',
-      pageSize: '10',
+
+  changePage(ev) {
+    this.filter.pageNumber = ev;
+    this.getProductList(this.filter);
+  }
+
+  getProductList(filter = this.filter) {
+    delete filter.authorize;
+    for (var propName in filter) {
+      if (filter[propName] === null || filter[propName] === undefined) {
+        filter[propName] = '';
+      }
     }
-  ) {
-    this.productService.list(filter).subscribe((res: any) => {
-      console.log(res);
-      this.dataSub = res;
+
+    if (!filter.pageNumber) {
+      filter.pageNumber = this.filter.pageNumber;
+    }
+
+    if (!filter.pageSize) {
+      filter.pageSize = this.filter.pageSize;
+    }
+    this.filter = filter;
+
+    this.productService.getAllProduct(this.filter).subscribe((res: any) => {
+      this.dataSub = res.payload;
+      this.pagination = {
+        itemsPerPage: this.filter.pageSize,
+        currentPage: this.filter.pageNumber,
+        totalItems: res.count,
+        id: 'product',
+      };
     });
   }
 
@@ -94,6 +217,30 @@ export class ProductListComponent implements OnInit {
 
   handleCallbackTable(ev) {
     console.log(ev);
+    if (ev.type === 'update-status') {
+      this.productService
+        .updateProduct(
+          {
+            Status: ev.data,
+          },
+          ev.id
+        )
+        .subscribe(() => {
+          this.getProductList();
+        });
+    }
+    if (ev.type === 'update-type') {
+      this.productService
+        .updateProduct(
+          {
+            Type: ev.data,
+          },
+          ev.id
+        )
+        .subscribe(() => {
+          this.getProductList();
+        });
+    }
     if (ev.type === 'create') {
       return this.dialog
         .open(ProductAddComponent, {
@@ -101,7 +248,9 @@ export class ProductListComponent implements OnInit {
           height: '843px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => {
+          this.getProductList();
+        });
     }
     if (ev.type === 'import') {
       return this.dialog
@@ -117,24 +266,34 @@ export class ProductListComponent implements OnInit {
         .open(ProductUpdateComponent, {
           width: '940px',
           height: '843px',
-          data: ev.item,
+          data: ev.data,
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => {
+          this.getProductList();
+        });
     }
     if (ev.type === 'delete') {
-      return this.dialog
-        .open(ProductDeleteComponent, {
-          width: '400px',
-          height: '250px',
-          data: {
-            item: ev.item,
-            title: 'Xoá sản phẩm',
-            content: 'Bạn có muốn xoá sản phẩm trên hệ thống?',
-          },
-        })
-        .afterClosed()
-        .subscribe((result) => {});
+      from(ev.dataDelete)
+        .pipe(
+          filter((res: any) => res.isChecked === true),
+          concatMap((res) => this.productService.deleteProduct(res.ProductId))
+        )
+        .subscribe(() => {
+          this.getProductList();
+        });
+      // return this.dialog
+      //   .open(ProductDeleteComponent, {
+      //     width: '400px',
+      //     height: '250px',
+      //     data: {
+      //       item: ev.item,
+      //       title: 'Xoá sản phẩm',
+      //       content: 'Bạn có muốn xoá sản phẩm trên hệ thống?',
+      //     },
+      //   })
+      //   .afterClosed()
+      //   .subscribe((result) => {});
     }
   }
 }

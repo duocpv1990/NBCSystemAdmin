@@ -17,8 +17,8 @@ import {
 } from '@angular/material/dialog';
 import { BaseUploadComponent, S3FileService } from '@consult-indochina/common';
 import moment from 'moment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { concatMap, map, tap } from 'rxjs/operators';
 import { AddCertificateComponent } from 'src/app/components/dialog/add-certificate/add-certificate.component';
 import { Product } from 'src/app/models/product.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -73,6 +73,9 @@ export class ProductUpdateComponent
   selectedDistributorsProductInput: QueryList<ElementRef>;
   @ViewChildren('distributeProduct')
   selectedDistributeProduct: QueryList<ElementRef>;
+
+  selectedNotDistributors: any = [];
+  distributeNotEdit = [];
   constructor(
     private certService: CertService,
     private fb: FormBuilder,
@@ -88,6 +91,7 @@ export class ProductUpdateComponent
     this.distributorProduct = [
       {
         DistributorId: [''],
+        ProductId: this.data.ProductId,
         Type: 1,
         Status: 1,
         DistributorProductStores: [
@@ -99,16 +103,18 @@ export class ProductUpdateComponent
         ],
       },
     ];
+
     this.productForms = this.fb.group({
       CompanyId: [7],
       ProductCode: [''],
       TargetMarketId: [''],
       Name: [''],
-      Description: [''],
+      // Description: [''],
       Price: [''],
       CategoryId: [''],
-      Ingradient: [''],
+      Ingredient: [''],
       Label: [''],
+      CertificationIdList: [[]],
       Capacity: [''],
       Unit: [''],
       ManufacturedOn: [moment()],
@@ -116,7 +122,6 @@ export class ProductUpdateComponent
       Manual: [''],
       Type: [1],
       Status: [1],
-      CertificationIdList: [[]],
       ProductMedias: [[]],
       DistributorProducts: this.fb.array([]),
     });
@@ -127,6 +132,20 @@ export class ProductUpdateComponent
       .get('detail', {
         productId: this.data.ProductId,
       })
+      .pipe(
+        tap((res) => {
+          res.payload.DistributorProducts.forEach((el) => {
+            this.distributeNotEdit.push(el);
+            this.selectedNotDistributors.push(el.DistributorProductStores);
+            console.log(this.selectedNotDistributors);
+          });
+          if (res.payload.Ingredient) {
+            this.ingradients = res.payload.Ingredient.split(',');
+          }
+          this.bindingCertList = res.payload.ProductCertifications;
+          this.fileLinkList = res.payload.ProductMedias.map((a) => a.MediaURL);
+        })
+      )
       .subscribe((res) => {
         console.log(res);
         this.initForm(res.payload);
@@ -145,30 +164,32 @@ export class ProductUpdateComponent
     this.getCategoryProduct();
   }
 
-  initForm(data) {
-    this.productForms.setValue({
-      CompanyId: data.CompanyId,
-      ProductCode: data.ProductCode,
-      TargetMarketId: data.TargetMarketId,
-      Name: data.Name,
-      Description: data.Description,
-      Price: data.Price,
-      CategoryId: data.CategoryId,
-      Ingradient: data.Ingradient,
-      Label: data.Label,
-      Capacity: data.Capacity,
-      Unit: data.Unit,
-      ManufacturedOn: data.ManufacturedOn,
-      ExpiredOn: data.ExpiredOn,
-      Manual: data.Manual,
-      Type: data.Type,
-      Status: data.Status,
-      CertificationIdList: data.CertificationIdList,
-      ProductMedias: data.ProductMedias,
-      DistributorProducts: this.distributorProducts.setValue([
-        data.DistributorProducts,
-      ]),
+  removeDisNot(disId, index) {
+    this.distributorsService.deleteDisProduct(disId).subscribe(() => {
+      this.distributeNotEdit.splice(index, 1);
     });
+  }
+
+  initForm(data) {
+    this.productForms.get('CompanyId').setValue(7);
+    this.productForms.get('Price').setValue(data.Price);
+    this.productForms.get('Ingredient').setValue(data.Ingredient);
+    this.productForms.get('CategoryId').setValue(data.CategoryId);
+    this.productForms.get('Label').setValue(data.Label);
+    this.productForms.get('Capacity').setValue(data.Capacity);
+    this.productForms.get('Unit').setValue(data.Unit);
+    this.productForms.get('ManufacturedOn').setValue(data.ManufacturedOn);
+    this.productForms.get('ExpiredOn').setValue(data.ExpiredOn);
+    this.productForms.get('Manual').setValue(data.Manual);
+    this.productForms.get('Type').setValue(data.Type);
+    this.productForms.get('Status').setValue(data.Status);
+    this.productForms.get('ProductMedias').setValue(data.ProductMedias);
+    this.productForms
+      .get('CertificationIdList')
+      .setValue(data.CertificationIdList);
+    this.productForms.get('ProductCode').setValue(data.ProductCode);
+    this.productForms.get('Name').setValue(data.Name);
+    console.log(this.productForms.value);
   }
 
   getCategoryProduct() {
@@ -243,7 +264,7 @@ export class ProductUpdateComponent
     // Add our fruit
     if (value) {
       this.ingradients.push(value);
-      this.productForms.get('Ingradient').setValue(this.ingradients.toString());
+      this.productForms.get('Ingredient').setValue(this.ingradients.toString());
     }
 
     // Clear the input value
@@ -313,22 +334,57 @@ export class ProductUpdateComponent
     this.selectedDistributorsProductInput.toArray()[i].nativeElement.value = '';
     // this.fruitCtrl.setValue(null);
   }
+
   addCertificate() {
     this.dialog.open(AddCertificateComponent);
   }
 
   submitForm() {
-    this.productForms.get('CertificationIdList').setValue(this.certList);
-    this.productForms
-      .get('ExpiredOn')
-      .setValue(this.productForms.get('ExpiredOn').value.toISOString());
-    this.productForms
-      .get('ManufacturedOn')
-      .setValue(this.productForms.get('ManufacturedOn').value.toISOString());
+    // console.log(this.productForms.value);
+    // delete this.productForms.value.CertificationIdList;
     console.log(this.productForms.value);
-    this.productService.create(this.productForms.value).subscribe((res) => {
-      console.log(res);
-    });
+
+    this.productService
+      .updateProduct(this.productForms.value, this.data.ProductId)
+      .subscribe((res) => {
+        console.log(res);
+      });
+    if (this.productForms.get('DistributorProducts').value) {
+      from(this.productForms.get('DistributorProducts').value)
+        .pipe(concatMap((res) => this.distributorsService.postDisProduct(res)))
+        .subscribe();
+    }
+
+    if (this.productForms.get('ProductMedias').value.length > 0) {
+      from(this.productForms.get('ProductMedias').value)
+        .pipe(
+          concatMap((res: any) =>
+            this.productService.postProductMedia({
+              ProductId: this.data.ProductId,
+              MediaURL: res.MediaURL,
+              Type: res.Type,
+              Status: 1,
+            })
+          )
+        )
+        .subscribe();
+    }
+
+    if (this.certList.length > 0) {
+      from(this.certList)
+        .pipe(
+          concatMap((res) =>
+            this.productService.postProductCert({
+              CertificationId: res,
+              ProductId: this.data.ProductId,
+              Type: 1,
+              Status: 1,
+            })
+          )
+        )
+        .subscribe();
+    }
+    // this.productForms.get('CertificationIdList').setValue(this.certList);
   }
 
   uploadFilesS3(files: File[]) {

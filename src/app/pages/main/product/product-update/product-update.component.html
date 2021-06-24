@@ -91,6 +91,46 @@
     <div class="group_form"
          formArrayName="DistributorProducts">
         <h3>KÊNH PHÂN PHỐI</h3>
+        <ng-container *ngIf="distributeNotEdit.length > 0">
+            <div class="grid_form2"
+                 *ngFor="let child of distributeNotEdit; let i = index">
+                <div class="form_item col-span-full">
+                    <h5>Nhà phân phối (<span>*</span>)</h5>
+                    <mat-form-field appearance="outline"
+                                    [hideRequiredMarker]="false">
+                        <input type="text"
+                               #distributeProduct12
+                               placeholder="Pick one"
+                               aria-label="Number"
+                               matInput
+                               disabled
+                               [value]="child.Name"
+                               [matAutocomplete]="auto">
+                    </mat-form-field>
+                </div>
+                <div class="form_item col-span-full">
+                    <h5>Điểm bán (<span>*</span>)</h5>
+                    <mat-form-field appearance="outline"
+                                    [hideRequiredMarker]="false">
+                        <mat-chip-list #chipList3
+                                       aria-label="Fruit selection">
+                            <mat-chip *ngFor="let distributor of selectedNotDistributors[i]"
+                                      [selectable]="selectable">
+                                {{distributor?.Name}}
+                            </mat-chip>
+                            <input [matChipInputFor]="chipList3"
+                                   #selectedDistributorsProductInput12
+                                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                   [matChipInputAddOnBlur]="addOnBlur"
+                                   [disabled]="true">
+                        </mat-chip-list>
+                    </mat-form-field>
+                </div>
+                <div class="form_action col-span-1">
+                    <mat-icon (click)="removeDisNot(child.DistributorProductId,i)">close</mat-icon>
+                </div>
+            </div>
+        </ng-container>
         <div class="grid_form2"
              *ngFor="let child of distributorProducts.controls; let i = index"
              [formGroupName]="i">
@@ -104,13 +144,13 @@
                            aria-label="Number"
                            matInput
                            required
-                           formControlName="DistributorProductId"
+                           formControlName="DistributorId"
                            [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption
                                       (optionSelected)="disSelected($event,i)"
                                       #auto="matAutocomplete">
                         <mat-option *ngFor="let option of distributors | async"
-                                    [value]="option.DistributorProductId">
+                                    [value]="option.DistributorId">
                             {{option.Name}}
                         </mat-option>
                     </mat-autocomplete>
@@ -184,7 +224,10 @@
                         <p>Hình ảnh giấy chứng nhận</p>
                     </strong>
                     <div class="filename">
-                        <a *ngFor="let item of cert.fileNameList">{{item}}</a>
+                        <img [style.width.px]="70"
+                             [style.margin-right.px]="4"
+                             *ngFor="let item of cert.CertificationMedias"
+                             [src]="item.MediaURL" />
                     </div>
                 </div>
             </div>
@@ -201,7 +244,7 @@
                                 [hideRequiredMarker]="false">
                     <mat-chip-list #chipList
                                    aria-label="Thêm vào thành phần"
-                                   formControlName="Ingradient">
+                                   formControlName="Ingredient">
                         <mat-chip *ngFor="let ingradient of ingradients"
                                   [selectable]="selectable"
                                   [removable]="removable"
@@ -277,7 +320,7 @@
                 <mat-form-field appearance="outline"
                                 [hideRequiredMarker]="false">
                     <textarea matInput
-                              formControlName="Description"
+                              formControlName="Manual"
                               required></textarea>
                 </mat-form-field>
             </div>

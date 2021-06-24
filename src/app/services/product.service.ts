@@ -9,4 +9,31 @@ export class ProductService extends BaseApiService<any> {
   constructor(public http: HttpClient) {
     super(http, 'product');
   }
+
+  getAllProduct(params) {
+    return this.http.get('product', { params });
+  }
+
+  updateProduct(product, id) {
+    return this.http.put('product', product, {
+      params: {
+        productId: id,
+      },
+    });
+  }
+  postProductCert(data) {
+    return this.http.post('product/certificate', data);
+  }
+  
+  postProductMedia(data) {
+    return this.http.post('product/media', data);
+  }
+
+  deleteProduct(id) {
+    return this.http.delete('product', {
+      params: {
+        productId: id,
+      },
+    });
+  }
 }

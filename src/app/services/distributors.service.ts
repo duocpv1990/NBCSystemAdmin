@@ -21,4 +21,16 @@ export class DistributorsService extends BaseApiService<any> {
       },
     });
   }
+
+  deleteDisProduct(disProId): Observable<any> {
+    return this.http.delete('product/distributor', {
+      params: {
+        distributorProductId: disProId,
+      },
+    });
+  }
+
+  postDisProduct(data): Observable<any> {
+    return this.http.post('product/distributor', data);
+  }
 }
