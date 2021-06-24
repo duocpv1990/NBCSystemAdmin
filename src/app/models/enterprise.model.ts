@@ -65,10 +65,10 @@ export class EnterPriseModel {
         type: 'text',
       },
       // {
-      //     id: 'ServicePackage',
-      //     name: 'Gói dịch vụ',
-      //     width: 200,
-      //     type: 'text',
+      //   id: 'ServicePackage',
+      //   name: 'Gói dịch vụ',
+      //   width: 200,
+      //   type: 'text',
       // },
       {
         id: 'Status',
@@ -78,10 +78,16 @@ export class EnterPriseModel {
         color: '#26A700',
       },
       {
-        id: 'Condition',
-        name: 'Cập nhật',
+        id: 'Type',
+        name: 'Tình trạng',
         width: 200,
-        type: 'text',
+        type: 'type',
+      },
+      {
+        id: 'noun',
+        name: 'Phê duyệt',
+        width: 200,
+        type: 'approve',
       },
       {
         id: 'noun',
@@ -211,6 +217,13 @@ export class EnterPriseModel {
         label: 'GIẤY CHỨNG CHỈ, CHỨNG NHẬN',
         name: 'addnew',
         type: 'button',
+      },
+      {
+        id: 'certificate',
+        label: '',
+        name: 'certificate',
+        type: 'cert',
+        dataCert: {},
       },
     ];
   }

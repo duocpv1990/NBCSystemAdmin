@@ -23,13 +23,13 @@ export class EnterpriseListComponent implements OnInit {
   name = '';
   status = '';
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 10000;
   companies = [];
 
   constructor(
     private dialog: MatDialog,
     private companyService: CompanyService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.listFilter = this.config.filter;
@@ -49,11 +49,12 @@ export class EnterpriseListComponent implements OnInit {
       )
       .subscribe((res) => {
         this.companies = res.payload;
+        console.log(res.payload);
+
         this.companies.forEach((item, index) => {
           item['index'] = index + 1;
           item['isSelected'] = false;
         });
-
       });
   }
 
@@ -104,7 +105,7 @@ export class EnterpriseListComponent implements OnInit {
           height: '843px',
         })
         .afterClosed()
-        .subscribe((result) => { });
+        .subscribe((result) => {});
     }
     if (ev.type === 'import') {
       return this.dialog
@@ -113,7 +114,7 @@ export class EnterpriseListComponent implements OnInit {
           height: '350px',
         })
         .afterClosed()
-        .subscribe((result) => { });
+        .subscribe((result) => {});
     }
     if (ev.type === 'edit') {
       return this.dialog
@@ -140,6 +141,13 @@ export class EnterpriseListComponent implements OnInit {
         })
         .afterClosed()
         .subscribe((result) => {
+          this.getCompanies();
+        });
+    }
+    if (ev.type === 'approve') {
+      this.companyService
+        .updateCompany(ev.item.CompanyId, { Type: 2 })
+        .subscribe((res) => {
           this.getCompanies();
         });
     }
