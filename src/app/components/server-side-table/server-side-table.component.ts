@@ -90,7 +90,7 @@ export class ServerSideTableComponent implements OnChanges {
       dataDelete: this.sizes,
     });
   }
-  
+
   openEdit(id) {
     this.eventTrigger.emit({
       type: 'edit',
@@ -111,6 +111,38 @@ export class ServerSideTableComponent implements OnChanges {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
+  }
+
+  updateStatus(i, id) {
+    if (i == 1) {
+      this.eventTrigger.emit({
+        type: 'update-status',
+        data: 2,
+        id,
+      });
+    } else {
+      this.eventTrigger.emit({
+        type: 'update-status',
+        data: 1,
+        id,
+      });
+    }
+  }
+
+  updateType(i, id) {
+    if (i == 1) {
+      this.eventTrigger.emit({
+        type: 'update-type',
+        data: 2,
+        id,
+      });
+    } else {
+      this.eventTrigger.emit({
+        type: 'update-type',
+        data: 1,
+        id,
+      });
+    }
   }
 }
 

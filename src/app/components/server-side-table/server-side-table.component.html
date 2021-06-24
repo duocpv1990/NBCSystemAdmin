@@ -41,7 +41,11 @@
                     <span>{{ pagination.currentPage }}</span>
                     <div class="pagination-next"
                          [class.disabled]="p.isLastPage()">
-                        <a (click)="p.next()">
+                        <a (click)="p.next()"
+                           *ngIf="!p.isLastPage()">
+                            <mat-icon>arrow_right</mat-icon>
+                        </a>
+                        <a *ngIf="p.isLastPage()">
                             <mat-icon>arrow_right</mat-icon>
                         </a>
                     </div>
@@ -87,8 +91,16 @@
                     <td *ngIf="ix ===0 ">{{i + 1}}</td>
                     <td *ngIf="list !== 'ProductId'">
                         <span *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type'">{{item[list]}}</span>
-                        <span *ngIf="list === 'Status'">{{item[list] == 1 ? 'Chưa duyệt':'Đã duyệt'}}</span>
-                        <span *ngIf="list === 'Type'">{{item[list] == 1 ? 'Không cho quét':'Cho quét'}}</span>
+                        <span *ngIf="list === 'Status'"
+                              [style.cursor]="'pointer'"
+                              (click)="updateStatus(item[list],item.ProductId);$event.stopPropagation()"
+                              [class]="item[list] == 1?'success':'danger'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
+                            duyệt'}}</span>
+                        <span *ngIf="list === 'Type'"
+                              [style.cursor]="'pointer'"
+                              (click)="updateType(item[list],item.ProductId);$event.stopPropagation()"
+                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không cho quét':'Cho
+                            quét'}}</span>
                         <img *ngIf="list === 'MediaURL'"
                              [style.width.px]="50"
                              src="{{item[list]}}"

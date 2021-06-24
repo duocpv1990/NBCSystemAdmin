@@ -217,6 +217,30 @@ export class ProductListComponent implements OnInit {
 
   handleCallbackTable(ev) {
     console.log(ev);
+    if (ev.type === 'update-status') {
+      this.productService
+        .updateProduct(
+          {
+            Status: ev.data,
+          },
+          ev.id
+        )
+        .subscribe(() => {
+          this.getProductList();
+        });
+    }
+    if (ev.type === 'update-type') {
+      this.productService
+        .updateProduct(
+          {
+            Type: ev.data,
+          },
+          ev.id
+        )
+        .subscribe(() => {
+          this.getProductList();
+        });
+    }
     if (ev.type === 'create') {
       return this.dialog
         .open(ProductAddComponent, {
