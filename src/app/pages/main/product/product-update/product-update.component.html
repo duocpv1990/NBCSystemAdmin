@@ -56,7 +56,7 @@
                 <h5>Thị trường mục tiêu (<span>*</span>)</h5>
                 <mat-form-field appearance="outline"
                                 [hideRequiredMarker]="false">
-                    <mat-select formControlName="TargetMarketId"
+                    <mat-select formControlName="TargetMarketIdList"
                                 multiple>
                         <mat-option [value]="item.TargetMarketId"
                                     *ngFor="let item of targetMarket$ | async"> {{item.Name}} </mat-option>

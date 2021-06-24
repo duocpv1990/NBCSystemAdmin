@@ -137,7 +137,7 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
     this.productForms = this.fb.group({
       CompanyId: [7],
       ProductCode: [''],
-      TargetMarketId: [''],
+      TargetMarketIdList: [''],
       Name: [''],
       Description: [''],
       Price: [''],

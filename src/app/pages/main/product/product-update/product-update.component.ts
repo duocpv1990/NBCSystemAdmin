@@ -107,7 +107,7 @@ export class ProductUpdateComponent
     this.productForms = this.fb.group({
       CompanyId: [7],
       ProductCode: [''],
-      TargetMarketId: [''],
+      TargetMarketIdList: [''],
       Name: [''],
       // Description: [''],
       Price: [''],
@@ -188,6 +188,9 @@ export class ProductUpdateComponent
       .get('CertificationIdList')
       .setValue(data.CertificationIdList);
     this.productForms.get('ProductCode').setValue(data.ProductCode);
+    this.productForms
+      .get('TargetMarketIdList')
+      .setValue(data.TargetMarketIdList);
     this.productForms.get('Name').setValue(data.Name);
     console.log(this.productForms.value);
   }
