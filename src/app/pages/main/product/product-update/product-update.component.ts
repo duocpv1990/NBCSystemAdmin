@@ -107,7 +107,7 @@ export class ProductUpdateComponent
     this.productForms = this.fb.group({
       CompanyId: [7],
       ProductCode: [''],
-      // TargetMarketId: [''],
+      TargetMarketId: [''],
       Name: [''],
       // Description: [''],
       Price: [''],
@@ -139,7 +139,9 @@ export class ProductUpdateComponent
             this.selectedNotDistributors.push(el.DistributorProductStores);
             console.log(this.selectedNotDistributors);
           });
-          this.ingradients = res.payload.Ingredient.split(',');
+          if (res.payload.Ingredient) {
+            this.ingradients = res.payload.Ingredient.split(',');
+          }
           this.bindingCertList = res.payload.ProductCertifications;
           this.fileLinkList = res.payload.ProductMedias.map((a) => a.MediaURL);
         })

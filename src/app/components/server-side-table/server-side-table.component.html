@@ -55,13 +55,16 @@
         <thead>
             <tr [style.background-color]="'#E1E1E1'">
 
-                <th>STT</th>
 
-                <th><input type="checkbox"
+                <th>
+                    <input type="checkbox"
                            name="all"
+                           class="checkbox"
                            [checked]="isAllChecked()"
-                           (change)="checkAll($event)" /></th>
+                           (change)="checkAll($event)" />
+                </th>
 
+                <th>STT</th>
                 <ng-container *ngFor="let head of items[0] | keys">
                     <th *ngIf="head !== 'ProductId'">{{head | translateKeys:config}}</th>
                 </ng-container>
@@ -71,16 +74,17 @@
         <tbody>
             <tr *ngFor="let item of items | paginate: pagination; let i = index"
                 (click)="openEdit(item)">
-                <td>{{i + 1}}</td>
-                <ng-container *ngFor="let list of item | keys  ">
+                <ng-container *ngFor="let list of item | keys; let ix =index  ">
                     <td *ngIf="list === 'ProductId'">
                         <input type="checkbox"
+                               class="checkbox"
                                (click)="$event.stopPropagation()"
                                #checkItem
                                name="sizecb[]"
                                [value]="item[list]"
                                (change)="checkOne($event)" />
                     </td>
+                    <td *ngIf="ix ===0 ">{{i + 1}}</td>
                     <td *ngIf="list !== 'ProductId'">
                         <span *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type'">{{item[list]}}</span>
                         <span *ngIf="list === 'Status'">{{item[list] == 1 ? 'Chưa duyệt':'Đã duyệt'}}</span>
