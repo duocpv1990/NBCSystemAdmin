@@ -24,6 +24,11 @@ export class ProductService extends BaseApiService<any> {
   postProductCert(data) {
     return this.http.post('product/certificate', data);
   }
+  
+  postProductMedia(data) {
+    return this.http.post('product/media', data);
+  }
+
   deleteProduct(id) {
     return this.http.delete('product', {
       params: {

@@ -338,9 +338,33 @@ export class ProductUpdateComponent
   }
 
   submitForm() {
+    // console.log(this.productForms.value);
+    // delete this.productForms.value.CertificationIdList;
+    console.log(this.productForms.value);
+
+    this.productService
+      .updateProduct(this.productForms.value, this.data.ProductId)
+      .subscribe((res) => {
+        console.log(res);
+      });
     if (this.productForms.get('DistributorProducts').value) {
-      this.distributorsService
-        .postDisProduct(this.productForms.get('DistributorProducts').value)
+      from(this.productForms.get('DistributorProducts').value)
+        .pipe(concatMap((res) => this.distributorsService.postDisProduct(res)))
+        .subscribe();
+    }
+
+    if (this.productForms.get('ProductMedias').value.length > 0) {
+      from(this.productForms.get('ProductMedias').value)
+        .pipe(
+          concatMap((res: any) =>
+            this.productService.postProductMedia({
+              ProductId: this.data.ProductId,
+              MediaURL: res.MediaURL,
+              Type: res.Type,
+              Status: 1,
+            })
+          )
+        )
         .subscribe();
     }
 
@@ -359,19 +383,6 @@ export class ProductUpdateComponent
         .subscribe();
     }
     // this.productForms.get('CertificationIdList').setValue(this.certList);
-    this.productForms
-      .get('ExpiredOn')
-      .setValue(this.productForms.get('ExpiredOn').value.toISOString());
-    this.productForms
-      .get('ManufacturedOn')
-      .setValue(this.productForms.get('ManufacturedOn').value.toISOString());
-    console.log(this.productForms.value);
-    delete this.productForms.value.CertificationIdList;
-    this.productService
-      .updateProduct(this.productForms.value, this.data.ProductId)
-      .subscribe((res) => {
-        console.log(res);
-      });
   }
 
   uploadFilesS3(files: File[]) {

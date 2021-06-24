@@ -75,6 +75,7 @@
                 <ng-container *ngFor="let list of item | keys  ">
                     <td *ngIf="list === 'ProductId'">
                         <input type="checkbox"
+                               (click)="$event.stopPropagation()"
                                #checkItem
                                name="sizecb[]"
                                [value]="item[list]"

@@ -224,7 +224,9 @@ export class ProductListComponent implements OnInit {
           height: '843px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => {
+          this.getProductList();
+        });
     }
     if (ev.type === 'import') {
       return this.dialog
@@ -243,7 +245,9 @@ export class ProductListComponent implements OnInit {
           data: ev.data,
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => {
+          this.getProductList();
+        });
     }
     if (ev.type === 'delete') {
       from(ev.dataDelete)
