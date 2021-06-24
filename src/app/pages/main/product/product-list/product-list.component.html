@@ -1,7 +1,16 @@
 <div class="content-title">Danh sách sản phẩm</div>
 
-<app-filter [(listFilter)]="listFilter" (callback)="handleCallback($event)">
-</app-filter>
+<app-new-filter [MY_FORM_MODEL]="formModel"
+                (search)="getProductList($event)"></app-new-filter>
+<!-- 
+<app-table [tableData]="dataTable"
+           [data]="dataSub"
+           [listActive]="listActive"
+           (callback)="handleCallbackTable($event)">
+</app-table> -->
 
-<app-table [tableData]="dataTable" [data]="dataSub" [listActive]="listActive" (callback)="handleCallbackTable($event)">
-</app-table>
+<app-server-side-table [items]="dataSub"
+                       [config]="configHeader"
+                       [pagination]="pagination"
+                       (paginationChange)="changePage($event)"
+                       (eventTrigger)="handleCallbackTable($event)"></app-server-side-table>

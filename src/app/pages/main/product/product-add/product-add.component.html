@@ -184,7 +184,10 @@
                         <p>Hình ảnh giấy chứng nhận</p>
                     </strong>
                     <div class="filename">
-                        <a *ngFor="let item of cert.fileNameList">{{item}}</a>
+                        <img [style.width.px]="70"
+                             [style.margin-right.px]="4"
+                             *ngFor="let item of cert.CertificationMedia"
+                             [src]="item.MediaURL" />
                     </div>
                 </div>
             </div>
@@ -277,7 +280,7 @@
                 <mat-form-field appearance="outline"
                                 [hideRequiredMarker]="false">
                     <textarea matInput
-                              formControlName="Description"
+                              formControlName="Manual"
                               required></textarea>
                 </mat-form-field>
             </div>

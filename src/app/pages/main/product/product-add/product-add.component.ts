@@ -142,7 +142,7 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
       Description: [''],
       Price: [''],
       CategoryId: [''],
-      Ingradient: [''],
+      Ingredient: [''],
       Label: [''],
       Capacity: [''],
       Unit: [''],

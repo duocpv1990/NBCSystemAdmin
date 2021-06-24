@@ -26,6 +26,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddCertificateModule } from 'src/app/components/dialog/add-certificate/add-certificate.component';
+import { NewFilterModule } from 'src/app/components/new-filter/new-filter.component';
+import { ServerSideTableModule } from 'src/app/components/server-side-table/server-side-table.component';
 @NgModule({
   declarations: [
     ProductComponent,
@@ -50,8 +52,10 @@ import { AddCertificateModule } from 'src/app/components/dialog/add-certificate/
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+    NewFilterModule,
     MatChipsModule,
     EditModule,
+    ServerSideTableModule,
     DeleteModule,
     FormsModule,
     RoleDirectiveModule,

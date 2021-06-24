@@ -1,0 +1,28 @@
+.ci-base-filter {
+  padding: 20px;
+  form {
+    .filter_wrapper {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      .form_area {
+        grid-column: span 3 / span 3;
+      }
+      .btn {
+        grid-column: span 1 / span 1;
+        margin-top: 12px;
+        .search-button {
+          button {
+            background: var(--color-primary);
+            color: var(--color-secondary);
+            font-size: 14px;
+            width: 10em;
+            height: 2.5em;
+            border-radius: 10px;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
