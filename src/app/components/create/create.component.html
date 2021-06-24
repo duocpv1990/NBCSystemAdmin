@@ -98,7 +98,7 @@
     </div>
   </div>
   <div class="add-new">
-    <div class="content row align-items-center d-flex"
+    <div class="content row align-items-center"
          [hidden]="item.type !== 'button'"
          *ngFor="let item of data">
       <div class="label">{{ item?.label }}</div>
@@ -110,36 +110,38 @@
     </div>
   </div>
   <div class="cert">
-    <div class="content row align-items-center d-flex"
+    <div class="content row align-items-start flex-column d-flex"
          [hidden]="item.type !== 'cert'"
          *ngFor="let item of data">
-
-      <div class="item">
+      <div class="item"
+           *ngIf="item.type === 'cert'">
         <div class="left">Tên chứng nhận</div>
-        <div class="right">{{item.data.name}}</div>
+        <div class="right">{{item.data.Name}}</div>
       </div>
-      <div class="item">
+      <div class="item"
+           *ngIf="item.type === 'cert'">
         <div class="left">Trạng thái</div>
-        <div class="right">{{item.data.name}}</div>
+        <div class="right">{{item.data.Status}}</div>
       </div>
-      <div class="item">
+      <div class="item"
+           *ngIf="item.type === 'cert'">
         <div class="left">Ngày hết hạn</div>
-        <div class="right">{{item.data.name}}</div>
+        <div class="right">{{item.data.ExpiredDate}}</div>
       </div>
-      <div class="item">
+      <div class="item"
+           *ngIf="item.type === 'cert'">
         <div class="left">Hình ảnh giấy chứng nhận</div>
         <div class="right">{{item.data.name}}</div>
       </div>
 
     </div>
-  </div>
-  <div class="group-btn">
-    <button *ngFor="let i of arrayButton; let index = index"
-            class="btn mbf-btn"
-            [class]="i.class"
-            (click)="onClickButton(i)">
-      {{ i?.text }}
-    </button>
+    <div class="group-btn">
+      <button *ngFor="let i of arrayButton; let index = index"
+              class="btn mbf-btn"
+              [class]="i.class"
+              (click)="onClickButton(i)">
+        {{ i?.text }}
+      </button>
 
+    </div>
   </div>
-</div>
