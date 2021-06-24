@@ -12,14 +12,13 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() tableData: any;
     @Input() listActive?: any;
     @Output() callback = new EventEmitter<any>();
-    masterSelected = false;
-    checklist: any;
-    checkedList: any;
-
     totalPage: number;
     currentPage: number = 1;
     dataSub = [];
     pageSive = 5;
+    checkSelectAll;
+    showDelete = false;
+    listSelectAll: any = [];
 
     constructor() {
 
@@ -28,10 +27,10 @@ export class TableComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         this.totalPage = Math.ceil((this.data.length / this.pageSive));
         this.currentPage = 1;
-
         this.onLoadDatePagitor();
-        this.checklist = changes.data.currentValue;
-        this.getCheckedItemList();
+        this.data.map(x => x.check === false);
+        this.showDelete = false;
+        this.checkSelectAll = false;
     }
 
     ngOnInit() {
@@ -39,30 +38,47 @@ export class TableComponent implements OnInit, OnChanges {
         this.onLoadDatePagitor();
     }
 
-    checkUncheckAll() {
-        console.log('masterSelected', this.masterSelected);
-        this.masterSelected = !this.masterSelected;
-        for (var i = 0; i < this.checklist.length; i++) {
-            this.checklist[i].isSelected = this.masterSelected;
+    selectAll(value) {
+        this.checkSelectAll = true;
+        this.listSelectAll.length = 0;
+        this.data.forEach(x => {
+            x.check = value;
+        });
+        this.data.forEach(x => {
+            if (x.check === true) {
+                this.listSelectAll.push(x);
+            }
+        });
+        if (this.listSelectAll.length === 0) {
+            this.showDelete = false;
         }
-        this.getCheckedItemList();
-    }
-    isSelected() {
-        this.masterSelected = this.checklist.every(function (item: any) {
-            return item.isSelected == true;
-        })
-        this.getCheckedItemList();
-    }
-
-    getCheckedItemList() {
-        this.checkedList = [];
-        console.log(this.checklist);
-        for (var i = 0; i < this.checklist.length; i++) {
-            if (this.checklist[i].isSelected)
-                this.checkedList.push(this.checklist[i]);
+        else {
+            this.showDelete = true;
         }
-        console.log(this.checkedList);
+        console.log(this.listSelectAll);
 
+    }
+    selectItem(item, value, index) {
+        this.showDelete = value;
+        this.listSelectAll.length = [];
+        item.check = value;
+        this.data.forEach(x => {
+            if (x.check === true) {
+                this.listSelectAll.push(x);
+            }
+        });
+        if (this.listSelectAll.length === 0) {
+            this.showDelete = false;
+            this.checkSelectAll = false;
+        }
+        if (this.listSelectAll.length !== 0 && this.listSelectAll.length === this.data.length) {
+            this.showDelete = true;
+            this.checkSelectAll = true;
+        }
+        if ((this.listSelectAll.length !== 0 && this.listSelectAll.length !== this.data.length)) {
+            this.showDelete = true;
+            this.checkSelectAll = false;
+        }
     }
 
 

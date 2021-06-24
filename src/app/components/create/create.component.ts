@@ -72,9 +72,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
         this.model.storeMedias = [];
         break;
     }
-    // if (this.typeForms == 'enterprise') {
-    //   this.model.companyMedias = [];
-    // }
+
     this.fileLinkList = [];
     if (value === 'avatar') {
 

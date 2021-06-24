@@ -28,4 +28,8 @@ export class PrivilegeService extends BaseApiService<any> {
         return this.http.get(`role/policy?roleId=${roleId}`).pipe(map((res: any) => res.payload));
     }
 
+    updatePolicies(data) {
+        return this.http.put(`role/policy`, data);
+    }
+
 }

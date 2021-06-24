@@ -9,12 +9,12 @@
 </div>
 
 <div class="authorization-content">
-    <div *ngFor="let item of rolePolicies" class="card-checkbox">
+    <div *ngFor="let item of rolePolicies; index as idx" class="card-checkbox">
         <table class="table table-borderless">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">
-                        <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll()">
+                        <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll(idx)">
                     </th>
                     <th scope="col">
                         {{item.Name}}

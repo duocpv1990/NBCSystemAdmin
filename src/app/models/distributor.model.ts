@@ -126,7 +126,7 @@ export class DistributorModel {
             },
             {
                 class: 'btn-delete',
-                text: 'Gỡ nhà phân phối',
+                text: 'Xóa',
                 type: 'delete',
                 icon: ''
             }, {

@@ -130,7 +130,7 @@ export class Privilege {
             // },
             {
                 class: 'btn-delete',
-                text: 'Xoá sản phẩm',
+                text: 'Xoá',
                 type: 'delete',
                 icon: ''
             },

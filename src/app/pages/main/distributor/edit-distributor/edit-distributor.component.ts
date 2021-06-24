@@ -12,7 +12,7 @@ import { LocationService } from 'src/app/services/location.service';
 })
 export class EditDistributorComponent implements OnInit {
   conFig = new DistributorModel;
-  dataModel = {};
+  dataModel: any = {};
   option = {
     title: 'Thông tin nhà phân phối',
     type: 'edit'
@@ -58,6 +58,7 @@ export class EditDistributorComponent implements OnInit {
   getDistributor() {
     this.distributorService.getDistributor(this.data.DistributorId).subscribe(res => {
       this.dataModel = res;
+      this.dataModel.listMedia = res.DistributorMedias;
     })
   }
 
@@ -133,6 +134,8 @@ export class EditDistributorComponent implements OnInit {
   }
 
   save = (value) => {
+    console.log('edit distri', value);
+
     this.dataModel = value;
     this.distributorService.updateDistributor(this.data.DistributorId, this.dataModel).subscribe(res => {
       this.dialogRef.close();

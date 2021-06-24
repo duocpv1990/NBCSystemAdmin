@@ -14,7 +14,7 @@ export class ShopEditComponent implements OnInit {
   conFig = new ShopModel();
   dataModel = {};
   option = {
-    title: 'Thêm mới điểm bán',
+    title: 'THÔNG TIN ĐIỂM BÁN',
     type: 'edit'
   };
 

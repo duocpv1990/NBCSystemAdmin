@@ -20,7 +20,7 @@ export class AuthorizationComponent implements OnInit {
   roleId: number;
   rolePolicies = [];
   masterSelected = false;
-  checklist: any;
+  checkList: any;
   checkedList: any;
 
   constructor(
@@ -44,10 +44,7 @@ export class AuthorizationComponent implements OnInit {
   getRolePolicies() {
     this.privilegeService.getRolePolicy(this.roleId).subscribe(res => {
       this.rolePolicies = res;
-      this.rolePolicies.forEach(item => item['isSelected'] = false);
-      console.log('rolePolicies', this.rolePolicies);
-
-    })
+    });
   }
 
   changeRole(event) {
@@ -55,10 +52,16 @@ export class AuthorizationComponent implements OnInit {
     this.getRolePolicies();
   }
 
-  checkUncheckAll() {
+
+  checkUncheckAll(item) {
+    console.log(item);
+
     this.masterSelected = !this.masterSelected;
+    console.log(this.rolePolicies[item].Policies);
+
     for (var i = 0; i < this.rolePolicies.length; i++) {
       this.rolePolicies[i].isSelected = this.masterSelected;
+
     }
     this.getCheckedItemList();
   }
@@ -66,6 +69,8 @@ export class AuthorizationComponent implements OnInit {
     this.masterSelected = this.rolePolicies.every(function (item: any) {
       return item.isSelected == true;
     });
+    console.log('masterSelected', this.masterSelected);
+
     this.getCheckedItemList();
   }
 
@@ -76,8 +81,6 @@ export class AuthorizationComponent implements OnInit {
         this.checkedList.push(this.rolePolicies[i]);
     }
     console.log('checkedList', this.checkedList);
-
-    this.checkedList = JSON.stringify(this.checkedList);
   }
 
 

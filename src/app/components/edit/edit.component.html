@@ -64,8 +64,8 @@
             <label class="" for="{{ item.id }}">
               <mat-icon class="add-photo">add_a_photo</mat-icon>
             </label>
-            <img [src]="mediaUrl" height="200" *ngIf="mediaUrl" />
-            <img [src]="backgroundURL" height="200" *ngIf="backgroundURL" />
+            <img [src]="avatarUrl" height="200" *ngIf="item.name === 'avatar'" />
+            <img [src]="backgroundURL" height="200" *ngIf="item.name === 'background'" />
           </div>
           <input id="{{ item.id }}" #file hidden type="file" accept="image/*"
             (change)="preview(file.files, item.name)" />
