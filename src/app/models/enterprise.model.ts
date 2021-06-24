@@ -170,11 +170,12 @@ export class EnterPriseModel {
         ward: 'District',
         data: [],
       },
+
       {
-        id: 'AddressDetail',
-        label: 'Địa chỉ',
-        name: 'AddressDetail',
-        type: 'text',
+        id: 'RoleId',
+        label: 'Nhóm quyền',
+        name: 'RoleId',
+        type: 'select',
       },
       {
         id: 'PhoneNumber',
