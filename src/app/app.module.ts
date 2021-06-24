@@ -1,26 +1,35 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import {
+  ciAuthInterceptorProvider,
+  CiAuthModule
+} from '@consult-indochina/auth';
+import { CiCommonModule } from '@consult-indochina/common';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APIInterceptor } from './utils/interceptors/api.interceptor';
-import { AuthInterceptor } from './utils/interceptors/auth.interceptor';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { CiCommonModule } from '@consult-indochina/common';
-import { ciAuthInterceptorProvider, CiAuthModule } from '@consult-indochina/auth';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     HttpClientModule,
-    CiCommonModule.forRoot({ S3_URL: 'https://fgehlb1to6.execute-api.ap-southeast-1.amazonaws.com/prod/presigned-url' }),
-    CiAuthModule.forRoot({ API_URL: 'http://192.168.1.34/nbc/api', PermissionNames: [], uiOption: 'custom' })
+    CiCommonModule.forRoot({
+      S3_URL:
+        'https://fgehlb1to6.execute-api.ap-southeast-1.amazonaws.com/prod/presigned-url',
+    }),
+    CiAuthModule.forRoot({
+      API_URL: 'http://192.168.1.34/nbc/api',
+      PermissionNames: [],
+      uiOption: 'custom',
+    }),
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'vi-vi' },
@@ -32,10 +41,9 @@ import { ciAuthInterceptorProvider, CiAuthModule } from '@consult-indochina/auth
     ciAuthInterceptorProvider,
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: HashLocationStrategy,
     },
-
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
