@@ -48,8 +48,6 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.dataModel || {};
-    console.log(this.typeForms);
-
   }
 
   chooseLocation(event, check) {

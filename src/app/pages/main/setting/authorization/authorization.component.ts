@@ -19,9 +19,9 @@ export class AuthorizationComponent implements OnInit {
   roles = [];
   roleId: number;
   rolePolicies = [];
-  masterSelected = false;
-  checkList: any;
-  checkedList: any;
+  checkSelectAll;
+  showDelete = false;
+  listSelectAll: any = [];
 
   constructor(
     private privilegeService: PrivilegeService
@@ -29,7 +29,6 @@ export class AuthorizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles();
-    this.getCheckedItemList();
   }
 
 
@@ -52,37 +51,49 @@ export class AuthorizationComponent implements OnInit {
     this.getRolePolicies();
   }
 
-
-  checkUncheckAll(item) {
-    console.log(item);
-
-    this.masterSelected = !this.masterSelected;
-    console.log(this.rolePolicies[item].Policies);
-
-    for (var i = 0; i < this.rolePolicies.length; i++) {
-      this.rolePolicies[i].isSelected = this.masterSelected;
-
-    }
-    this.getCheckedItemList();
-  }
-  isAllSelected() {
-    this.masterSelected = this.rolePolicies.every(function (item: any) {
-      return item.isSelected == true;
+  selectAll(value, index) {
+    this.checkSelectAll = true;
+    this.listSelectAll.length = 0;
+    this.rolePolicies[index].Policies.forEach(x => {
+      x.check = value;
     });
-    console.log('masterSelected', this.masterSelected);
-
-    this.getCheckedItemList();
-  }
-
-  getCheckedItemList() {
-    this.checkedList = [];
-    for (var i = 0; i < this.rolePolicies.length; i++) {
-      if (this.rolePolicies[i].isSelected)
-        this.checkedList.push(this.rolePolicies[i]);
+    this.rolePolicies[index].Policies.forEach(x => {
+      if (x.check === true) {
+        this.listSelectAll.push(x);
+      }
+    });
+    if (this.listSelectAll.length === 0) {
+      this.showDelete = false;
     }
-    console.log('checkedList', this.checkedList);
+    else {
+      this.showDelete = true;
+    }
+    console.log(this.listSelectAll);
+
   }
 
+  selectItem(item, value, index) {
+    this.showDelete = value;
+    this.listSelectAll.length = [];
+    item.check = value;
+    this.rolePolicies[0].Policies.forEach(x => {
+      if (x.check === true) {
+        this.listSelectAll.push(x);
+      }
+    });
+    if (this.listSelectAll.length === 0) {
+      this.showDelete = false;
+      this.checkSelectAll = false;
+    }
+    if (this.listSelectAll.length !== 0 && this.listSelectAll.length === this.rolePolicies[0].Policies.length) {
+      this.showDelete = true;
+      this.checkSelectAll = true;
+    }
+    if ((this.listSelectAll.length !== 0 && this.listSelectAll.length !== this.rolePolicies[0].Policies.length)) {
+      this.showDelete = true;
+      this.checkSelectAll = false;
+    }
+  }
 
 
 }

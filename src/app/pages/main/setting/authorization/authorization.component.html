@@ -14,7 +14,8 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">
-                        <input type="checkbox" [(ngModel)]="masterSelected" (change)="checkUncheckAll(idx)">
+                        <input type="checkbox" id="idx" [checked]="checkSelectAll"
+                            (click)="selectAll($event.target.checked, idx)">
                     </th>
                     <th scope="col">
                         {{item.Name}}
@@ -22,10 +23,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let policy of item.Policies">
+                <tr *ngFor="let policy of item.Policies; let index = index">
                     <td>
-                        <input type="checkbox" [(ngModel)]="policy.isSelected" [value]="policy.PolicyId"
-                            (change)="isAllSelected()">
+                        <input type="checkbox" (click)="selectItem(policy, $event.target.checked, index)"
+                            class="checkbox" [checked]="item.check">
                     </td>
                     <td>
                         {{policy.Name}}
