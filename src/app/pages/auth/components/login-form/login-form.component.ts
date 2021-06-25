@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  HostListener,
   Input,
   NgModule,
   OnChanges,
@@ -29,6 +30,10 @@ export class LoginFormComponent implements OnInit, OnChanges {
   @Input() numberCol = [];
   @Output() onSubmit = new EventEmitter();
   @Output() onForgotPW = new EventEmitter();
+  @HostListener('window:keydown.enter', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    this.submit();
+  }
 
   form = new FormGroup({
     username: new FormControl(''
@@ -45,10 +50,6 @@ export class LoginFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   submit() {
-    // if(this.form.invalid){
-    //       console.log(this.form.invalid);
-          
-    // }
     this.onSubmit.emit(this.form.value);
   }
 
