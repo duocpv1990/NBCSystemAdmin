@@ -42,20 +42,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     );
-    // this.authService
-    //   .login({
-    //     username: ev.username,
-    //     password: ev.password,
-    //   })
-    //   .subscribe(
-    //     (res) => {
-    //       this.localStorage.set('access_token', res);
-    //       this.router.navigate(['home']);
-    //     },
-    //     (err) => {
-    //       this.errorLogin = err.error.message;
-    //     }
-    //   );
   }
   routeTo(e) {
     console.log(e);

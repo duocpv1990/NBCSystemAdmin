@@ -32,7 +32,7 @@ export class DeleteEnterpriseComponent implements OnInit {
   deleteFunction() {
     this.companyService.deleteCompany(this.data.item.CompanyId).subscribe(res => {
       this.dialogRef.close();
-    })
+    });
   }
 
 }

@@ -16,4 +16,12 @@ export class StoreService extends BaseApiService<any> {
         return this.http.get(`store?pageNumber=${pageNumber}&pageSize=${pageSize}`).pipe(map((res: any) => res));
     }
 
+    getStore(storeId) {
+        return this.http.get(`store/detail?storeId=${storeId}`).pipe(map((res: any) => res.payload));
+    }
+
+    updateStore(storeId, data) {
+        return this.http.put(`store?storeId=${storeId}`, data);
+    }
+
 }

@@ -23,7 +23,7 @@ export class EnterpriseListComponent implements OnInit {
   name = '';
   status = '';
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 10000;
   companies = [];
 
   constructor(
@@ -49,11 +49,12 @@ export class EnterpriseListComponent implements OnInit {
       )
       .subscribe((res) => {
         this.companies = res.payload;
+        console.log(res.payload);
+
         this.companies.forEach((item, index) => {
           item['index'] = index + 1;
           item['isSelected'] = false;
         });
-        console.log('companies', this.companies);
       });
   }
 
@@ -73,7 +74,6 @@ export class EnterpriseListComponent implements OnInit {
           item['index'] = index + 1;
           item['isSelected'] = false;
         });
-        console.log('companies', this.companies);
       });
     // const filter = this.listFilter.filter(x => x.value);
     // if (!filter.length) return this.dataSub = this.companies;
@@ -141,6 +141,13 @@ export class EnterpriseListComponent implements OnInit {
         })
         .afterClosed()
         .subscribe((result) => {
+          this.getCompanies();
+        });
+    }
+    if (ev.type === 'approve') {
+      this.companyService
+        .updateCompany(ev.item.CompanyId, { Type: 2 })
+        .subscribe((res) => {
           this.getCompanies();
         });
     }

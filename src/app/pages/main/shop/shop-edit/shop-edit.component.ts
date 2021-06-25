@@ -1,20 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DistributorModel } from 'src/app/models/distributor.model';
+import { ShopModel } from 'src/app/models/shop.model';
 import { CompanyService } from 'src/app/services/company.service';
-import { DistributorService } from 'src/app/services/distributor.service';
 import { LocationService } from 'src/app/services/location.service';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-  selector: 'app-edit-distributor',
-  templateUrl: './edit-distributor.component.html',
-  styleUrls: ['./edit-distributor.component.scss']
+  selector: 'app-shop-edit',
+  templateUrl: './shop-edit.component.html',
+  styleUrls: ['./shop-edit.component.scss']
 })
-export class EditDistributorComponent implements OnInit {
-  conFig = new DistributorModel;
-  dataModel: any = {};
+export class ShopEditComponent implements OnInit {
+  conFig = new ShopModel();
+  dataModel = {};
   option = {
-    title: 'Thông tin nhà phân phối',
+    title: 'THÔNG TIN ĐIỂM BÁN',
     type: 'edit'
   };
 
@@ -39,26 +39,26 @@ export class EditDistributorComponent implements OnInit {
   pageSize = 10;
   companies = [];
 
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<EditDistributorComponent>,
+    private dialogRef: MatDialogRef<ShopEditComponent>,
     private locationService: LocationService,
-    private distributorService: DistributorService,
+    private storeService: StoreService,
     private companyService: CompanyService
   ) { }
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
-    this.getDistributor();
+    this.getStore();
     this.getNations();
     this.getProvinces();
     this.getCompanies();
   }
 
-  getDistributor() {
-    this.distributorService.getDistributor(this.data.DistributorId).subscribe(res => {
+  getStore() {
+    this.storeService.getStore(this.data.StoreId).subscribe(res => {
       this.dataModel = res;
-      this.dataModel.listMedia = res.DistributorMedias;
     })
   }
 
@@ -71,45 +71,8 @@ export class EditDistributorComponent implements OnInit {
             name: company.Name,
             value: company.CompanyId
           }
-        });
+        })
       });
-  }
-
-  getNations() {
-    this.locationService.list().subscribe(res => {
-      this.nations = res.reverse();
-      this.listCreate[3].data = this.nations.map(nation => {
-        return {
-          name: nation.Name,
-          value: nation.NationId
-        }
-      })
-    });
-  }
-
-  getProvinces() {
-    this.locationService.getProvince(this.nationId).subscribe(res => {
-      this.provinces = res;
-      this.listCreate[4].data = this.provinces.map(province => {
-        return {
-          name: province.Name,
-          value: province.ProvinceId
-        }
-      }
-      );
-    })
-  }
-
-  getDistricts() {
-    this.locationService.getDistrict(this.provinceId).subscribe(res => {
-      this.districts = res;
-      this.listCreate[5].data = this.districts.map(district => {
-        return {
-          name: district.Name,
-          value: district.DistrictId
-        }
-      })
-    })
   }
 
   handleCallbackEvent = (event) => {
@@ -117,6 +80,7 @@ export class EditDistributorComponent implements OnInit {
       this.provinceId = event.value;
       this.getDistricts();
     }
+
     switch (event.class) {
       case 'btn-cancel':
         this.cancel();
@@ -134,12 +98,49 @@ export class EditDistributorComponent implements OnInit {
   }
 
   save = (value) => {
-    console.log('edit distri', value);
-
     this.dataModel = value;
-    this.distributorService.updateDistributor(this.data.DistributorId, this.dataModel).subscribe(res => {
+    this.storeService.updateStore(this.data.StoreId, this.dataModel).subscribe(res => {
       this.dialogRef.close();
     })
   }
+
+  getNations() {
+    this.locationService.list().subscribe(res => {
+      this.nations = res.reverse();
+      this.listCreate[2].data = this.nations.map(nation => {
+        return {
+          name: nation.Name,
+          value: nation.NationId
+        }
+      })
+    });
+  }
+
+  getProvinces() {
+    this.locationService.getProvince(this.nationId).subscribe(res => {
+      this.provinces = res;
+      this.listCreate[3].data = this.provinces.map(province => {
+        return {
+          name: province.Name,
+          value: province.ProvinceId
+        }
+      }
+      );
+    })
+  }
+
+  getDistricts() {
+    this.locationService.getDistrict(this.provinceId).subscribe(res => {
+      this.districts = res;
+      this.listCreate[4].data = this.districts.map(district => {
+        return {
+          name: district.Name,
+          value: district.DistrictId
+        }
+      });
+    })
+  }
+
+
 
 }
