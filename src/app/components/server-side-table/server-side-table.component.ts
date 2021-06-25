@@ -43,22 +43,24 @@ export class ServerSideTableComponent implements OnChanges {
     if (this.items) {
       this.sizes = [
         ...this.items.map((a) => {
+          let i;
           if (a.DistributorId) {
-            return {
-              DistributorId: a.DistributorId,
-              isChecked: false,
-            };
+            i = a.DistributorId;
+          }
+
+          if (a.StoreId) {
+            i = a.StoreId;
+          }
+          if (a.ProductId) {
+            i = a.ProductId;
           }
 
           if (a.CompanyId) {
-            return {
-              CompanyId: a.CompanyId,
-              isChecked: false,
-            };
+            i = a.CompanyId;
           }
 
           return {
-            ProductId: a.ProductId,
+            id: i,
             isChecked: false,
           };
         }),
@@ -84,14 +86,7 @@ export class ServerSideTableComponent implements OnChanges {
 
       let idx = this.sizes
         .map((a) => {
-          if (a.DistributorId) {
-            return a.DistributorId;
-          }
-          if (a.CompanyId) {
-            return a.CompanyId;
-          }
-
-          return a.ProductId || a.DistributorId || a.CompanyId;
+          return a.id;
         })
         .indexOf(a);
       this.sizes[idx].isChecked = ev.target.checked;
@@ -102,13 +97,7 @@ export class ServerSideTableComponent implements OnChanges {
   checkOne(ev) {
     let idx = this.sizes
       .map((a) => {
-        if (a.DistributorId) {
-          return a.DistributorId;
-        }
-        if (a.CompanyId) {
-          return a.CompanyId;
-        }
-        return a.ProductId || a.DistributorId || a.CompanyId;
+        return a.id;
       })
       .indexOf(+ev.target.value);
     this.sizes[idx].isChecked = ev.target.checked;

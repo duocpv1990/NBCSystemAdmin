@@ -192,9 +192,7 @@ export class DistributorListComponent implements OnInit {
       from(ev.dataDelete)
         .pipe(
           filter((res: any) => res.isChecked === true),
-          concatMap((res) =>
-            this.distributorService.deleteDistributor(res.DistributorId)
-          )
+          concatMap((res) => this.distributorService.deleteDistributor(res.id))
         )
         .subscribe(() => {
           this.getDistributor();

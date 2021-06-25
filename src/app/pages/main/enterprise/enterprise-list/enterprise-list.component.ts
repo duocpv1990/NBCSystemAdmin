@@ -205,7 +205,7 @@ export class EnterpriseListComponent implements OnInit {
       from(ev.dataDelete)
         .pipe(
           filter((res: any) => res.isChecked === true),
-          concatMap((res) => this.companyService.deleteCompany(res.CompanyId))
+          concatMap((res) => this.companyService.deleteCompany(res.id))
         )
         .subscribe({
           complete: () => {

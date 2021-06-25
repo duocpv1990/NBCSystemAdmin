@@ -293,7 +293,7 @@ export class ProductListComponent implements OnInit {
       from(ev.dataDelete)
         .pipe(
           filter((res: any) => res.isChecked === true),
-          concatMap((res) => this.productService.deleteProduct(res.ProductId))
+          concatMap((res) => this.productService.deleteProduct(res.id))
         )
         .subscribe(() => {
           this.getProductList();
