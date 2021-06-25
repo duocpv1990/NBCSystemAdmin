@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Authorization } from 'src/app/models/authorization.model';
+import { PrivilegeService } from 'src/app/services/privilege.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-authorization',
@@ -8,52 +10,96 @@ import { Authorization } from 'src/app/models/authorization.model';
 })
 export class AuthorizationComponent implements OnInit {
   config = new Authorization();
-  enterpriseDataTable;
-  enterpriseData = [
-    { Enterprise: 'Thêm doanh nghiệp' },
-    { Enterprise: 'Xem thông tin doanh nghiệp' },
-    { Enterprise: 'Sửa thông tin doanh nghiệp' },
-    { Enterprise: 'Xóa thông tin doanh nghiệp' },
-    { Enterprise: 'Duyệt thông tin doanh nghiệp' },
-  ];
 
-  distributorDataTable;
-  distributorData = [
-    { Distributor: 'Thêm nhà phân phối' },
-    { Distributor: 'Xem thông tin nhà phân phối' },
-    { Distributor: 'Sửa thông tin nhà phân phối' },
-    { Distributor: 'Xóa thông tin nhà phân phối' },
-    { Distributor: 'Duyệt thông tin nhà phân phối' },
-  ];
+  name = '';
+  createdBy = '';
+  updatedBy = '';
+  createdDate = '';
+  pageNumber = 1;
+  pageSize = 10;
+  roles = [];
+  roleId: number;
+  rolePolicies = [];
+  checkSelectAll;
+  isShow = false;
+  selectedData: any = [];
 
-  productDataTable;
-  productData = [
-    { Product: 'Thêm sản phẩm' },
-    { Product: 'Xem thông tin sản phẩm' },
-    { Product: 'Sửa thông tin sản phẩm' },
-    { Product: 'Xóa thông tin sản phẩm' },
-  ];
+  constructor(
+    private privilegeService: PrivilegeService,
 
-  servicePackageDataTable;
-  servicePackageData = [
-    { ServicePackage: 'Thêm gói dịch vụ' },
-    { ServicePackage: 'Xem thông tin gói dịch vụ' },
-    { ServicePackage: 'Sửa thông tin gói dịch vụ' },
-    { ServicePackage: 'Xóa thông tin gói dịch vụ' },
-  ];
-
-
-  constructor() { }
+  ) { }
 
   ngOnInit(): void {
-    this.tableDataInit();
+    this.getRoles();
   }
 
-  tableDataInit() {
-    this.enterpriseDataTable = this.config.enterpriseCollums;
-    this.distributorDataTable = this.config.distributorCollums;
-    this.productDataTable = this.config.productCollums;
-    this.servicePackageDataTable = this.config.servicePackageCollums;
+
+  getRoles() {
+    this.privilegeService.getRoles(this.pageNumber, this.pageSize, this.createdDate, this.updatedBy, this.createdBy, this.name).subscribe(res => {
+      this.roles = res.payload.reverse();
+      this.roleId = this.roles[0].RoleId;
+      this.getRolePolicies();
+    });
   }
+
+  getRolePolicies() {
+    this.privilegeService.getRolePolicy(this.roleId).subscribe(res => {
+      this.rolePolicies = res;
+      this.rolePolicies.forEach(item => {
+        item.Policies.forEach(policy => {
+          if (policy.IsValid == 0) {
+            policy.check = false;
+          } else {
+            policy.check = true;
+            this.selectedData.push(policy.PolicyId);
+          }
+        });
+      });
+      console.log('selectedData', this.selectedData);
+
+    });
+  }
+
+  changeRole(event) {
+    this.roleId = event;
+    this.getRolePolicies();
+  }
+
+  updatePolicies() {
+    let policy = {
+      RoleId: this.roleId,
+      PolicyIdList: this.selectedData
+    }
+    this.privilegeService.updatePolicies(policy).subscribe(res => {
+
+      this.getRolePolicies();
+    });
+  }
+
+
+  selectAll(value, index) {
+    this.checkSelectAll = true;
+    this.rolePolicies[index].Policies.forEach(x => {
+      x.check = value;
+    });
+    this.rolePolicies[index].Policies.forEach(x => {
+      if (x.check === true) {
+        this.selectedData.push(x.PolicyId);
+      };
+    });
+  }
+
+  selectItem(policy, value, index) {
+    policy.check = value;
+    if (this.selectedData.includes(policy.PolicyId)) {
+      let index = this.selectedData.findIndex(policyId => policyId == policy.PolicyId);
+      this.selectedData.splice(index, 1);
+    }
+    else {
+      this.selectedData.push(policy.PolicyId);
+    }
+
+  }
+
 
 }

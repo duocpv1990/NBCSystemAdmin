@@ -56,23 +56,23 @@ export class Privilege {
             },
 
             {
-                id: 'Privileges',
+                id: 'Name',
                 name: 'Nhóm quyền',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'CreatePerson',
+                id: 'Creator',
                 name: 'Người tạo',
                 width: 200,
                 type: 'text',
             },
 
             {
-                id: 'CreateDate',
+                id: 'CreatedOn',
                 name: 'Ngày tạo',
                 width: 200,
-                type: 'text',
+                type: 'date',
             },
             {
                 id: 'LastUpdatedDate',
@@ -84,7 +84,7 @@ export class Privilege {
                 id: 'LastUpdatedPerson',
                 name: 'Người sửa đổi lần cuối',
                 width: 200,
-                type: 'object',
+                type: 'text',
             },
             {
                 id: 'AccountNumber',
@@ -93,7 +93,7 @@ export class Privilege {
                 type: 'text',
             },
             {
-                id: 'Condition',
+                id: 'Type',
                 name: 'Tình trạng',
                 width: 200,
                 type: 'text',
@@ -130,7 +130,7 @@ export class Privilege {
             // },
             {
                 class: 'btn-delete',
-                text: 'Xoá sản phẩm',
+                text: 'Xoá',
                 type: 'delete',
                 icon: ''
             },

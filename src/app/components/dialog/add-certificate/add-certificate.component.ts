@@ -50,6 +50,7 @@ export class AddCertificateComponent
         },
       ];
     }
+    this.model.fileNameList = this.fileNames;
     this.dialogRef.close({
       type,
       data: this.model,
@@ -71,7 +72,7 @@ export class AddCertificateComponent
     });
     fileArr.forEach((val: any) => {
       const type = val.type.split('/');
-      if (type[0] == 'image') {
+      if (type[0] === 'image') {
         this.fileNames.push(val.name);
         console.log('fileName', this.fileNames);
       }

@@ -1,10 +1,19 @@
 <div class="content-title">Quản lý doanh nghiệp</div>
-<app-filter [typeForms]="'enterprise'"
-            [(listFilter)]="listFilter"
-            (callback)="handleCallback($event)">
-</app-filter>
+<ng-container *ngIf="formModel.length > 0">
+    <app-new-filter [MY_FORM_MODEL]="formModel"
+                    (search)="getCompanies($event)"></app-new-filter>
+</ng-container>
+<br>
+<br>
+<!-- 
 <app-table [tableData]="dataTable"
-           [data]="companies"
+           [data]="dataSub"
            [listActive]="listActive"
            (callback)="handleCallbackTable($event)">
-</app-table>
+</app-table> -->
+
+<app-server-side-table [items]="dataSub"
+                       [config]="configHeader"
+                       [pagination]="pagination"
+                       (paginationChange)="changePage($event)"
+                       (eventTrigger)="handleCallbackTable($event)"></app-server-side-table>

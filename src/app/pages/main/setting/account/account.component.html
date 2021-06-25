@@ -1,7 +1,7 @@
 <div class="content-title">Danh sách tài khoản</div>
 
-<app-filter [(listFilter)]="listFilter" (callback)="handleCallback($event)">
+<app-filter [(listFilter)]="listFilter" (callback)="handleFilterCallback($event)">
 </app-filter>
 
-<app-table [tableData]="dataTable" [data]="dataSub" [listActive]="listActive" (callback)="handleCallbackTable($event)">
+<app-table [tableData]="dataTable" [data]="accounts" [listActive]="listActive" (callback)="handleCallbackTable($event)">
 </app-table>

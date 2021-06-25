@@ -80,12 +80,12 @@
                    for="{{ item.id }}">
               <mat-icon class="add-photo">add_a_photo</mat-icon>
             </label>
-            <img [src]="mediaURL"
+            <img [src]="avatarUrl"
                  height="200"
-                 *ngIf="mediaURL" />
+                 *ngIf="item.name === 'avatar'" />
             <img [src]="backgroundURL"
                  height="200"
-                 *ngIf="backgroundURL" />
+                 *ngIf="item.name === 'background'" />
           </div>
           <input id="{{ item.id }}"
                  #file
@@ -109,13 +109,39 @@
               (click)="addCertificate()">Thêm mới</button>
     </div>
   </div>
-  <div class="group-btn">
-    <button *ngFor="let i of arrayButton; let index = index"
-            class="btn mbf-btn"
-            [class]="i.class"
-            (click)="onClickButton(i)">
-      {{ i?.text }}
-    </button>
+  <div class="cert">
+    <div class="content row align-items-start flex-column d-flex"
+         [hidden]="item.type !== 'cert'"
+         *ngFor="let item of data">
+      <div class="item"
+           *ngIf="item.type === 'cert'">
+        <div class="left">Tên chứng nhận</div>
+        <div class="right">{{item.data.Name}}</div>
+      </div>
+      <div class="item"
+           *ngIf="item.type === 'cert'">
+        <div class="left">Trạng thái</div>
+        <div class="right">{{item.data.Status}}</div>
+      </div>
+      <div class="item"
+           *ngIf="item.type === 'cert'">
+        <div class="left">Ngày hết hạn</div>
+        <div class="right">{{item.data.ExpiredDate}}</div>
+      </div>
+      <div class="item"
+           *ngIf="item.type === 'cert'">
+        <div class="left">Hình ảnh giấy chứng nhận</div>
+        <div class="right">{{item.data.name}}</div>
+      </div>
 
+    </div>
+    <div class="group-btn">
+      <button *ngFor="let i of arrayButton; let index = index"
+              class="btn mbf-btn"
+              [class]="i.class"
+              (click)="onClickButton(i)">
+        {{ i?.text }}
+      </button>
+
+    </div>
   </div>
-</div>

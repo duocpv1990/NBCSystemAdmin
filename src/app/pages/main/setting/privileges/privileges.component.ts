@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { Privilege } from 'src/app/models/privilege.model';
+import { PrivilegeService } from 'src/app/services/privilege.service';
 import { PrivilegeAddComponent } from './privilege-add/privilege-add.component';
 import { PrivilegeDeleteComponent } from './privilege-delete/privilege-delete.component';
 import { PrivilegeUpdateComponent } from './privilege-update/privilege-update.component';
@@ -20,25 +21,18 @@ export class PrivilegesComponent implements OnInit {
   tableData = [];
   listActive;
   dataTable;
-  data = [
-    {
-      Privileges: 'Leader Sale Admin',
-      CreatePerson: 'admin',
-      CreateDate: '18/06/2021',
-      UserName: 'thaivu',
-      PhoneNumber: '0325641234',
-      Email: 'thaivu@ci.com',
-      LastUpdatedDate: '18/06/2021',
-      LastUpdatedPerson: 'admin',
-      AccountNumber: '01',
-      Condition: 'Hoạt động',
-      Status: 'Khóa'
-    },
-
-  ];
+  name = '';
+  createdBy = '';
+  updatedBy = '';
+  createdDate = '';
+  pageNumber = 1;
+  pageSize = 10;
+  roles = [];
+  timer;
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private privilegeService: PrivilegeService
   ) { }
 
   ngOnInit(): void {
@@ -46,30 +40,24 @@ export class PrivilegesComponent implements OnInit {
     this.tableData = this.config.collums;
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
-    this.dataSub = this.data;
+    this.getRoles();
   }
 
-  handleCallback(ev) {
-    const filter = this.listFilter.filter(x => x.value);
-    if (!filter.length) return this.dataSub = this.data;
-    filter.forEach((x, ix) => {
-      if (ix === 0) {
-        if (x.type === 'text' || x.type === 'search') {
-          this.dataSub = this.data.filter(
-            (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
-        } else {
-          this.dataSub = this.data.filter((a) => a[x.condition] == x.value);
-        }
-      } else {
-        if (x.type === 'text' || x.type === 'search') {
-          this.dataSub = this.dataSub.filter(
-            (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
-        } else {
-          this.dataSub = this.dataSub.filter((a) => a[x.condition] == x.value);
-        }
-      }
-
+  getRoles() {
+    this.privilegeService.getRoles(this.pageNumber, this.pageSize, this.createdDate, this.updatedBy, this.createdBy, this.name).subscribe(res => {
+      this.roles = res.payload.reverse();
     });
+  }
+
+  handleFilterCallback(event) {
+    console.log(event);
+    if (event.condition === 'privilege') {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.name = event.value;
+        this.getRoles();
+      }, 100);
+    }
 
   }
 
@@ -80,6 +68,7 @@ export class PrivilegesComponent implements OnInit {
         width: '642px',
         height: '382px'
       }).afterClosed().subscribe(result => {
+        this.getRoles();
       });
     }
     if (ev.type === 'import') {
@@ -87,6 +76,7 @@ export class PrivilegesComponent implements OnInit {
         width: '500px',
         height: '350px'
       }).afterClosed().subscribe(result => {
+        this.getRoles();
       });
     }
     if (ev.type === 'edit') {
@@ -95,6 +85,7 @@ export class PrivilegesComponent implements OnInit {
         height: '382px',
         data: ev.item
       }).afterClosed().subscribe(result => {
+        this.getRoles();
       });
     }
     if (ev.type === 'delete') {
@@ -107,6 +98,7 @@ export class PrivilegesComponent implements OnInit {
           content: "Bạn có muốn xoá Tài khoản trên hệ thống?"
         }
       }).afterClosed().subscribe(result => {
+        this.getRoles();
       });
     }
   }

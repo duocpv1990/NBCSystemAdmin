@@ -1,0 +1,110 @@
+.btn-create {
+  width: 150px;
+  height: 40px;
+  background-color: #1894ff;
+  color: white;
+  margin-right: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-delete {
+  height: 40px;
+  padding: 0 20px;
+  width: 120px;
+  color: #ff1818;
+  background-color: #ffffff;
+  border: 1px solid #ff1818;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-export {
+  width: 120px;
+  margin-right: 5px;
+  height: 40px;
+  color: white;
+  background-color: #f79e28;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+.btn-hide {
+  width: 85px;
+  height: 40px;
+  color: white;
+  background-color: #898989;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+.bnt-show {
+  width: 85px;
+  height: 40px;
+  color: #1894ff;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #1894ff;
+  cursor: pointer;
+}
+
+.pagination_ip {
+  border-radius: 1rem;
+  border: 1px solid #d8d8d8;
+  display: flex;
+  height: 43px;
+  width: 56px;
+  margin: 18px 5px;
+  justify-content: center;
+  align-items: center;
+}
+.custom-pagination {
+  display: flex;
+  .lastpage {
+    display: flex;
+    height: 43px;
+    width: 56px;
+    margin: 18px 5px;
+    justify-content: start;
+    align-items: center;
+  }
+}
+.top_bar {
+  display: flex;
+  justify-content: space-between;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: none;
+  text-align: left;
+  padding: 15px;
+}
+
+tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+.checkbox {
+  width: 23px;
+  height: 23px;
+}
+a {
+  cursor: pointer;
+}
+
+.danger {
+  color: red;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid;
+}
+.success {
+  color: green;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid;
+}

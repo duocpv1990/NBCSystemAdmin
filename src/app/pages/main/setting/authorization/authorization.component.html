@@ -1,26 +1,45 @@
 <div class="authorization-header">
     <div class="content-title">Phân quyền</div>
     <div class="sub-title">Tên nhóm quyền</div>
-    <select class="form-control" name="" id="">
-        <option value="">Leader sale admin</option>
-    </select>
+    <div class="option-button">
+        <select class="form-control" (change)=changeRole($event.target.value)>
+            <option *ngFor="let role of roles" [value]="role.RoleId">
+                {{role.Name}}
+            </option>
+        </select>
+        &nbsp;
+        &nbsp;
+        <button (click)="updatePolicies()" class="save-button">Lưu</button>
+    </div>
+
 </div>
 
 <div class="authorization-content">
-    <div class="card-checkbox">
-        <app-table [tableData]="enterpriseDataTable" [data]="enterpriseData">
-        </app-table>
+    <div *ngFor="let item of rolePolicies; index as index1" class="card-checkbox">
+        <table class="table table-borderless">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">
+                        <input type="checkbox" id="idx" (click)="selectAll($event.target.checked, index1)">
+                    </th>
+                    <th scope="col">
+                        {{item.Name}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let policy of item.Policies; index as index2">
+                    <td>
+                        <input type="checkbox" (click)="selectItem(policy, $event.target.checked, index2)"
+                            class="checkbox" [checked]="policy.check">
+                    </td>
+                    <td>
+                        {{policy.Name}}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
-    <div class="card-checkbox">
-        <app-table [tableData]="distributorDataTable" [data]="distributorData">
-        </app-table>
-    </div>
-    <div class="card-checkbox">
-        <app-table [tableData]="productDataTable" [data]="productData">
-        </app-table>
-    </div>
-    <div class="card-checkbox">
-        <app-table [tableData]="servicePackageDataTable" [data]="servicePackageData">
-        </app-table>
-    </div>
+
 </div>

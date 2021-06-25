@@ -7,17 +7,12 @@ export class DistributorModel {
 
     public get filter(): Array<FilterModel> {
         return [
+
             {
                 Text: 'Tên nhà phân phối',
                 type: 'text',
                 data: [],
                 condition: 'Name'
-            },
-            {
-                Text: 'Tên doanh nghiệp',
-                type: 'text',
-                data: [],
-                condition: 'city'
             },
             {
                 Text: 'Điện thoại',
@@ -104,7 +99,7 @@ export class DistributorModel {
                 id: 'UpdatedOn',
                 name: 'Cập nhật',
                 width: 200,
-                type: 'text',
+                type: 'date',
             },
             {
                 id: 'Type',
@@ -131,7 +126,7 @@ export class DistributorModel {
             },
             {
                 class: 'btn-delete',
-                text: 'Gỡ nhà phân phối',
+                text: 'Xóa',
                 type: 'delete',
                 icon: ''
             }, {
@@ -144,6 +139,12 @@ export class DistributorModel {
     }
     public get create(): Array<CreateModel> {
         return [
+            {
+                id: 'CompanyId',
+                label: 'Tên doanh nghiệp',
+                name: 'Name',
+                type: 'select',
+            },
             {
                 id: 'Name',
                 label: 'Tên nhà phân phối',

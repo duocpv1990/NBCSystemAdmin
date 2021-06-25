@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-account-update',
@@ -23,13 +24,32 @@ export class AccountUpdateComponent implements OnInit {
     text: 'Lưu'
   }];
   listCreate = [];
+  pageNumber = 1;
+  pageSize = 50;
+  name = '';
+  status = '';
+  createdBy = '';
+  roleId = '';
+  accounts = [];
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AccountUpdateComponent>,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
+    this.getAccounts();
+  }
+
+  getAccounts() {
+    this.accountService.getAccounts(this.pageNumber, this.pageSize, this.name, this.status, this.createdBy, this.roleId).subscribe(res => {
+      this.accounts = res.payload;
+      this.dataModel = this.accounts.find(item => item.UserProfileId == this.data.UserProfileId);
+      console.log('dataModel', this.dataModel);
+
+    });
   }
 
   handleCallbackEvent = (event) => {

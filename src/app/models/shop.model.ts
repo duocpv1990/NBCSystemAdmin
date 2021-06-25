@@ -114,7 +114,7 @@ export class ShopModel {
                 id: 'UpdatedOn',
                 name: 'Cập nhập',
                 width: 200,
-                type: 'text',
+                type: 'date',
             },
             {
                 id: 'noun',
@@ -128,16 +128,16 @@ export class ShopModel {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'Name',
+                id: 'CompanyId',
                 label: 'Tên doanh nghiệp',
                 name: 'Name',
-                type: 'text'
+                type: 'select',
             },
 
             {
-                id: 'StoreName',
+                id: 'Name',
                 label: 'Điểm bán',
-                name: 'StoreName',
+                name: 'Name',
                 type: 'text'
             },
             {
