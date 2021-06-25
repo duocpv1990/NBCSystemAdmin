@@ -15,7 +15,7 @@ import { appRoutes } from './app.routes';
 import { APIInterceptor } from './utils/interceptors/api.interceptor';
 
 @NgModule({
-  declarations: [AppComponent,],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),

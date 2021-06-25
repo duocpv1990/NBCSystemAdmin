@@ -42,10 +42,28 @@ export class ServerSideTableComponent implements OnChanges {
 
     if (this.items) {
       this.sizes = [
-        ...this.items.map((a) => ({
-          ProductId: a.ProductId,
-          isChecked: false,
-        })),
+        ...this.items.map((a) => {
+          let i;
+          if (a.DistributorId) {
+            i = a.DistributorId;
+          }
+
+          if (a.StoreId) {
+            i = a.StoreId;
+          }
+          if (a.ProductId) {
+            i = a.ProductId;
+          }
+
+          if (a.CompanyId) {
+            i = a.CompanyId;
+          }
+
+          return {
+            id: i,
+            isChecked: false,
+          };
+        }),
       ];
     }
   }
@@ -56,14 +74,32 @@ export class ServerSideTableComponent implements OnChanges {
     });
 
     this.items.forEach((element) => {
-      let idx = this.sizes.map((a) => a.ProductId).indexOf(element.ProductId);
+      let a;
+
+      if (element.ProductId) {
+        a = element.ProductId;
+      } else if (element.DistributorId) {
+        a = element.DistributorId;
+      } else {
+        a = element.CompanyId;
+      }
+
+      let idx = this.sizes
+        .map((a) => {
+          return a.id;
+        })
+        .indexOf(a);
       this.sizes[idx].isChecked = ev.target.checked;
     });
     // this.sizes.forEach((x) => (x.isChecked = ev.target.checked));
   }
 
   checkOne(ev) {
-    let idx = this.sizes.map((a) => a.ProductId).indexOf(+ev.target.value);
+    let idx = this.sizes
+      .map((a) => {
+        return a.id;
+      })
+      .indexOf(+ev.target.value);
     this.sizes[idx].isChecked = ev.target.checked;
 
     console.log(this.sizes);

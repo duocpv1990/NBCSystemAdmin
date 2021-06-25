@@ -1,0 +1,13 @@
+<div class="ci-base-filter shadow-half">
+    <form [formGroup]="formGroup">
+
+        <dynamic-basic-form [group]="formGroup"
+                            [model]="formModel">
+            <ng-template modelId="myInput">
+                <p>Some custom markup</p>
+            </ng-template>
+
+        </dynamic-basic-form>
+
+    </form>
+</div>

@@ -4,6 +4,7 @@
     .filter_wrapper {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
+
       gap: 1rem;
       .form_area {
         grid-column: span 3 / span 3;

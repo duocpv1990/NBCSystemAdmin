@@ -73,7 +73,7 @@ export class ProductUpdateComponent
   selectedDistributorsProductInput: QueryList<ElementRef>;
   @ViewChildren('distributeProduct')
   selectedDistributeProduct: QueryList<ElementRef>;
-
+  fileLinkListView: any = [];
   selectedNotDistributors: any = [];
   distributeNotEdit = [];
   constructor(
@@ -107,7 +107,7 @@ export class ProductUpdateComponent
     this.productForms = this.fb.group({
       CompanyId: [7],
       ProductCode: [''],
-      TargetMarketId: [''],
+      TargetMarketIdList: [''],
       Name: [''],
       // Description: [''],
       Price: [''],
@@ -143,7 +143,9 @@ export class ProductUpdateComponent
             this.ingradients = res.payload.Ingredient.split(',');
           }
           this.bindingCertList = res.payload.ProductCertifications;
-          this.fileLinkList = res.payload.ProductMedias.map((a) => a.MediaURL);
+          this.fileLinkListView = res.payload.ProductMedias.map(
+            (a) => a.MediaURL
+          );
         })
       )
       .subscribe((res) => {
@@ -183,11 +185,14 @@ export class ProductUpdateComponent
     this.productForms.get('Manual').setValue(data.Manual);
     this.productForms.get('Type').setValue(data.Type);
     this.productForms.get('Status').setValue(data.Status);
-    this.productForms.get('ProductMedias').setValue(data.ProductMedias);
+    // this.productForms.get('ProductMedias').setValue(data.ProductMedias);
     this.productForms
       .get('CertificationIdList')
       .setValue(data.CertificationIdList);
     this.productForms.get('ProductCode').setValue(data.ProductCode);
+    this.productForms
+      .get('TargetMarketIdList')
+      .setValue(data.TargetMarketIdList);
     this.productForms.get('Name').setValue(data.Name);
     console.log(this.productForms.value);
   }
@@ -254,6 +259,7 @@ export class ProductUpdateComponent
   visible = true;
   selectable = true;
   removable = true;
+  isUploadNewFile = false;
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   ingradients: any[] = [];
@@ -344,31 +350,49 @@ export class ProductUpdateComponent
     // delete this.productForms.value.CertificationIdList;
     console.log(this.productForms.value);
 
+    console.log(this.productForms.get('ProductMedias').value);
+    if (this.isUploadNewFile == false) {
+      delete this.productForms.value.ProductMedias;
+    } else {
+      console.log(this.productForms.get('ProductMedias').value);
+
+      if (this.productForms.get('ProductMedias').value.length > 0) {
+        from(this.productForms.get('ProductMedias').value)
+          .pipe(
+            concatMap((res: any) =>
+              this.productService.postProductMedia({
+                ProductId: this.data.ProductId,
+                MediaURL: res.MediaURL,
+                Type: res.Type,
+                Status: 1,
+              })
+            )
+          )
+          .subscribe();
+      }
+    }
+
+    if (
+      this.productForms.value.DistributorProducts.some(
+        (a) => a.DistributorId === '' || !a.DistributorId
+      ) === true
+    ) {
+      delete this.productForms.value.DistributorProducts;
+    } else {
+      if (this.productForms.get('DistributorProducts').value) {
+        from(this.productForms.get('DistributorProducts').value)
+          .pipe(
+            concatMap((res) => this.distributorsService.postDisProduct(res))
+          )
+          .subscribe();
+      }
+    }
+
     this.productService
       .updateProduct(this.productForms.value, this.data.ProductId)
       .subscribe((res) => {
-        console.log(res);
+        this.closeDialog();
       });
-    if (this.productForms.get('DistributorProducts').value) {
-      from(this.productForms.get('DistributorProducts').value)
-        .pipe(concatMap((res) => this.distributorsService.postDisProduct(res)))
-        .subscribe();
-    }
-
-    if (this.productForms.get('ProductMedias').value.length > 0) {
-      from(this.productForms.get('ProductMedias').value)
-        .pipe(
-          concatMap((res: any) =>
-            this.productService.postProductMedia({
-              ProductId: this.data.ProductId,
-              MediaURL: res.MediaURL,
-              Type: res.Type,
-              Status: 1,
-            })
-          )
-        )
-        .subscribe();
-    }
 
     if (this.certList.length > 0) {
       from(this.certList)
@@ -388,6 +412,7 @@ export class ProductUpdateComponent
   }
 
   uploadFilesS3(files: File[]) {
+    this.isUploadNewFile = true;
     this.multipleUpload(files).subscribe({
       complete: () => {
         console.log(this.fileLinkList);
@@ -396,6 +421,7 @@ export class ProductUpdateComponent
           Type: 3,
           Status: 1,
         }));
+        this.fileLinkListView.push(...this.fileLinkList);
         this.productForms.get('ProductMedias').setValue(completeArr);
       },
     });

@@ -137,7 +137,7 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
     this.productForms = this.fb.group({
       CompanyId: [7],
       ProductCode: [''],
-      TargetMarketId: [''],
+      TargetMarketIdList: [''],
       Name: [''],
       Description: [''],
       Price: [''],
@@ -325,7 +325,8 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
       .setValue(this.productForms.get('ManufacturedOn').value.toISOString());
     console.log(this.productForms.value);
     this.productService.create(this.productForms.value).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
+      this.closeDialog();
     });
   }
 

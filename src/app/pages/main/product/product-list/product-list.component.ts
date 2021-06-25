@@ -69,22 +69,38 @@ export class ProductListComponent implements OnInit {
     new DynamicSelectModel({
       id: 'status',
       label: 'Trạng thái',
-      value: '1',
+      value: '',
       options: [
         {
-          value: '1',
+          value: '',
           label: 'Tất cả',
+        },
+        {
+          value: '2',
+          label: 'Đã duyệt',
+        },
+        {
+          value: '1',
+          label: 'Chưa duyệt',
         },
       ],
     }),
     new DynamicSelectModel({
       id: 'type',
       label: 'Trạng thái thông tin',
-      value: '1',
+      value: '',
       options: [
         {
-          value: '1',
+          value: '',
           label: 'Tất cả',
+        },
+        {
+          value: '2',
+          label: 'Cho quét',
+        },
+        {
+          value: '1',
+          label: 'Không cho quét',
         },
       ],
     }),
@@ -277,7 +293,7 @@ export class ProductListComponent implements OnInit {
       from(ev.dataDelete)
         .pipe(
           filter((res: any) => res.isChecked === true),
-          concatMap((res) => this.productService.deleteProduct(res.ProductId))
+          concatMap((res) => this.productService.deleteProduct(res.id))
         )
         .subscribe(() => {
           this.getProductList();

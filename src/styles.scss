@@ -51,7 +51,17 @@ body {
 }
 dynamic-basic-form {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1350px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   gap: 2rem;
 }
 

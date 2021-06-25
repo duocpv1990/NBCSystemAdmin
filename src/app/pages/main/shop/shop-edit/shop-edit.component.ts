@@ -8,24 +8,26 @@ import { StoreService } from 'src/app/services/store.service';
 @Component({
   selector: 'app-shop-edit',
   templateUrl: './shop-edit.component.html',
-  styleUrls: ['./shop-edit.component.scss']
+  styleUrls: ['./shop-edit.component.scss'],
 })
 export class ShopEditComponent implements OnInit {
   conFig = new ShopModel();
   dataModel = {};
   option = {
     title: 'THÔNG TIN ĐIỂM BÁN',
-    type: 'edit'
+    type: 'edit',
   };
 
-  arrayButton = [{
-    class: 'btn-cancel',
-    text: 'Hủy bỏ'
-  },
-  {
-    class: 'btn-save',
-    text: 'Lưu'
-  }];
+  arrayButton = [
+    {
+      class: 'btn-cancel',
+      text: 'Hủy bỏ',
+    },
+    {
+      class: 'btn-save',
+      text: 'Lưu',
+    },
+  ];
   listCreate = [];
   nations = [];
   provinces = [];
@@ -39,14 +41,13 @@ export class ShopEditComponent implements OnInit {
   pageSize = 10;
   companies = [];
 
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ShopEditComponent>,
     private locationService: LocationService,
     private storeService: StoreService,
     private companyService: CompanyService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
@@ -57,21 +58,29 @@ export class ShopEditComponent implements OnInit {
   }
 
   getStore() {
-    this.storeService.getStore(this.data.StoreId).subscribe(res => {
+    this.storeService.getStore(this.data.StoreId).subscribe((res) => {
       this.dataModel = res;
-    })
+    });
   }
 
   getCompanies() {
-    this.companyService.getCompanies(this.pageNumber, this.pageSize, this.companyCode, this.name, this.status)
-      .subscribe((res) => {
+    this.companyService
+      .getCompanies({
+        name: '',
+        companyCode: '',
+        status: '',
+        type: '',
+        pageNumber: 1,
+        pageSize: 1000,
+      })
+      .subscribe((res: any) => {
         this.companies = res.payload;
-        this.listCreate[0].data = this.companies.map(company => {
+        this.listCreate[0].data = this.companies.map((company) => {
           return {
             name: company.Name,
-            value: company.CompanyId
-          }
-        })
+            value: company.CompanyId,
+          };
+        });
       });
   }
 
@@ -86,61 +95,59 @@ export class ShopEditComponent implements OnInit {
         this.cancel();
         break;
       case 'btn-save':
-        this.save(event.data)
+        this.save(event.data);
         break;
       default:
         break;
     }
-  }
+  };
 
   cancel = () => {
     this.dialogRef.close();
-  }
+  };
 
   save = (value) => {
     this.dataModel = value;
-    this.storeService.updateStore(this.data.StoreId, this.dataModel).subscribe(res => {
-      this.dialogRef.close();
-    })
-  }
+    this.storeService
+      .updateStore(this.data.StoreId, this.dataModel)
+      .subscribe((res) => {
+        this.dialogRef.close();
+      });
+  };
 
   getNations() {
-    this.locationService.list().subscribe(res => {
+    this.locationService.list().subscribe((res) => {
       this.nations = res.reverse();
-      this.listCreate[2].data = this.nations.map(nation => {
+      this.listCreate[2].data = this.nations.map((nation) => {
         return {
           name: nation.Name,
-          value: nation.NationId
-        }
-      })
+          value: nation.NationId,
+        };
+      });
     });
   }
 
   getProvinces() {
-    this.locationService.getProvince(this.nationId).subscribe(res => {
+    this.locationService.getProvince(this.nationId).subscribe((res) => {
       this.provinces = res;
-      this.listCreate[3].data = this.provinces.map(province => {
+      this.listCreate[3].data = this.provinces.map((province) => {
         return {
           name: province.Name,
-          value: province.ProvinceId
-        }
-      }
-      );
-    })
+          value: province.ProvinceId,
+        };
+      });
+    });
   }
 
   getDistricts() {
-    this.locationService.getDistrict(this.provinceId).subscribe(res => {
+    this.locationService.getDistrict(this.provinceId).subscribe((res) => {
       this.districts = res;
-      this.listCreate[4].data = this.districts.map(district => {
+      this.listCreate[4].data = this.districts.map((district) => {
         return {
           name: district.Name,
-          value: district.DistrictId
-        }
+          value: district.DistrictId,
+        };
       });
-    })
+    });
   }
-
-
-
 }

@@ -1,31 +1,41 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { BaseApiService } from "./base-api.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BaseApiService } from './base-api.service';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class DistributorService extends BaseApiService<any> {
-    constructor(http: HttpClient) {
-        super(http, 'distributor');
-    }
+  constructor(http: HttpClient) {
+    super(http, 'distributor');
+  }
+  getProvince() {
+    return this.http.get('province', {
+      params: {
+        nationId: '916',
+      },
+    });
+  }
+  getAllDistributor(params) {
+    return this.http.get('distributor', { params });
+  }
 
-    getDistributors(pageNumber, pageSize, name, provinceId) {
-        return this.http.get(`distributor?pageNumber=${pageNumber}&pageSize=${pageSize}&name=${name}&provinceId=${provinceId}`).pipe(map((res: any) => res));
-    }
+  getDistributor(distributorId) {
+    return this.http
+      .get(`distributor/detail?distributorId=${distributorId}`)
+      .pipe(map((res: any) => res.payload));
+  }
 
-    getDistributor(distributorId) {
-        return this.http.get(`distributor/detail?distributorId=${distributorId}`).pipe(map((res: any) => res.payload));
-    }
-
-    updateDistributor(distributorId, data) {
-        return this.http.put(`distributor?distributorId=${distributorId}`, data);
-    }
-
-    deleteDistributor(distributorId) {
-        return this.http.delete(`distributor?distributorId=${distributorId}`);
-    }
-
+  updateDistributor(product, id) {
+    return this.http.put('distributor', product, {
+      params: {
+        distributorId: id,
+      },
+    });
+  }
+  deleteDistributor(distributorId) {
+    return this.http.delete(`distributor?distributorId=${distributorId}`);
+  }
 }

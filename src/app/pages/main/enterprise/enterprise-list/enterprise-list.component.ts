@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import { from } from 'rxjs';
+import { filter, concatMap } from 'rxjs/operators';
 import { DeleteComponent } from 'src/app/components/dialog/delete/delete.component';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { EnterPriseModel } from 'src/app/models/enterprise.model';
@@ -25,6 +28,93 @@ export class EnterpriseListComponent implements OnInit {
   pageNumber = 1;
   pageSize = 10000;
   companies = [];
+  configHeader = [
+    { key: 'index', label: 'STT' },
+    {
+      key: 'CompanyCode',
+      label: 'Mã doanh nghiệp',
+    },
+    {
+      key: 'GLN',
+      label: 'Mã địa điểm toàn cầu',
+    },
+    {
+      key: 'Name',
+      label: 'Tên doanh nghiệp',
+    },
+    {
+      key: 'Status',
+      label: 'Trạng thái',
+    },
+    {
+      key: 'Type',
+      label: 'Trình trạng',
+    },
+  ];
+  formModel = [
+    new DynamicInputModel({
+      id: 'name',
+      label: 'Tên doanh nghiệp',
+    }),
+    new DynamicInputModel({
+      id: 'companyCode',
+      label: 'Mã doanh nghiệp',
+    }),
+    new DynamicSelectModel({
+      id: 'status',
+      label: 'Trạng thái',
+      value: '',
+      options: [
+        {
+          value: '',
+          label: 'Tất cả',
+        },
+        {
+          value: '2',
+          label: 'Hoạt động',
+        },
+        {
+          value: '1',
+          label: 'Không hoạt động',
+        },
+      ],
+    }),
+    new DynamicSelectModel({
+      id: 'type',
+      label: 'Tình trạng',
+      value: '',
+      options: [
+        {
+          value: '',
+          label: 'Tất cả',
+        },
+        {
+          value: '2',
+          label: 'Đã duyệt',
+        },
+        {
+          value: '1',
+          label: 'Chưa duyệt',
+        },
+      ],
+    }),
+  ];
+
+  pagination = {
+    itemsPerPage: 10,
+    currentPage: 1,
+    totalItems: null,
+    id: 'distributor',
+  };
+
+  filter = {
+    name: '',
+    companyCode: '',
+    status: '',
+    type: '',
+    pageNumber: 1,
+    pageSize: 10,
+  };
 
   constructor(
     private dialog: MatDialog,
@@ -38,64 +128,50 @@ export class EnterpriseListComponent implements OnInit {
     this.getCompanies();
   }
 
-  getCompanies() {
-    this.companyService
-      .getCompanies(
-        this.pageNumber,
-        this.pageSize,
-        this.companyCode,
-        this.name,
-        this.status
-      )
-      .subscribe((res) => {
-        this.companies = res.payload;
-        console.log(res.payload);
-
-        this.companies.forEach((item, index) => {
-          item['index'] = index + 1;
-          item['isSelected'] = false;
-        });
-      });
+  changePage(ev) {
+    this.filter.pageNumber = ev;
+    this.getCompanies(this.filter);
   }
 
-  handleCallback(ev) {
-    console.log(ev);
-    this.companyService
-      .getCompanies(
-        this.pageNumber,
-        this.pageSize,
-        ev.companyCode,
-        ev.name,
-        ev.status
-      )
-      .subscribe((res) => {
-        this.companies = res.payload;
-        this.companies.forEach((item, index) => {
-          item['index'] = index + 1;
-          item['isSelected'] = false;
-        });
-      });
-    // const filter = this.listFilter.filter(x => x.value);
-    // if (!filter.length) return this.dataSub = this.companies;
-    // filter.forEach((x, ix) => {
-    //   if (ix === 0) {
-    //     if (x.type === 'text' || x.type === 'search') {
-    //       this.dataSub = this.companies.filter(
-    //         (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
-    //     } else {
-    //       this.dataSub = this.companies.filter((a) => a[x.condition] == x.value);
-    //     }
-    //   } else {
-    //     if (x.type === 'text' || x.type === 'search') {
-    //       this.dataSub = this.dataSub.filter(
-    //         (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
-    //     } else {
-    //       this.dataSub = this.dataSub.filter((a) => a[x.condition] == x.value);
-    //     }
-    //   }
+  getCompanies(filter = this.filter) {
+    for (var propName in filter) {
+      if (filter[propName] === null || filter[propName] === undefined) {
+        filter[propName] = '';
+      }
+    }
 
-    // });
+    if (!filter.pageNumber) {
+      filter.pageNumber = this.filter.pageNumber;
+    }
+
+    if (!filter.pageSize) {
+      filter.pageSize = this.filter.pageSize;
+    }
+
+    this.filter = filter;
+    console.log(this.filter);
+
+    this.companyService.getCompanies(this.filter).subscribe((res: any) => {
+      res.payload.forEach((el) => {
+        delete el.CreatedOn;
+        delete el.UpdatedOn;
+        delete el.CertificateNumber;
+      });
+
+      this.dataSub = res.payload;
+
+      this.pagination = {
+        itemsPerPage: this.filter.pageSize,
+        currentPage: this.filter.pageNumber,
+        totalItems: res.count,
+        id: 'company',
+      };
+      // this.distributors.forEach((item, index) => {
+      //   item['index'] = index + 1;
+      // });
+    });
   }
+
   handleCallbackTable(ev) {
     console.log(ev);
     if (ev.type === 'create') {
@@ -129,18 +205,32 @@ export class EnterpriseListComponent implements OnInit {
         });
     }
     if (ev.type === 'delete') {
-      return this.dialog
-        .open(DeleteEnterpriseComponent, {
-          width: '400px',
-          height: '250px',
-          data: {
-            item: ev.item,
-            title: 'Xoá doanh nghiệp',
-            content: 'Bạn có muốn xoá thông tin doanh nghiệp trên hệ thống?',
+      from(ev.dataDelete)
+        .pipe(
+          filter((res: any) => res.isChecked === true),
+          concatMap((res) => this.companyService.deleteCompany(res.id))
+        )
+        .subscribe({
+          complete: () => {
+            this.getCompanies();
           },
+        });
+    }
+    if (ev.type === 'update-type') {
+      this.companyService
+        .updateCompany(ev.id, {
+          Type: ev.data,
         })
-        .afterClosed()
-        .subscribe((result) => {
+        .subscribe(() => {
+          this.getCompanies();
+        });
+    }
+    if (ev.type === 'update-status') {
+      this.companyService
+        .updateCompany(ev.id, {
+          Status: ev.data,
+        })
+        .subscribe(() => {
           this.getCompanies();
         });
     }

@@ -56,7 +56,7 @@
                 <h5>Thị trường mục tiêu (<span>*</span>)</h5>
                 <mat-form-field appearance="outline"
                                 [hideRequiredMarker]="false">
-                    <mat-select formControlName="TargetMarketId"
+                    <mat-select formControlName="TargetMarketIdList"
                                 multiple>
                         <mat-option [value]="item.TargetMarketId"
                                     *ngFor="let item of targetMarket$ | async"> {{item.Name}} </mat-option>
@@ -67,7 +67,7 @@
             <div class="form_item col-span-full">
                 <h5>Ảnh đại diện (<span>*</span>)</h5>
                 <div class="select_img">
-                    <img *ngFor="let item of fileLinkList;let i = index; trackBy trackByFunc"
+                    <img *ngFor="let item of fileLinkListView;let i = index; trackBy trackByFunc"
                          [src]="item"
                          alt=""
                          [style.width.%]="100"

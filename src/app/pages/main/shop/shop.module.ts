@@ -14,19 +14,28 @@ import { CreateModule } from 'src/app/components/create/create.component';
 import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
 import { ShopEditComponent } from './shop-edit/shop-edit.component';
 import { EditModule } from 'src/app/components/edit/edit.component';
-
+import { ServerSideTableModule } from 'src/app/components/server-side-table/server-side-table.component';
+import { NewFilterModule } from 'src/app/components/new-filter/new-filter.component';
 
 @NgModule({
-  declarations: [ShopComponent, ShopListComponent, ShopCreateComponent, ShopDeleteComponent, ShopEditComponent],
+  declarations: [
+    ShopComponent,
+    ShopListComponent,
+    ShopCreateComponent,
+    ShopDeleteComponent,
+    ShopEditComponent,
+  ],
   imports: [
     CommonModule,
     FilterBaseModule,
     TableBaseModule,
     CreateModule,
     DeleteModule,
+    NewFilterModule,
+    ServerSideTableModule,
     RouterModule.forChild(shopRoute),
-    EditModule
+    EditModule,
   ],
-  exports: [ShopComponent]
+  exports: [ShopComponent],
 })
-export class ShopModule { }
+export class ShopModule {}
