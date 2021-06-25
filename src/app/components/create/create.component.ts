@@ -62,8 +62,8 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
     if (value === 'avatar') {
       if (files.length === 0) return;
       this.multipleUpload(files).subscribe(
-        (res) => {},
-        (err) => {},
+        (res) => { },
+        (err) => { },
         () => {
           console.log(this.fileLinkList);
           this.mediaUrl = this.fileLinkList[0];
@@ -79,8 +79,8 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
     } else if (value === 'background') {
       if (files.length === 0) return;
       this.multipleUpload(files).subscribe(
-        (res) => {},
-        (err) => {},
+        (res) => { },
+        (err) => { },
         () => {
           console.log(this.fileLinkList);
           this.backgroundURL = this.fileLinkList[0];
@@ -95,7 +95,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
       );
     }
   }
-  onCallBackData = () => {};
+  onCallBackData = () => { };
 
   onClickButton = (i) => {
     this.model.Type = 1;
@@ -135,4 +135,4 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   ],
   exports: [CreateComponent],
 })
-export class CreateModule {}
+export class CreateModule { }

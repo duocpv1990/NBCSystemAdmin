@@ -77,8 +77,8 @@ export class PrivilegesComponent implements OnInit {
     console.log(ev);
     if (ev.type === 'create') {
       return this.dialog.open(PrivilegeAddComponent, {
-        width: '940px',
-        height: '843px'
+        width: '642px',
+        height: '382px'
       }).afterClosed().subscribe(result => {
       });
     }
@@ -91,8 +91,8 @@ export class PrivilegesComponent implements OnInit {
     }
     if (ev.type === 'edit') {
       return this.dialog.open(PrivilegeUpdateComponent, {
-        width: '940px',
-        height: '843px',
+        width: '642px',
+        height: '382px',
         data: ev.item
       }).afterClosed().subscribe(result => {
       });

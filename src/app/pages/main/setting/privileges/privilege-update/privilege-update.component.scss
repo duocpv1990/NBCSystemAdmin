@@ -1,0 +1,9 @@
+.container {
+  padding-top: 37px;
+  ::ng-deep .form-create .subtitle {
+    display: none;
+  }
+  ::ng-deep .form-create .layout {
+    display: block !important;
+  }
+}
