@@ -85,13 +85,6 @@ export class AuthorizationComponent implements OnInit {
         this.selectedData.push(x.PolicyId);
       };
     });
-    console.log('selectedData', this.selectedData);
-    if (this.selectedData.length === 0) {
-      this.isShow = false;
-    } else {
-      this.isShow = true;
-    }
-
   }
 
   selectItem(policy, value, index) {
@@ -103,7 +96,6 @@ export class AuthorizationComponent implements OnInit {
     else {
       this.selectedData.push(policy.PolicyId);
     }
-    console.log(this.selectedData);
 
   }
 

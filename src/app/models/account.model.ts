@@ -90,7 +90,7 @@ export class Account {
                 id: 'CreatedOn',
                 name: 'Thời gian tạo',
                 width: 200,
-                type: 'text',
+                type: 'date',
             },
             {
                 id: 'Status',

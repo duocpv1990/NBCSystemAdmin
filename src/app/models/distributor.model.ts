@@ -99,7 +99,7 @@ export class DistributorModel {
                 id: 'UpdatedOn',
                 name: 'Cập nhật',
                 width: 200,
-                type: 'text',
+                type: 'date',
             },
             {
                 id: 'Type',
