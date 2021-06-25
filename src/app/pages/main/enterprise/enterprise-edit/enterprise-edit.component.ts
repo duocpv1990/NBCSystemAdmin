@@ -165,7 +165,6 @@ export class EnterpriseEditComponent
   getDetailCompany(id) {
     this.companySerice.getCompany(id).subscribe((res) => {
       console.log(res);
-
       this.detailCopany = res;
       this.productForms.get('Name').setValue(res.Name);
       this.productForms.get('Description').setValue(res.Description);
@@ -233,10 +232,12 @@ export class EnterpriseEditComponent
     this.productForms.get('CertificationIdList').setValue(this.certList);
     this.productForms.get('companyMedias').setValue(this.listMedia);
     console.log(this.productForms.value);
-    this.companySerice.create(this.productForms.value).subscribe((res) => {
-      // console.log(res);
-      this.closeDialog();
-    });
+    this.companySerice
+      .update(this.productForms.value, this.detailCopany.CompanyId)
+      .subscribe((res) => {
+        // console.log(res);
+        this.closeDialog();
+      });
   }
 
   uploadFilesAvatar(files: File[]): void {
