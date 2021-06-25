@@ -123,7 +123,7 @@ export class Account {
             // },
             {
                 class: 'btn-delete',
-                text: 'Xoá sản phẩm',
+                text: 'Xoá',
                 type: 'delete',
                 icon: ''
             },
