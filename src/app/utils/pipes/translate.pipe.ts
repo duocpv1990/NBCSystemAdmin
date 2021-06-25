@@ -3,7 +3,9 @@ import { PipeTransform, Pipe, NgModule } from '@angular/core';
 @Pipe({ name: 'translateKeys' })
 export class TranslateKeysPipe implements PipeTransform {
   transform(value, args: { key: string; label: string }[]): any {
-    return args.find((a) => a.key == value).label;
+    console.log(value);
+
+    return args.find((a) => a.key == value)?.label;
   }
 }
 @NgModule({

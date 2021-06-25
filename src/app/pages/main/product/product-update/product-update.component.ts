@@ -350,7 +350,7 @@ export class ProductUpdateComponent
     this.productService
       .updateProduct(this.productForms.value, this.data.ProductId)
       .subscribe((res) => {
-        console.log(res);
+        this.closeDialog();
       });
     if (this.productForms.get('DistributorProducts').value) {
       from(this.productForms.get('DistributorProducts').value)

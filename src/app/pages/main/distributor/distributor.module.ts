@@ -12,20 +12,33 @@ import { DeleteDistributorComponent } from './delete-distributor/delete-distribu
 import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
 import { EditDistributorComponent } from './edit-distributor/edit-distributor.component';
 import { EditModule } from 'src/app/components/edit/edit.component';
-
-
+import { NewFilterModule } from 'src/app/components/new-filter/new-filter.component';
+import { ServerSideTableModule } from 'src/app/components/server-side-table/server-side-table.component';
 
 @NgModule({
-  declarations: [DistributorComponent, DistributorListComponent, CreateDistributorComponent, DeleteDistributorComponent, EditDistributorComponent],
+  declarations: [
+    DistributorComponent,
+    DistributorListComponent,
+    CreateDistributorComponent,
+    DeleteDistributorComponent,
+    EditDistributorComponent,
+  ],
   imports: [
     CommonModule,
     FilterBaseModule,
     TableBaseModule,
     CreateModule,
     DeleteModule,
+    NewFilterModule,
+    ServerSideTableModule,
     RouterModule.forChild(distributorRoute),
-    EditModule
+    EditModule,
   ],
-  exports: [DistributorComponent, DistributorListComponent, CreateDistributorComponent, DeleteDistributorComponent]
+  exports: [
+    DistributorComponent,
+    DistributorListComponent,
+    CreateDistributorComponent,
+    DeleteDistributorComponent,
+  ],
 })
-export class DistributorModule { }
+export class DistributorModule {}
