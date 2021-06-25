@@ -155,8 +155,11 @@ export class EnterpriseListComponent implements OnInit {
       res.payload.forEach((el) => {
         delete el.CreatedOn;
         delete el.UpdatedOn;
+        delete el.CertificateNumber;
       });
+
       this.dataSub = res.payload;
+
       this.pagination = {
         itemsPerPage: this.filter.pageSize,
         currentPage: this.filter.pageNumber,
