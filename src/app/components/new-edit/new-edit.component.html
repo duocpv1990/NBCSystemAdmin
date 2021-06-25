@@ -1,1 +1,18 @@
-<p>new-edit works!</p>
+<div class="ci-base-filter shadow-half">
+    <form [formGroup]="formGroup">
+        <div class="filter_wrapper">
+            <div class="form_area">
+                <dynamic-basic-form [group]="formGroup"
+                                    [model]="formModel"></dynamic-basic-form>
+            </div>
+            <div class="btn">
+                <div class="search-button">
+                    <button>
+                        Tìm kiếm &nbsp; &nbsp;
+                        <img src="assets/img/icon-search.svg">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

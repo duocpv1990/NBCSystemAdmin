@@ -13,10 +13,9 @@ import { CiCommonModule } from '@consult-indochina/common';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { APIInterceptor } from './utils/interceptors/api.interceptor';
-import { NewEditComponent } from './components/new-edit/new-edit.component';
 
 @NgModule({
-  declarations: [AppComponent, NewEditComponent,],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
