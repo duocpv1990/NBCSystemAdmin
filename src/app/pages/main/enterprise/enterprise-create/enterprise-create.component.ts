@@ -132,7 +132,6 @@ export class EnterpriseCreateComponent implements OnInit {
 
   save = (value) => {
     this.dataModel = value;
-    console.log('model', this.dataModel);
     let accountModel = {
       Username: value.Email,
       Email: value.Email,
