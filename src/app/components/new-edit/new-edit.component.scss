@@ -1,0 +1,78 @@
+.new_edit {
+  height: 100%;
+  padding: 26px;
+  form {
+    height: 100%;
+  }
+}
+.select_province {
+  display: grid;
+  height: 33px;
+}
+.content {
+  display: grid;
+  margin-left: 3px;
+}
+.label-upload-img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #e4e4e4;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 500;
+  position: relative;
+  img {
+    width: 150px;
+    height: 150px;
+  }
+
+  label {
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #bcbcbc;
+  }
+}
+
+.img {
+  display: flex;
+}
+.btn-cancel {
+  width: 140px;
+  height: 50px;
+  background-color: #d6d6d6;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.btn-save {
+  width: 140px;
+  height: 50px;
+  background-color: #1894ff;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.actionbtn {
+  padding: 20px;
+  text-align: center;
+}
+
+h3 {
+  color: #1894ff;
+  font-size: 18px;
+  font-weight: bold;
+}
+.formControl_edit {
+  label {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}

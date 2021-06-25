@@ -21,6 +21,10 @@ export class DistributorService extends BaseApiService<any> {
   getAllDistributor(params) {
     return this.http.get('distributor', { params });
   }
+  
+  updateDistributorMedia(dis) {
+    return this.http.post('distributor/media', dis);
+  }
 
   getDistributor(distributorId) {
     return this.http

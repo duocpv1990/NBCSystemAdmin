@@ -1,6 +1,13 @@
-<app-edit [(data)]="listCreate"
+<!-- <app-edit [(data)]="listCreate"
           [(option)]="option"
           [(dataModel)]="dataModel"
           [(arrayButton)]="arrayButton"
           (callback)="handleCallbackEvent($event)"
-          [typeForms]="'distributor'"></app-edit>
+          [typeForms]="'distributor'"></app-edit> -->
+<ng-container *ngIf="formModel.length > 0">
+
+    <app-new-edit [MY_FORM_MODEL]="formModel"
+                  [listDistrict]="listDistrict"
+                  [dataEdit]="dataModel"
+                  (provinceChange)="getDistricts($event)"></app-new-edit>
+</ng-container>

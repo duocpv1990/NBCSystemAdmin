@@ -31,6 +31,7 @@ export class NewFilterComponent implements OnInit {
   ngOnInit(): void {
     this.formModel = this.MY_FORM_MODEL;
     this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.formGroup.get('DistrictId')
   }
 
   searchEvent() {
