@@ -12,12 +12,8 @@ export class CompanyService extends BaseApiService<any> {
     super(http, 'company');
   }
 
-  getCompanies(pageNumber, pageSize, companyCode, name, status) {
-    return this.http
-      .get(
-        `company?pageNumber=${pageNumber}&pageSize=${pageSize}&companyCode=${companyCode}&name=${name}&status=${status}`
-      )
-      .pipe(map((res: any) => res));
+  getCompanies(params) {
+    return this.http.get('company', { params });
   }
 
   deleteCompany(companyId) {

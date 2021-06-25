@@ -68,14 +68,15 @@ export class EditDistributorComponent implements OnInit {
 
   getCompanies() {
     this.companyService
-      .getCompanies(
-        this.pageNumber,
-        this.pageSize,
-        this.companyCode,
-        this.name,
-        this.status
-      )
-      .subscribe((res) => {
+      .getCompanies({
+        name: '',
+        companyCode: '',
+        status: '',
+        type: '',
+        pageNumber: 1,
+        pageSize: 1000,
+      })
+      .subscribe((res: any) => {
         this.companies = res.payload;
         this.listCreate[0].data = this.companies.map((company) => {
           return {

@@ -70,7 +70,8 @@
 
                 <th>STT</th>
                 <ng-container *ngFor="let head of items[0] | keys">
-                    <th *ngIf="head !== 'ProductId' && head !== 'DistributorId'">{{head | translateKeys:config}}</th>
+                    <th *ngIf="head !== 'ProductId' && head !== 'DistributorId' && head !== 'CompanyId'">{{head |
+                        translateKeys:config}}</th>
                 </ng-container>
 
             </tr>
@@ -79,7 +80,7 @@
             <tr *ngFor="let item of items | paginate: pagination; let i = index"
                 (click)="openEdit(item)">
                 <ng-container *ngFor="let list of item | keys; let ix = index  ">
-                    <td *ngIf="list === 'ProductId' || list === 'DistributorId'">
+                    <td *ngIf="list === 'ProductId' || list === 'DistributorId' || list === 'CompanyId'">
                         <input type="checkbox"
                                class="checkbox"
                                (click)="$event.stopPropagation()"
@@ -89,7 +90,7 @@
                                (change)="checkOne($event)" />
                     </td>
                     <td *ngIf="ix ===0 ">{{i + 1}}</td>
-                    <td *ngIf="list !== 'ProductId' && list !== 'DistributorId'">
+                    <td *ngIf="list !== 'ProductId' && list !== 'DistributorId' && list !== 'CompanyId'">
                         <span
                               *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type' && list !=='UpdatedOn'">{{item[list]}}</span>
                         <span *ngIf="list === 'Status' && pagination.id == 'product'"
@@ -98,8 +99,13 @@
                               [class]="item[list] == 1?'success':'danger'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
                             duyệt'}}</span>
                         <span [style.cursor]="'pointer'"
-                              *ngIf="list === 'Type'  && item.DistributorId"
+                              *ngIf="list === 'Type'  && (item.DistributorId)"
                               (click)="updateType(item[list],item.DistributorId);$event.stopPropagation()"
+                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
+                            động'}}</span>
+                        <span [style.cursor]="'pointer'"
+                              *ngIf="list === 'Status'  && (item.CompanyId)"
+                              (click)="updateStatus(item[list],item.CompanyId);$event.stopPropagation()"
                               [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
                             động'}}</span>
                         <span [style.cursor]="'pointer'"
@@ -107,6 +113,11 @@
                               (click)="updateType(item[list],item.ProductId);$event.stopPropagation()"
                               [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không cho quét':'Cho
                             quét'}}</span>
+                        <span [style.cursor]="'pointer'"
+                              *ngIf="list === 'Type' && item.CompanyId"
+                              (click)="updateType(item[list],item.CompanyId);$event.stopPropagation()"
+                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
+                            duyệt'}}</span>
                         <span *ngIf="list ==='UpdatedOn'">{{item[list] | date:'dd/MM/yyyy hh:mm'}}</span>
 
                         <img *ngIf="list === 'MediaURL'"

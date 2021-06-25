@@ -67,7 +67,7 @@
             <div class="form_item col-span-full">
                 <h5>Ảnh đại diện (<span>*</span>)</h5>
                 <div class="select_img">
-                    <img *ngFor="let item of fileLinkList;let i = index; trackBy trackByFunc"
+                    <img *ngFor="let item of fileLinkListView;let i = index; trackBy trackByFunc"
                          [src]="item"
                          alt=""
                          [style.width.%]="100"

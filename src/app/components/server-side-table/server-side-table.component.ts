@@ -49,6 +49,14 @@ export class ServerSideTableComponent implements OnChanges {
               isChecked: false,
             };
           }
+
+          if (a.CompanyId) {
+            return {
+              CompanyId: a.CompanyId,
+              isChecked: false,
+            };
+          }
+
           return {
             ProductId: a.ProductId,
             isChecked: false,
@@ -68,8 +76,10 @@ export class ServerSideTableComponent implements OnChanges {
 
       if (element.ProductId) {
         a = element.ProductId;
-      } else {
+      } else if (element.DistributorId) {
         a = element.DistributorId;
+      } else {
+        a = element.CompanyId;
       }
 
       let idx = this.sizes
@@ -77,7 +87,11 @@ export class ServerSideTableComponent implements OnChanges {
           if (a.DistributorId) {
             return a.DistributorId;
           }
-          return a.ProductId || a.DistributorId;
+          if (a.CompanyId) {
+            return a.CompanyId;
+          }
+
+          return a.ProductId || a.DistributorId || a.CompanyId;
         })
         .indexOf(a);
       this.sizes[idx].isChecked = ev.target.checked;
@@ -91,7 +105,10 @@ export class ServerSideTableComponent implements OnChanges {
         if (a.DistributorId) {
           return a.DistributorId;
         }
-        return a.ProductId || a.DistributorId;
+        if (a.CompanyId) {
+          return a.CompanyId;
+        }
+        return a.ProductId || a.DistributorId || a.CompanyId;
       })
       .indexOf(+ev.target.value);
     this.sizes[idx].isChecked = ev.target.checked;
