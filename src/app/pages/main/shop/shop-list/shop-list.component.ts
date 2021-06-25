@@ -14,7 +14,7 @@ import { ShopEditComponent } from '../shop-edit/shop-edit.component';
 })
 export class ShopListComponent implements OnInit {
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 50;
   stores = [];
 
   constructor(

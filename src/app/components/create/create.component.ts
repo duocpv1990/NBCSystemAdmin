@@ -74,8 +74,8 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
     this.fileLinkList = [];
     if (value === 'avatar') {
       this.selectImage(files).subscribe(
-        (res) => {},
-        (err) => {},
+        (res) => { },
+        (err) => { },
         () => {
           console.log(this.imageLinkUpload);
           this.avatarUrl = this.imageLinkUpload;
@@ -109,8 +109,8 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
       );
     } else if (value === 'background') {
       this.selectImage(files).subscribe(
-        (res) => {},
-        (err) => {},
+        (res) => { },
+        (err) => { },
         () => {
           console.log(this.imageLinkUpload);
           this.backgroundURL = this.imageLinkUpload;
@@ -144,7 +144,7 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
       );
     }
   }
-  onCallBackData = () => {};
+  onCallBackData = () => { };
 
   onClickButton = (i) => {
     this.model.Type = 1;
@@ -184,4 +184,4 @@ export class CreateComponent extends BaseUploadComponent implements OnInit {
   ],
   exports: [CreateComponent],
 })
-export class CreateModule {}
+export class CreateModule { }

@@ -50,19 +50,19 @@ export class Account {
             },
 
             {
-                id: 'Name',
+                id: 'LastName',
                 name: 'Tên tài khoản',
                 width: 200,
                 type: 'text'
             },
             {
-                id: 'UserName',
+                id: 'Username',
                 name: 'Tên đăng nhập',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'PhoneNumber',
+                id: 'Phone',
                 name: 'Số điện thoại',
                 width: 200,
                 type: 'text',
@@ -75,25 +75,25 @@ export class Account {
                 type: 'text',
             },
             {
-                id: 'Privileges',
+                id: 'RoleName',
                 name: 'Nhóm quyền',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'CreatePerson',
+                id: 'Creator',
                 name: 'Người tạo',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'CreateDate',
+                id: 'CreatedOn',
                 name: 'Thời gian tạo',
                 width: 200,
                 type: 'text',
             },
             {
-                id: 'status',
+                id: 'Status',
                 name: 'Tình trạng',
                 width: 200,
                 type: 'text',
@@ -139,17 +139,17 @@ export class Account {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'UserName',
+                id: 'Username',
                 label: 'Tên đăng nhập',
-                name: 'UserName',
+                name: 'Username',
                 type: 'text'
             },
-            {
-                id: 'Password',
-                label: 'Mật khẩu',
-                name: 'Password',
-                type: 'text'
-            },
+            // {
+            //     id: 'Password',
+            //     label: 'Mật khẩu',
+            //     name: 'Password',
+            //     type: 'text'
+            // },
             {
                 id: 'Email',
                 label: 'Email',
@@ -163,15 +163,15 @@ export class Account {
                 type: 'text'
             },
             {
-                id: 'AccountName',
+                id: 'FullName',
                 label: 'Tên tài khoản',
-                name: 'AccountName',
+                name: 'FullName',
                 type: 'text'
             },
             {
-                id: 'Privileges',
+                id: 'RoleId',
                 label: 'Nhóm quyền',
-                name: 'Privileges',
+                name: 'RoleId',
                 type: 'select'
             },
 

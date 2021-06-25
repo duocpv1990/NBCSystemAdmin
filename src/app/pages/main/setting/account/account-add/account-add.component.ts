@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account.service';
+import { PrivilegeService } from 'src/app/services/privilege.service';
 
 @Component({
   selector: 'app-account-add',
@@ -23,13 +25,36 @@ export class AccountAddComponent implements OnInit {
     text: 'Lưu'
   }];
   listCreate = [];
+  roles = [];
+  name = '';
+  createdBy = '';
+  updatedBy = '';
+  createdDate = '';
+  pageNumber = 1;
+  pageSize = 10;
 
   constructor(
     private dialogRef: MatDialogRef<AccountAddComponent>,
+    private accountService: AccountService,
+    private privilegeService: PrivilegeService
   ) { }
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
+    this.getRoles();
+  }
+
+  getRoles() {
+    this.privilegeService.getRoles(this.pageNumber, this.pageSize, this.createdDate, this.updatedBy, this.createdBy, this.name).subscribe(res => {
+      this.roles = res.payload.reverse();
+      this.listCreate[4].data = this.roles.map(role => {
+        return {
+          name: role.Name,
+          value: role.RoleId
+        }
+      }
+      );
+    });
   }
 
 
@@ -53,6 +78,9 @@ export class AccountAddComponent implements OnInit {
 
   save = (value) => {
     this.dataModel = value;
+    this.accountService.addAccount(this.dataModel).subscribe(res => {
+      this.dialogRef.close();
+    });
   }
 
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EnterPriseModel } from 'src/app/models/enterprise.model';
+import { AccountService } from 'src/app/services/account.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { LocationService } from 'src/app/services/location.service';
+import { PrivilegeService } from 'src/app/services/privilege.service';
 
 @Component({
   selector: 'app-enterprise-create',
@@ -33,16 +35,27 @@ export class EnterpriseCreateComponent implements OnInit {
   ];
   listCreate = [];
 
+  roles = [];
+  name = '';
+  createdBy = '';
+  updatedBy = '';
+  createdDate = '';
+  pageNumber = 1;
+  pageSize = 10;
+
   constructor(
     private dialogRef: MatDialogRef<EnterpriseCreateComponent>,
     private companyService: CompanyService,
-    private locationService: LocationService
-  ) {}
+    private locationService: LocationService,
+    private privilegeService: PrivilegeService,
+    private accountService: AccountService
+  ) { }
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
     this.getNations();
     this.getProvinces();
+    this.getRoles();
   }
 
   getNations() {
@@ -81,6 +94,19 @@ export class EnterpriseCreateComponent implements OnInit {
     });
   }
 
+  getRoles() {
+    this.privilegeService.getRoles(this.pageNumber, this.pageSize, this.createdDate, this.updatedBy, this.createdBy, this.name).subscribe(res => {
+      this.roles = res.payload.reverse();
+      this.listCreate[7].data = this.roles.map(role => {
+        return {
+          name: role.Name,
+          value: role.RoleId
+        }
+      }
+      );
+    });
+  }
+
   handleCallbackEvent = (event) => {
     console.log(event);
 
@@ -106,8 +132,20 @@ export class EnterpriseCreateComponent implements OnInit {
 
   save = (value) => {
     this.dataModel = value;
+    let accountModel = {
+      Username: value.Email,
+      Email: value.Email,
+      PhoneNumber: value.PhoneNumber,
+      FullName: value.Email,
+      RoleId: value.RoleId
+    }
     this.companyService.create(this.dataModel).subscribe((res) => {
-      this.dialogRef.close();
+      this.accountService.addAccount(accountModel).subscribe(res => {
+        this.dialogRef.close();
+      });
     });
   };
+
+
+
 }

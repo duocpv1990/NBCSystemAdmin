@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { Account } from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account.service';
 import { AccountAddComponent } from './account-add/account-add.component';
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
@@ -32,9 +33,17 @@ export class AccountComponent implements OnInit {
     },
 
   ];
+  pageNumber = 1;
+  pageSize = 50;
+  name = '';
+  status = '';
+  createdBy = '';
+  roleId = '';
+  accounts = [];
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +52,13 @@ export class AccountComponent implements OnInit {
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
     this.dataSub = this.data;
+    this.getAccounts();
+  }
+
+  getAccounts() {
+    this.accountService.getAccounts(this.pageNumber, this.pageSize, this.name, this.status, this.createdBy, this.roleId).subscribe(res => {
+      this.accounts = res.payload.reverse();
+    });
   }
 
   handleCallback(ev) {
@@ -76,6 +92,7 @@ export class AccountComponent implements OnInit {
         width: '940px',
         height: '588px'
       }).afterClosed().subscribe(result => {
+        this.getAccounts();
       });
     }
     if (ev.type === 'import') {
@@ -83,6 +100,7 @@ export class AccountComponent implements OnInit {
         width: '500px',
         height: '350px'
       }).afterClosed().subscribe(result => {
+        this.getAccounts();
       });
     }
     if (ev.type === 'edit') {
@@ -91,6 +109,7 @@ export class AccountComponent implements OnInit {
         height: '588px',
         data: ev.item
       }).afterClosed().subscribe(result => {
+        this.getAccounts();
       });
     }
     if (ev.type === 'delete') {
@@ -103,6 +122,7 @@ export class AccountComponent implements OnInit {
           content: "Bạn có muốn xoá Tài khoản trên hệ thống?"
         }
       }).afterClosed().subscribe(result => {
+        this.getAccounts();
       });
     }
   }
