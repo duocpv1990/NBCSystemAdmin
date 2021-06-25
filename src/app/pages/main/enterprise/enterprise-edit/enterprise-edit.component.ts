@@ -233,7 +233,7 @@ export class EnterpriseEditComponent
     this.productForms.get('companyMedias').setValue(this.listMedia);
     console.log(this.productForms.value);
     this.companySerice
-      .update(this.productForms.value, this.detailCopany.CompanyId)
+      .updateCompany(this.detailCopany.CompanyId, this.productForms.value)
       .subscribe((res) => {
         // console.log(res);
         this.closeDialog();
