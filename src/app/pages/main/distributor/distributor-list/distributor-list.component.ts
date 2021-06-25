@@ -158,7 +158,7 @@ export class DistributorListComponent implements OnInit {
         .open(EditDistributorComponent, {
           width: '940px',
           height: '843px',
-          data: ev.item,
+          data: ev.data,
         })
         .afterClosed()
         .subscribe((result) => {

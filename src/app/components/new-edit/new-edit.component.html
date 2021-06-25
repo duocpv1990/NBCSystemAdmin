@@ -1,13 +1,75 @@
-<div class="ci-base-filter shadow-half">
-    <form [formGroup]="formGroup">
+<div class="new_edit ">
+    <h3>Thông tin chung</h3>
+    <form [formGroup]="formGroup"
+          class="edit_form_base">
 
-        <dynamic-basic-form [group]="formGroup"
+        <!-- <dynamic-basic-form [ngClass]="'edit_form_base'"
+                            [group]="formGroup"
                             [model]="formModel">
-            <ng-template modelId="myInput">
-                <p>Some custom markup</p>
-            </ng-template>
+        </dynamic-basic-form> -->
 
-        </dynamic-basic-form>
+        <dynamic-basic-form-control [ngClass]="'formControl_edit'"
+                                    *ngFor="let controlModel of formModel"
+                                    [group]="formGroup"
+                                    [model]="controlModel"></dynamic-basic-form-control>
+        <div class="select_province">
+            <label for="">Thành phố/Tỉnh</label>
+            <select formControlName="DistrictId">
+                <option value=""
+                        disabled
+                        selected>Chọn Tỉnh/Thành phố</option>
+                <ng-container *ngIf="listDistrict">
 
+                    <option *ngFor="let item of listDistrict"
+                            [value]="item.Value">{{item.Name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="content row align-items-center">
+            <div class="label">Ảnh đại diện</div>
+            <div class="input-text">
+                <div class="img">
+                    <div class="label-upload-img">
+                        <label (click)="avatar.click()">
+                            <mat-icon class="add-photo">add_a_photo</mat-icon>
+                        </label>
+                        <img [src]="avatarUrl"
+                             height="200" />
+                    </div>
+                    <input id="avatar"
+                           #avatar
+                           hidden
+                           type="file"
+                           accept="image/*"
+                           (change)="changeAvatar(avatar.files)" />
+                </div>
+            </div>
+        </div>
+        <div class="content row align-items-center">
+            <div class="label">Ảnh nền</div>
+            <div class="input-text">
+                <div class="img">
+                    <div class="label-upload-img">
+                        <label (click)="background.click()">
+                            <mat-icon class="add-photo">add_a_photo</mat-icon>
+                        </label>
+                        <img [src]="backgroundURL"
+                             height="200" />
+                    </div>
+                    <input id="background"
+                           #background
+                           hidden
+                           type="file"
+                           accept="image/*"
+                           (change)="changeBackground(background.files)" />
+                </div>
+            </div>
+        </div>
     </form>
+    <div class="actionbtn">
+        <button class="btn-cancel"
+                (click)="closeDialog()">Hủy bỏ</button>
+        <button class="btn-save"
+                (click)="submitForm()">Lưu</button>
+    </div>
 </div>

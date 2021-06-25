@@ -128,6 +128,8 @@ export class ServerSideTableComponent implements OnChanges {
   }
 
   openEdit(id) {
+    console.log(id);
+
     this.eventTrigger.emit({
       type: 'edit',
       data: id,

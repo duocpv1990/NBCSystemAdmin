@@ -14,6 +14,7 @@ import { EditDistributorComponent } from './edit-distributor/edit-distributor.co
 import { EditModule } from 'src/app/components/edit/edit.component';
 import { NewFilterModule } from 'src/app/components/new-filter/new-filter.component';
 import { ServerSideTableModule } from 'src/app/components/server-side-table/server-side-table.component';
+import { NewEditModule } from 'src/app/components/new-edit/new-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ServerSideTableModule } from 'src/app/components/server-side-table/serv
     FilterBaseModule,
     TableBaseModule,
     CreateModule,
+    NewEditModule,
     DeleteModule,
     NewFilterModule,
     ServerSideTableModule,
