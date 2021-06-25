@@ -25,7 +25,7 @@ export class ShopListComponent implements OnInit {
     private dialog: MatDialog,
     private distributorService: DistributorService,
     private storeService: StoreService
-  ) {}
+  ) { }
   config = new ShopModel();
   listFilter = [];
 
@@ -250,7 +250,7 @@ export class ShopListComponent implements OnInit {
     });
   }
 
-  handleCallback(ev) {}
+  handleCallback(ev) { }
   handleCallbackTable(ev) {
     if (ev.type === 'create') {
       return this.dialog
@@ -275,11 +275,13 @@ export class ShopListComponent implements OnInit {
         });
     }
     if (ev.type === 'edit') {
+      console.log(ev);
+
       return this.dialog
         .open(ShopEditComponent, {
           width: '940px',
           height: '843px',
-          data: ev.item,
+          data: ev,
         })
         .afterClosed()
         .subscribe((result) => {

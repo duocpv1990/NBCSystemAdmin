@@ -42,12 +42,12 @@ export class ShopEditComponent implements OnInit {
   companies = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogRef: MatDialogRef<ShopEditComponent>,
     private locationService: LocationService,
     private storeService: StoreService,
     private companyService: CompanyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
@@ -55,10 +55,12 @@ export class ShopEditComponent implements OnInit {
     this.getNations();
     this.getProvinces();
     this.getCompanies();
+    console.log(this.editData);
+
   }
 
   getStore() {
-    this.storeService.getStore(this.data.StoreId).subscribe((res) => {
+    this.storeService.getStore(this.editData.data.StoreId).subscribe((res) => {
       this.dataModel = res;
     });
   }
@@ -109,7 +111,7 @@ export class ShopEditComponent implements OnInit {
   save = (value) => {
     this.dataModel = value;
     this.storeService
-      .updateStore(this.data.StoreId, this.dataModel)
+      .updateStore(this.editData.data.StoreId, this.dataModel)
       .subscribe((res) => {
         this.dialogRef.close();
       });

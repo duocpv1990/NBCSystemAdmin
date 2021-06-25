@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Authorization } from 'src/app/models/authorization.model';
 import { PrivilegeService } from 'src/app/services/privilege.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-authorization',
@@ -24,7 +25,8 @@ export class AuthorizationComponent implements OnInit {
   selectedData: any = [];
 
   constructor(
-    private privilegeService: PrivilegeService
+    private privilegeService: PrivilegeService,
+
   ) { }
 
   ngOnInit(): void {
@@ -69,7 +71,7 @@ export class AuthorizationComponent implements OnInit {
       PolicyIdList: this.selectedData
     }
     this.privilegeService.updatePolicies(policy).subscribe(res => {
-      this.isShow = false;
+
       this.getRolePolicies();
     });
   }

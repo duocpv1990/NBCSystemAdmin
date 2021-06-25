@@ -17,6 +17,7 @@ import { PrivilegeUpdateComponent } from './privileges/privilege-update/privileg
 import { PrivilegeDeleteComponent } from './privileges/privilege-delete/privilege-delete.component';
 import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
 import { EditModule } from 'src/app/components/edit/edit.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [SettingComponent, AccountComponent, AuthorizationComponent, PrivilegesComponent, AccountAddComponent, AccountUpdateComponent, AccountDeleteComponent, PrivilegeAddComponent, PrivilegeUpdateComponent, PrivilegeDeleteComponent],
@@ -28,6 +29,7 @@ import { EditModule } from 'src/app/components/edit/edit.component';
     CreateModule,
     DeleteModule,
     EditModule,
+    ToastrModule.forRoot()
   ]
 })
 export class SettingModule { }

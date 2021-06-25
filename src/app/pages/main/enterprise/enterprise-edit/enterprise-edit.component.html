@@ -1,6 +1,146 @@
-<app-edit [(data)]="listCreate"
-          [(option)]="option"
-          [(dataModel)]="dataModel"
-          [(arrayButton)]="arrayButton"
-          (callback)="handleCallbackEvent($event)"
-          [typeForms]="'enterprise'"></app-edit>
+<div class="title">CHỈNH SỬA THÔNG TIN DOANH NGHIỆP</div>
+
+<form [formGroup]="productForms">
+  <div class="group_form">
+    <h3>THÔNG TIN CHUNG</h3>
+    <div class="grid_form">
+      <div class="form_item">
+        <h5>Tên doanh nghiệp</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="Name" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Mã doanh nghiệp</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="CompanyCode" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Mã địa điểm toàn cầu GLN</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="GLN" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Mã số thuế</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="TaxCode" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Quốc gia</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <mat-select formControlName="NationId">
+            <mat-option [value]="item.NationId" *ngFor="let item of nations"> {{item.Name}} </mat-option>
+
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Thành phố/Tỉnh</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <mat-select formControlName="ProvinceId">
+            <mat-option [value]="item.ProvinceId" *ngFor="let item of provinces"> {{item.Name}} </mat-option>
+
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Quận/Huyện</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <mat-select formControlName="DistrictId">
+            <mat-option [value]="item.DistrictId" *ngFor="let item of districts"> {{item.Name}} </mat-option>
+
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Địa chỉ</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="AddressDetail" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Số điện thoại</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="PhoneNumber" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Email</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="Email" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Website</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="Website" required>
+        </mat-form-field>
+      </div>
+      <br>
+      <div class="form_item">
+        <h5>Ảnh đại diện</h5>
+        <div class="select_img">
+          <img [src]="imgAvatar" alt="" [style.width.%]="100" [style.height]="'auto'">
+          <img [style.width.px]="74" [style.height.px]="74" src="assets/selectimage.svg" (click)="uploadFileAva.click()"
+            alt="">
+          <input #uploadFileAva type="file" accept="image/*" multiple (change)="uploadFilesAvatar(uploadFileAva.files)"
+            required hidden />
+        </div>
+      </div>
+      <div class="form_item ">
+        <h5>Ảnh nền<nav></nav>
+        </h5>
+        <div class="select_img">
+          <img [src]="imgBg" alt="" [style.width.%]="100" [style.height]="'auto'">
+          <img [style.width.px]="74" [style.height.px]="74" src="assets/selectimage.svg" (click)="uploadFileBg.click()"
+            alt="">
+          <input #uploadFileBg type="file" accept="image/*" multiple (change)="uploadFilesBg(uploadFileBg.files)"
+            required hidden />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="group_form mt-5">
+    <h3 class="mb-5">GIẤY CHỨNG CHỈ, CHỨNG NHẬN<span class="add_btn" (click)="addNewCert()">Thêm mới</span></h3>
+    <ng-container *ngIf="bindingCertList.length > 0">
+      <div class="cert_area" *ngFor="let cert of bindingCertList">
+        <div class="value_area">
+          <strong>
+            <p>Tên chứng nhận</p>
+          </strong>
+          <p>{{cert.Name}}</p>
+        </div>
+        <div class="value_area">
+          <strong>
+            <p>Trạng thái</p>
+          </strong>
+          <p>Hiển thị</p>
+        </div>
+        <div class="value_area">
+          <strong>
+            <p>Ngày hết hạn</p>
+          </strong>
+          <p>{{cert.ExpiredDate}}</p>
+        </div>
+        <div class="value_area">
+          <strong>
+            <p>Hình ảnh giấy chứng nhận</p>
+          </strong>
+          <div class="filename">
+            <img [style.width.px]="70" [style.margin-right.px]="4" *ngFor="let item of cert.CertificationMedia"
+              [src]="item.MediaURL" />
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </div>
+  <div class="actionbtn">
+    <button class="btn-cancel" (click)="closeDialog()">Hủy bỏ</button>
+    <button class="btn-save" (click)="submitForm()">Lưu</button>
+  </div>
+</form>

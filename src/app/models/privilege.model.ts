@@ -72,7 +72,7 @@ export class Privilege {
                 id: 'CreatedOn',
                 name: 'Ngày tạo',
                 width: 200,
-                type: 'text',
+                type: 'date',
             },
             {
                 id: 'LastUpdatedDate',
@@ -93,7 +93,7 @@ export class Privilege {
                 type: 'text',
             },
             {
-                id: 'Condition',
+                id: 'Type',
                 name: 'Tình trạng',
                 width: 200,
                 type: 'text',

@@ -197,7 +197,7 @@ export class EnterpriseListComponent implements OnInit {
         .open(EnterpriseEditComponent, {
           width: '940px',
           height: '843px',
-          data: ev.item,
+          data: ev.data,
         })
         .afterClosed()
         .subscribe((result) => {

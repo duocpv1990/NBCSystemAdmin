@@ -26,7 +26,8 @@ import { APIInterceptor } from './utils/interceptors/api.interceptor';
         'https://fgehlb1to6.execute-api.ap-southeast-1.amazonaws.com/prod/presigned-url',
     }),
     CiAuthModule.forRoot({
-      API_URL: 'http://192.168.1.34/nbc/api',
+      API_URL: 'https://nbcapi.chuyendoisodn.com/api',
+      // API_URL: 'http://192.168.1.34/nbc/api',
       PermissionNames: [],
       uiOption: 'custom',
     }),
@@ -46,4 +47,4 @@ import { APIInterceptor } from './utils/interceptors/api.interceptor';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

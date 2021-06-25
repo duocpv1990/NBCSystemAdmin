@@ -1,6 +1,6 @@
 <div class="content-title">Nhóm quyền</div>
 
-<app-filter [(listFilter)]="listFilter" (callback)="handleCallback($event)">
+<app-filter [(listFilter)]="listFilter" (callback)="handleFilterCallback($event)">
 </app-filter>
 
 <app-table [tableData]="dataTable" [data]="roles" [listActive]="listActive" (callback)="handleCallbackTable($event)">

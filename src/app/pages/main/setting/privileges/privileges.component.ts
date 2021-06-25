@@ -28,6 +28,7 @@ export class PrivilegesComponent implements OnInit {
   pageNumber = 1;
   pageSize = 10;
   roles = [];
+  timer;
 
   constructor(
     private dialog: MatDialog,
@@ -48,27 +49,15 @@ export class PrivilegesComponent implements OnInit {
     });
   }
 
-  handleCallback(ev) {
-    const filter = this.listFilter.filter(x => x.value);
-    if (!filter.length) return this.dataSub = this.roles;
-    filter.forEach((x, ix) => {
-      if (ix === 0) {
-        if (x.type === 'text' || x.type === 'search') {
-          this.dataSub = this.roles.filter(
-            (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
-        } else {
-          this.dataSub = this.roles.filter((a) => a[x.condition] == x.value);
-        }
-      } else {
-        if (x.type === 'text' || x.type === 'search') {
-          this.dataSub = this.dataSub.filter(
-            (a) => a[x.condition].toLowerCase().indexOf(x.value.toLowerCase()) > -1);
-        } else {
-          this.dataSub = this.dataSub.filter((a) => a[x.condition] == x.value);
-        }
-      }
-
-    });
+  handleFilterCallback(event) {
+    console.log(event);
+    if (event.condition === 'privilege') {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.name = event.value;
+        this.getRoles();
+      }, 100);
+    }
 
   }
 
