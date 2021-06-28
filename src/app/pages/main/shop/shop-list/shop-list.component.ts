@@ -275,7 +275,7 @@ export class ShopListComponent implements OnInit {
         });
     }
     if (ev.type === 'edit') {
-      console.log(ev);
+      console.log('data', ev);
 
       return this.dialog
         .open(ShopEditComponent, {

@@ -20,7 +20,18 @@ import { EditModule } from 'src/app/components/edit/edit.component';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  declarations: [SettingComponent, AccountComponent, AuthorizationComponent, PrivilegesComponent, AccountAddComponent, AccountUpdateComponent, AccountDeleteComponent, PrivilegeAddComponent, PrivilegeUpdateComponent, PrivilegeDeleteComponent],
+  declarations: [
+    SettingComponent,
+    AccountComponent,
+    AuthorizationComponent,
+    PrivilegesComponent,
+    AccountAddComponent,
+    AccountUpdateComponent,
+    AccountDeleteComponent,
+    PrivilegeAddComponent,
+    PrivilegeUpdateComponent,
+    PrivilegeDeleteComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(settingRoute),
