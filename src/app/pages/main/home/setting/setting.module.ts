@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccountInforComponent } from './account-infor/account-infor.component';
 import { SettingComponent } from './setting.component';
@@ -15,11 +16,12 @@ import { BaseButtonModule } from 'src/app/components/button/base-button/base-but
   imports: [
     CommonModule,
     RouterModule.forChild(settingRoute),
-	MatTabsModule,
-	FilterBaseModule,
+    MatTabsModule,
+    FilterBaseModule,
     TableBaseModule,
-	BaseButtonModule
+    BaseButtonModule,
+    FormsModule
   ],
   exports: [SettingComponent],
 })
-export class SettingModule {}
+export class SettingModule { }
