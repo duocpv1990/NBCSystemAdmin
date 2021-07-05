@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
     </app-auth-layout> `,
 })
 export class AuthComponent {
-  title = 'VT-HTBH-Admin';
+
 }

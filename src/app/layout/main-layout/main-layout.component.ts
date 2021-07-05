@@ -27,30 +27,30 @@ export class MainLayoutComponent implements OnInit {
         linkURL: 'enterprise',
         subs: []
       },
-      {
-        icon: 'assets/img/distributor.svg',
-        name: 'Nhà phân phối',
-        linkURL: 'distributor',
-        subs: []
-      },
-      {
-        icon: 'assets/img/shop.svg',
-        name: 'Điểm bán',
-        linkURL: 'shop',
-        subs: []
-      },
+      // {
+      //   icon: 'assets/img/distributor.svg',
+      //   name: 'Nhà phân phối',
+      //   linkURL: 'distributor',
+      //   subs: []
+      // },
+      // {
+      //   icon: 'assets/img/shop.svg',
+      //   name: 'Điểm bán',
+      //   linkURL: 'shop',
+      //   subs: []
+      // },
       {
         icon: 'assets/img/bag.svg',
         name: 'Sản phẩm',
         linkURL: 'product',
         subs: []
       },
-      {
-        icon: 'assets/img/service-package.svg',
-        name: 'Gói dịch vụ',
-        linkURL: 'service-package',
-        subs: []
-      },
+      // {
+      //   icon: 'assets/img/service-package.svg',
+      //   name: 'Gói dịch vụ',
+      //   linkURL: 'service-package',
+      //   subs: []
+      // },
       {
         icon: 'assets/img/icon-setting.svg',
         name: 'Cài đặt',

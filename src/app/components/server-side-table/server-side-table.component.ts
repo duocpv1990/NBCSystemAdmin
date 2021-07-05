@@ -34,9 +34,9 @@ export class ServerSideTableComponent implements OnChanges {
 
   @Output() paginationChange = new EventEmitter();
   @Output() eventTrigger = new EventEmitter();
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   ngOnChanges() {
     console.log(this.pagination);
 
@@ -69,6 +69,8 @@ export class ServerSideTableComponent implements OnChanges {
   }
 
   checkAll(ev) {
+    console.log(ev);
+
     this.checkItems.toArray().forEach((res) => {
       res.nativeElement.checked = ev.target.checked;
     });
@@ -196,4 +198,4 @@ export class ServerSideTableComponent implements OnChanges {
   ],
   exports: [ServerSideTableComponent],
 })
-export class ServerSideTableModule {}
+export class ServerSideTableModule { }

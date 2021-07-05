@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { Account } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
+import { ExportService } from 'src/app/services/export.service';
 import { AccountAddComponent } from './account-add/account-add.component';
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
 import { AccountUpdateComponent } from './account-update/account-update.component';
@@ -20,19 +21,7 @@ export class AccountComponent implements OnInit {
   tableData = [];
   listActive;
   dataTable;
-  data = [
-    {
-      Name: 'Vũ Đức Thái',
-      UserName: 'thaivu',
-      PhoneNumber: '0325641234',
-      Email: 'thaivu@ci.com',
-      Privileges: 'Leader Sale Admin',
-      CreatePerson: 'admin',
-      CreateDate: '18/06/2021',
-      status: 'Hoạt động'
-    },
-
-  ];
+  data = [];
   pageNumber = 1;
   pageSize = 50;
   name = '';
@@ -44,7 +33,8 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private exportService: ExportService
   ) { }
 
   ngOnInit(): void {
@@ -74,45 +64,55 @@ export class AccountComponent implements OnInit {
 
   }
 
+  exportExcel() {
+    this.exportService.exportExcel(this.accounts, 'accounts')
+  }
+
   handleCallbackTable(ev) {
     console.log(ev);
-    if (ev.type === 'create') {
-      return this.dialog.open(AccountAddComponent, {
-        width: '940px',
-        height: '588px'
-      }).afterClosed().subscribe(result => {
-        this.getAccounts();
-      });
-    }
-    if (ev.type === 'import') {
-      return this.dialog.open(ImportExcelComponent, {
-        width: '500px',
-        height: '350px'
-      }).afterClosed().subscribe(result => {
-        this.getAccounts();
-      });
-    }
-    if (ev.type === 'edit') {
-      return this.dialog.open(AccountUpdateComponent, {
-        width: '940px',
-        height: '588px',
-        data: ev.item
-      }).afterClosed().subscribe(result => {
-        this.getAccounts();
-      });
-    }
-    if (ev.type === 'delete') {
-      return this.dialog.open(AccountDeleteComponent, {
-        width: '400px',
-        height: '250px',
-        data: {
-          item: ev.item,
-          title: "Xoá Tài khoản",
-          content: "Bạn có muốn xoá Tài khoản trên hệ thống?"
-        }
-      }).afterClosed().subscribe(result => {
-        this.getAccounts();
-      });
+    switch (ev.type) {
+      case 'create':
+        this.dialog.open(AccountAddComponent, {
+          width: '940px',
+          height: '588px'
+        }).afterClosed().subscribe(result => {
+          this.getAccounts();
+        });
+        break;
+      case 'import':
+        this.dialog.open(ImportExcelComponent, {
+          width: '500px',
+          height: '350px'
+        }).afterClosed().subscribe(result => {
+          this.getAccounts();
+        });
+        break;
+      case 'edit':
+        this.dialog.open(AccountUpdateComponent, {
+          width: '940px',
+          height: '588px',
+          data: ev.item
+        }).afterClosed().subscribe(result => {
+          this.getAccounts();
+        });
+        break;
+      case 'delete':
+        this.dialog.open(AccountDeleteComponent, {
+          width: '400px',
+          height: '250px',
+          data: {
+            item: ev.item,
+            title: "Xoá Tài khoản",
+            content: "Bạn có muốn xoá Tài khoản trên hệ thống?"
+          }
+        }).afterClosed().subscribe(result => {
+          this.getAccounts();
+        });
+        break;
+      case 'export':
+        this.exportExcel();
+        break;
+
     }
   }
 
