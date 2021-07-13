@@ -38,10 +38,7 @@ export class ServerSideTableComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnInit(): void {
-
-
-  }
+  ngOnInit(): void { }
 
   ngOnChanges() {
     if (this.items) {
@@ -71,16 +68,9 @@ export class ServerSideTableComponent implements OnChanges {
       ];
     }
 
-    console.log('length', this.sizes.length);
-
-    if (this.sizes.length == 0) {
-      this.isShow = false;
-    } else this.isShow = true;
   }
 
   checkAll(ev) {
-    console.log(ev);
-
     this.checkItems.toArray().forEach((res) => {
       res.nativeElement.checked = ev.target.checked;
     });
@@ -103,6 +93,7 @@ export class ServerSideTableComponent implements OnChanges {
         .indexOf(a);
       this.sizes[idx].isChecked = ev.target.checked;
     });
+    this.isShow = this.sizes.some(item => item.isChecked == true);
   }
 
   checkOne(ev) {
@@ -112,6 +103,7 @@ export class ServerSideTableComponent implements OnChanges {
       })
       .indexOf(+ev.target.value);
     this.sizes[idx].isChecked = ev.target.checked;
+    this.isShow = this.sizes.some(item => item.isChecked == true);
   }
 
   isAllChecked() {
