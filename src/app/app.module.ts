@@ -13,6 +13,7 @@ import { CiCommonModule } from '@consult-indochina/common';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { APIInterceptor } from './utils/interceptors/api.interceptor';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,8 +27,7 @@ import { APIInterceptor } from './utils/interceptors/api.interceptor';
         'https://fgehlb1to6.execute-api.ap-southeast-1.amazonaws.com/prod/presigned-url',
     }),
     CiAuthModule.forRoot({
-      API_URL: 'https://nbcapi.chuyendoisodn.com/api',
-      // API_URL: 'http://192.168.1.34/nbc/api',
+      API_URL: `${environment.API_URL}/api`,
       PermissionNames: [],
       uiOption: 'custom',
     }),
