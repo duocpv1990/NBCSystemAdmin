@@ -22,6 +22,12 @@ export class MainLayoutComponent implements OnInit {
         subs: []
       },
       {
+        icon: 'assets/img/contract-icon.svg',
+        name: 'Hợp đồng',
+        linkURL: 'contract',
+        subs: []
+      },
+      {
         icon: 'assets/img/enterprise-code.svg',
         name: 'Doanh nghiệp',
         linkURL: 'enterprise',

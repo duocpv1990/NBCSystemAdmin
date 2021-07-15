@@ -15,6 +15,11 @@ export const mainRoutes: Routes = [
         loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
       },
       {
+        path: 'contract',
+        loadChildren: () =>
+          import('./contract/contract.module').then((m) => m.ContractModule),
+      },
+      {
         path: 'enterprise',
         loadChildren: () =>
           import('./enterprise/enterprise.module').then((m) => m.EnterpriseModule),

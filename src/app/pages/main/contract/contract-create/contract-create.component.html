@@ -1,0 +1,181 @@
+<div class="title">
+    THÊM MỚI HỢP ĐỒNG
+</div>
+<div class="container-fluid contract-container">
+    <div class="row">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN DOANH NGHIỆP
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Tên doanh nghiệp * </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Mã số thuế </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Địa chỉ </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Số điện thoại </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Email </span>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN NGƯỜI ĐẠI DIỆN
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Tên người đại diện * </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Số điện thoại người đại diện * </span>
+                    <input class="form-control" type="text">
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Email người đại diện *</span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Chức vụ </span>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN HỢP ĐỒNG
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Ngày ký </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ngày bắt đầu </span>
+                    <input class="form-control" type="date">
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Ngày kết thúc</span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Ngày hết hạn </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Loại hợp đồng </span>
+                    <select class="form-control">
+                        <option value="1">Ký mới</option>
+                        <option value="2">Nâng cấp</option>
+                        <option value="3">Tái ký</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                GIÁ TRỊ HỢP ĐỒNG
+            </div>
+
+            <div class="service-package">
+                <span class="form-span"> Gói dịch vụ </span>
+                <div class="select-package">
+                    <select class="form-control">
+                        <option value="">Gói MBTT - 5 mã</option>
+                        <option value="">Gói MBTT - 10 mã</option>
+                    </select>
+                    <button class="add-package" (click)="addData()">+</button>
+                </div>
+
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" *ngFor="let col of displayedColumns">
+                                {{col}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of packageData">
+                            <td>
+                                <div>
+                                    {{item.package}}
+                                </div>
+
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                            <td>
+                                <input type="text">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                GHI CHÚ
+            </div>
+
+            <div class="grid note">
+                <div class="grid-item">
+                    <span class="form-span">Tài liệu đính kèm</span>
+                </div>
+                <div class="grid-item">
+                    <input type="file">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Nhận xét</span>
+                </div>
+                <div class="grid-item">
+                    <angular-editor [config]="editorConfig"></angular-editor>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

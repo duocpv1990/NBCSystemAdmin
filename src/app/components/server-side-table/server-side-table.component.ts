@@ -42,6 +42,8 @@ export class ServerSideTableComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.items) {
+      console.log('items', this.items);
+
       this.sizes = [
         ...this.items.map((a) => {
           let i;

@@ -62,8 +62,8 @@
                 <ng-container *ngFor="let head of items[0] | keys">
                     <th
                         *ngIf="head !== 'ProductId' && head !== 'DistributorId' && head !== 'CompanyId' && head !== 'StoreId'">
-                        {{head |
-                        translateKeys:config}}</th>
+                        {{head | translateKeys:config}}
+                    </th>
                 </ng-container>
 
             </tr>
