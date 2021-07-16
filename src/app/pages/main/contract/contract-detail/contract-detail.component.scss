@@ -3,6 +3,11 @@ textarea {
   outline: none;
 }
 
+.form-control:disabled,
+.form-control[readonly] {
+  background: #fff;
+}
+
 .title {
   color: #002c6c;
   font-weight: 600;
@@ -94,23 +99,7 @@ textarea {
     }
   }
 
-  .btn-cancel {
-    width: 140px;
-    height: 50px;
-    background-color: #d6d6d6;
-    border-radius: 10px;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  .btn-save {
-    width: 140px;
-    height: 50px;
-    background-color: #1894ff;
-    border-radius: 10px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
+  .option-btn {
+    width: 35%;
   }
 }

@@ -90,6 +90,8 @@ export class ContractListComponent implements OnInit {
       case 'export':
         this.exportExcel();
         break;
+      case 'route':
+        this.router.navigate([`contract/${ev.item.ID}`])
 
     }
   }

@@ -9,20 +9,25 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { FilterBaseModule } from 'src/app/components/filter/filter.component';
 import { TableBaseModule } from 'src/app/components/table/table.component';
 import { ContractCreateComponent } from './contract-create/contract-create.component';
+import { ContractDetailComponent } from './contract-detail/contract-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     ContractComponent,
     ContractListComponent,
-    ContractCreateComponent
+    ContractCreateComponent,
+    ContractDetailComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(contractRoute),
     FilterBaseModule,
     TableBaseModule,
-    AngularEditorModule
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ContractModule { }
