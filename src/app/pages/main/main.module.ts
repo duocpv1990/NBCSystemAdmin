@@ -6,11 +6,11 @@ import { MainComponent } from './main.component';
 import { mainRoutes } from './main.routes';
 
 @NgModule({
-  declarations: [MainComponent, ],
+  declarations: [MainComponent,],
   imports: [
     CommonModule,
     RouterModule.forChild(mainRoutes),
     LayoutModule,],
   providers: [],
 })
-export class MainModule {}
+export class MainModule { }

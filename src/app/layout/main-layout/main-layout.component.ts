@@ -23,6 +23,12 @@ export class MainLayoutComponent implements OnInit {
       },
       {
         icon: 'assets/img/contract-icon.svg',
+        name: 'Khách hàng',
+        linkURL: 'customer',
+        subs: []
+      },
+      {
+        icon: 'assets/img/contract-icon.svg',
         name: 'Hợp đồng',
         linkURL: 'contract',
         subs: []
@@ -51,12 +57,12 @@ export class MainLayoutComponent implements OnInit {
         linkURL: 'product',
         subs: []
       },
-      // {
-      //   icon: 'assets/img/service-package.svg',
-      //   name: 'Gói dịch vụ',
-      //   linkURL: 'service-package',
-      //   subs: []
-      // },
+      {
+        icon: 'assets/img/service-package.svg',
+        name: 'Gói dịch vụ',
+        linkURL: 'service-package',
+        subs: []
+      },
       {
         icon: 'assets/img/icon-setting.svg',
         name: 'Cài đặt',
