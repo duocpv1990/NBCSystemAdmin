@@ -11,10 +11,6 @@ export const mainRoutes: Routes = [
           import('./home/home.module').then((m) => m.HomeModule),
       },
       {
-        path: 'customer',
-        loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule),
-      },
-      {
         path: 'product',
         loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
       },
@@ -24,7 +20,7 @@ export const mainRoutes: Routes = [
           import('./contract/contract.module').then((m) => m.ContractModule),
       },
       {
-        path: 'enterprise',
+        path: 'customer',
         loadChildren: () =>
           import('./enterprise/enterprise.module').then((m) => m.EnterpriseModule),
       },

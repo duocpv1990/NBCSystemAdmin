@@ -28,6 +28,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { RoleDirectiveModule } from 'src/app/utils/directives/role.directive';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { EnterpriseDetailComponent } from './enterprise-detail/enterprise-detail.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     EnterpriseCreateComponent,
     DeleteEnterpriseComponent,
     EnterpriseEditComponent,
+    EnterpriseDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -60,7 +63,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     RoleDirectiveModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule
   ],
   exports: [EnterpriseComponent],
 })
-export class EnterpriseModule {}
+export class EnterpriseModule { }

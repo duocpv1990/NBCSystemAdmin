@@ -15,41 +15,37 @@ export class CustomerModel {
                 condition: 'ID'
             },
             {
+                Text: 'Mã doanh nghiệp',
+                type: 'text',
+                data: [],
+                condition: 'CompanyCode'
+            },
+            {
+                Text: 'Mã địa điểm toàn cầu',
+                type: 'text',
+                data: [],
+                condition: 'GLN'
+            },
+            {
                 Text: 'Tên doanh nghiệp',
                 type: 'text',
                 data: [],
                 condition: 'Name'
             },
-            {
-                Text: 'Gói dịch vụ',
-                type: 'select',
-                data: [],
-                condition: 'PackageService'
-            },
-            {
-                Text: 'Người tạo',
-                type: 'text',
-                data: [],
-                condition: 'city'
-            },
-            {
-                Text: 'Người duyệt',
-                type: 'text',
-                data: [],
-                condition: 'city'
-            },
-            {
-                Text: 'Loại hợp đồng',
-                type: 'select',
-                data: [],
-                condition: 'Type'
-            },
+
             {
                 Text: 'Tình trạng',
                 type: 'select',
                 data: [],
                 condition: 'status'
             },
+            {
+                Text: 'Gói dịch vụ',
+                type: 'select',
+                data: [],
+                condition: 'ServicePackage'
+            },
+
             {
                 Text: 'Tìm kiếm',
                 type: 'button',
@@ -58,11 +54,22 @@ export class CustomerModel {
     }
     public get collums(): Array<CollumsModel> {
         return [
-
             {
-                id: 'ID',
-                name: 'ID',
+                id: 'checkbox',
+                name: '',
                 width: 100,
+                type: 'checkbox',
+            },
+            {
+                id: 'CompanyCode',
+                name: 'Mã doanh nghiệp',
+                width: 200,
+                type: 'text',
+            },
+            {
+                id: 'GLN',
+                name: 'Mã địa điểm toàn cầu',
+                width: 200,
                 type: 'text',
             },
             {
@@ -78,35 +85,10 @@ export class CustomerModel {
                 type: 'text',
             },
             {
-                id: 'Value',
-                name: 'Gía trị',
-                width: 200,
-                type: 'text',
-            },
-            {
-                id: 'Creater',
-                name: 'Người tạo',
-                width: 200,
-                type: 'text',
-            },
-            {
                 id: 'Type',
-                name: 'Loại hợp đồng',
-                width: 200,
-                type: 'text',
-            },
-            {
-                id: 'ApprovedbBy',
-                name: 'Người duyệt',
-                width: 200,
-                type: 'text',
-            },
-
-            {
-                id: 'Status',
                 name: 'Tình trạng',
                 width: 200,
-                type: 'status',
+                type: 'type',
             },
 
         ];
@@ -135,21 +117,21 @@ export class CustomerModel {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'CompanyId',
+                id: 'Name',
                 label: 'Tên doanh nghiệp',
                 name: 'Name',
                 type: 'select',
             },
             {
-                id: 'Name',
-                label: 'Tên nhà phân phối',
-                name: 'Name',
+                id: 'CompanyCode',
+                label: 'Mã doanh nghiệp',
+                name: 'CompanyCode',
                 type: 'text'
             },
             {
-                id: 'TaxCode',
-                label: 'Mã số thuế',
-                name: 'TaxCode',
+                id: 'GLN',
+                label: 'Mã địa điêm toàn cầu',
+                name: 'GLN',
                 type: 'text'
             },
             {
