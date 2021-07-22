@@ -22,7 +22,7 @@ export class MainLayoutComponent implements OnInit {
         subs: []
       },
       {
-        icon: 'assets/img/contract-icon.svg',
+        icon: 'assets/img/enterprise-code.svg',
         name: 'Khách hàng',
         linkURL: 'customer',
         subs: []
@@ -33,12 +33,12 @@ export class MainLayoutComponent implements OnInit {
         linkURL: 'contract',
         subs: []
       },
-      {
-        icon: 'assets/img/enterprise-code.svg',
-        name: 'Doanh nghiệp',
-        linkURL: 'enterprise',
-        subs: []
-      },
+      // {
+      //   icon: 'assets/img/enterprise-code.svg',
+      //   name: 'Doanh nghiệp',
+      //   linkURL: 'enterprise',
+      //   subs: []
+      // },
       // {
       //   icon: 'assets/img/distributor.svg',
       //   name: 'Nhà phân phối',

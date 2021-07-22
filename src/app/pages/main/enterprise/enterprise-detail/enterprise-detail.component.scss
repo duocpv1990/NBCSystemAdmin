@@ -1,0 +1,17 @@
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: auto;
+  padding: 30px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding-left: 4%;
+  span {
+    font-weight: 600;
+  }
+}
