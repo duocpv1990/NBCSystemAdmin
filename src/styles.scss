@@ -192,3 +192,7 @@ dynamic-basic-select {
     border: none;
   }
 }
+
+.custom-dialog-container .mat-dialog-container {
+  overflow-y: hidden;
+}

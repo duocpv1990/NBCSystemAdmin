@@ -32,6 +32,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { EnterpriseDetailComponent } from './enterprise-detail/enterprise-detail.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { CareHistoryComponent } from './enterprise-detail/care-history/care-history.component';
+import { UseServiceComponent } from './enterprise-detail/use-service/use-service.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { MatListModule } from '@angular/material/list';
     DeleteEnterpriseComponent,
     EnterpriseEditComponent,
     EnterpriseDetailComponent,
+    CareHistoryComponent,
+    UseServiceComponent,
   ],
   imports: [
     CommonModule,

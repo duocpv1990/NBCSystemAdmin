@@ -1,0 +1,19 @@
+.service {
+  padding: 16px;
+  overflow-y: auto;
+  height: 100vh;
+  padding-bottom: 40vh;
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 20px;
+    padding-left: 4%;
+    background: #f6f6f6;
+    padding: 16px;
+    border: 1px dotted;
+    margin-bottom: 25px;
+    span {
+      font-weight: 600;
+    }
+  }
+}

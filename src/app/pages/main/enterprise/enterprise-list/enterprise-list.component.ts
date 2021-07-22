@@ -195,6 +195,7 @@ export class EnterpriseListComponent implements OnInit {
     if (ev.type === 'edit') {
       return this.dialog
         .open(EnterpriseDetailComponent, {
+          panelClass: 'custom-dialog-container',
           width: '940px',
           height: '843px',
           data: ev.data,
