@@ -70,7 +70,8 @@ export class MainLayoutComponent implements OnInit {
         subs: [
           { name: 'Danh sách tài khoản', path: 'setting/account-list' },
           { name: 'Nhóm quyền', path: 'setting/privileges' },
-          { name: 'Phân quyền', path: 'setting/authorization' }
+          { name: 'Phân quyền', path: 'setting/authorization' },
+          { name: 'Lý do', path: 'setting/reason' }
         ]
       },
 
