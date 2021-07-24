@@ -3,6 +3,7 @@ import { AccountComponent } from "./account/account.component";
 import { SettingComponent } from './setting.component';
 import { PrivilegesComponent } from './privileges/privileges.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
+import { ReasonComponent } from './reason/reason.component';
 
 export const settingRoute: Routes = [
     {
@@ -22,6 +23,10 @@ export const settingRoute: Routes = [
             {
                 path: 'authorization',
                 component: AuthorizationComponent
+            },
+            {
+                path: 'reason',
+                component: ReasonComponent
             },
 
             {

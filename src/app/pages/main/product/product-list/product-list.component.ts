@@ -161,7 +161,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private productService: ProductService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getProductList();
@@ -275,7 +275,7 @@ export class ProductListComponent implements OnInit {
           height: '350px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => { });
     }
     if (ev.type === 'edit') {
       return this.dialog

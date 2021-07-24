@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // API_URL: 'http://192.168.1.34/nbc',
-  API_URL: 'https://nbcapi.chuyendoisodn.com/',
+  API_URL: 'https://nbcapi.chuyendoisodn.com',
 
 };
 

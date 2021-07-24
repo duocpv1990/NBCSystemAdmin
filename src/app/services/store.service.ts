@@ -19,7 +19,7 @@ export class StoreService extends BaseApiService<any> {
       })
       .pipe(map((res: any) => res));
   }
-  
+
   deleteStore(id) {
     return this.http.delete('store', {
       params: {
@@ -36,4 +36,9 @@ export class StoreService extends BaseApiService<any> {
   updateStore(storeId, data) {
     return this.http.put(`store?storeId=${storeId}`, data);
   }
+
+  createImgStore(data) {
+    return this.http.post("api/store/media", data).pipe(map((res: any) => res.payload));
+  }
+
 }

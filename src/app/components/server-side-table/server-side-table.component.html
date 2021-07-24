@@ -1,29 +1,25 @@
 <ng-container *ngIf="pagination">
     <div class="top_bar">
         <div class="btn">
-            <button [matMenuTriggerFor]="menu"
-                    class="btn-create">
+            <button [matMenuTriggerFor]="menu" class="btn-create">
                 Thêm mới
             </button>
-            <button (click)="exportexcel()"
-                    class="btn-export">
-                Export
-            </button>
-            <button (click)="delete()"
-                    class="btn-delete">
-                Xóa
-            </button>
+            <span *ngIf="isShow" class="menu-button">
+                <button (click)="exportexcel()" class="btn-export">
+                    Export
+                </button>
+                <button (click)="delete()" class="btn-delete">
+                    Xóa
+                </button>
+            </span>
+
             <mat-menu #menu="matMenu">
-                <button mat-menu-item
-                        (click)="addEmit()">Thêm mới bằng tay</button>
-                <button mat-menu-item
-                        (click)="import()">Import excel</button>
+                <button mat-menu-item (click)="addEmit()">Thêm mới bằng tay</button>
+                <button mat-menu-item (click)="import()">Import excel</button>
             </mat-menu>
 
         </div>
-        <pagination-template #p="paginationApi"
-                             [id]="pagination.id"
-                             (pageChange)="getPage($event)">
+        <pagination-template #p="paginationApi" [id]="pagination.id" (pageChange)="getPage($event)">
 
 
             <div class="custom-pagination">
@@ -32,17 +28,14 @@
    <span>{{ page.label }}</span>
 </a> -->
                 <div class="pagination_ip">
-                    <div class="pagination-previous"
-                         [class.disabled]="p.isFirstPage()">
+                    <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
                         <a (click)="p.previous()">
                             <mat-icon>arrow_left</mat-icon>
                         </a>
                     </div>
                     <span>{{ pagination.currentPage }}</span>
-                    <div class="pagination-next"
-                         [class.disabled]="p.isLastPage()">
-                        <a (click)="p.next()"
-                           *ngIf="!p.isLastPage()">
+                    <div class="pagination-next" [class.disabled]="p.isLastPage()">
+                        <a (click)="p.next()" *ngIf="!p.isLastPage()">
                             <mat-icon>arrow_right</mat-icon>
                         </a>
                         <a *ngIf="p.isLastPage()">
@@ -61,78 +54,60 @@
 
 
                 <th>
-                    <input type="checkbox"
-                           name="all"
-                           class="checkbox"
-                           [checked]="isAllChecked()"
-                           (change)="checkAll($event)" />
+                    <input type="checkbox" name="all" class="checkbox" [checked]="isAllChecked()"
+                        (change)="checkAll($event)" />
                 </th>
 
                 <th>STT</th>
                 <ng-container *ngFor="let head of items[0] | keys">
                     <th
                         *ngIf="head !== 'ProductId' && head !== 'DistributorId' && head !== 'CompanyId' && head !== 'StoreId'">
-                        {{head |
-                        translateKeys:config}}</th>
+                        {{head | translateKeys:config}}
+                    </th>
                 </ng-container>
 
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of items | paginate: pagination; let i = index"
-                (click)="openEdit(item)">
+            <tr *ngFor="let item of items | paginate: pagination; let i = index" (click)="openEdit(item)">
                 <ng-container *ngFor="let list of item | keys; let ix = index  ">
                     <td
                         *ngIf="list === 'ProductId' || list === 'DistributorId' || list === 'CompanyId' || list === 'StoreId'">
-                        <input type="checkbox"
-                               class="checkbox"
-                               (click)="$event.stopPropagation()"
-                               #checkItem
-                               name="sizecb[]"
-                               [value]="item[list]"
-                               (change)="checkOne($event)" />
+                        <input type="checkbox" class="checkbox" (click)="$event.stopPropagation()" #checkItem
+                            name="sizecb[]" [value]="item[list]" (change)="checkOne($event)" />
                     </td>
                     <td *ngIf="ix ===0 ">{{i + 1}}</td>
                     <td
                         *ngIf="list !== 'ProductId' && list !== 'DistributorId' && list !== 'CompanyId' && list !== 'StoreId'">
                         <span
-                              *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type' && list !=='UpdatedOn'">{{item[list]}}</span>
-                        <span *ngIf="list === 'Status' && pagination.id == 'product'"
-                              [style.cursor]="'pointer'"
-                              (click)="updateStatus(item[list],item.ProductId);$event.stopPropagation()"
-                              [class]="item[list] == 1?'success':'danger'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
+                            *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type' && list !=='UpdatedOn'">{{item[list]}}</span>
+                        <span *ngIf="list === 'Status' && pagination.id == 'product'" [style.cursor]="'pointer'"
+                            (click)="updateStatus(item[list],item.ProductId);$event.stopPropagation()"
+                            [class]="item[list] == 1?'success':'danger'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
                             duyệt'}}</span>
-                        <span [style.cursor]="'pointer'"
-                              *ngIf="list === 'Type'  && (item.DistributorId)"
-                              (click)="updateType(item[list],item.DistributorId);$event.stopPropagation()"
-                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
+                        <span [style.cursor]="'pointer'" *ngIf="list === 'Type'  && (item.DistributorId)"
+                            (click)="updateType(item[list],item.DistributorId);$event.stopPropagation()"
+                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
                             động'}}</span>
-                        <span [style.cursor]="'pointer'"
-                              *ngIf="list === 'Status'  && (item.CompanyId)"
-                              (click)="updateStatus(item[list],item.CompanyId);$event.stopPropagation()"
-                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
+                        <span [style.cursor]="'pointer'" *ngIf="list === 'Status'  && (item.CompanyId)"
+                            (click)="updateStatus(item[list],item.CompanyId);$event.stopPropagation()"
+                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
                             động'}}</span>
-                        <span [style.cursor]="'pointer'"
-                              *ngIf="list === 'Type' && item.ProductId"
-                              (click)="updateType(item[list],item.ProductId);$event.stopPropagation()"
-                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không cho quét':'Cho
+                        <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.ProductId"
+                            (click)="updateType(item[list],item.ProductId);$event.stopPropagation()"
+                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không cho quét':'Cho
                             quét'}}</span>
-                        <span [style.cursor]="'pointer'"
-                              *ngIf="list === 'Type' && item.StoreId"
-                              (click)="updateType(item[list],item.StoreId);$event.stopPropagation()"
-                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ?
+                        <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.StoreId"
+                            (click)="updateType(item[list],item.StoreId);$event.stopPropagation()"
+                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ?
                             'Offline':'Online'}}</span>
-                        <span [style.cursor]="'pointer'"
-                              *ngIf="list === 'Type' && item.CompanyId"
-                              (click)="updateType(item[list],item.CompanyId);$event.stopPropagation()"
-                              [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
+                        <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.CompanyId"
+                            (click)="updateType(item[list],item.CompanyId);$event.stopPropagation()"
+                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
                             duyệt'}}</span>
                         <span *ngIf="list ==='UpdatedOn'">{{item[list] | date:'dd/MM/yyyy hh:mm'}}</span>
 
-                        <img *ngIf="list === 'MediaURL'"
-                             [style.width.px]="50"
-                             src="{{item[list]}}"
-                             alt="">
+                        <img *ngIf="list === 'MediaURL'" [style.width.px]="50" src="{{item[list]}}" alt="">
                     </td>
                 </ng-container>
             </tr>

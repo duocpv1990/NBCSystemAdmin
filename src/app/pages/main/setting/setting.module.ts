@@ -18,9 +18,28 @@ import { PrivilegeDeleteComponent } from './privileges/privilege-delete/privileg
 import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
 import { EditModule } from 'src/app/components/edit/edit.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ReasonComponent } from './reason/reason.component';
+import { ReasonAddComponent } from './reason/reason-add/reason-add.component';
+import { ReasonUpdateComponent } from './reason/reason-update/reason-update.component';
+import { ReasonDeleteComponent } from './reason/reason-delete/reason-delete.component';
 
 @NgModule({
-  declarations: [SettingComponent, AccountComponent, AuthorizationComponent, PrivilegesComponent, AccountAddComponent, AccountUpdateComponent, AccountDeleteComponent, PrivilegeAddComponent, PrivilegeUpdateComponent, PrivilegeDeleteComponent],
+  declarations: [
+    SettingComponent,
+    AccountComponent,
+    AuthorizationComponent,
+    PrivilegesComponent,
+    AccountAddComponent,
+    AccountUpdateComponent,
+    AccountDeleteComponent,
+    PrivilegeAddComponent,
+    PrivilegeUpdateComponent,
+    PrivilegeDeleteComponent,
+    ReasonComponent,
+    ReasonAddComponent,
+    ReasonUpdateComponent,
+    ReasonDeleteComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(settingRoute),

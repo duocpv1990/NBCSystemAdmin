@@ -7,9 +7,9 @@ import { DeleteComponent } from 'src/app/components/dialog/delete/delete.compone
 import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { EnterPriseModel } from 'src/app/models/enterprise.model';
 import { CompanyService } from 'src/app/services/company.service';
-import { DeleteEnterpriseComponent } from '../delete-enterprise/delete-enterprise.component';
 import { EnterpriseCreateComponent } from '../enterprise-create/enterprise-create.component';
 import { EnterpriseEditComponent } from '../enterprise-edit/enterprise-edit.component';
+import { EnterpriseDetailComponent } from '../enterprise-detail/enterprise-detail.component';
 
 @Component({
   selector: 'app-enterprise-list',
@@ -119,13 +119,13 @@ export class EnterpriseListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private companyService: CompanyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.getCompanies();
     this.listFilter = this.config.filter;
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
-    this.getCompanies();
   }
 
   changePage(ev) {
@@ -181,7 +181,7 @@ export class EnterpriseListComponent implements OnInit {
           height: '843px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => { });
     }
     if (ev.type === 'import') {
       return this.dialog
@@ -190,11 +190,12 @@ export class EnterpriseListComponent implements OnInit {
           height: '350px',
         })
         .afterClosed()
-        .subscribe((result) => {});
+        .subscribe((result) => { });
     }
     if (ev.type === 'edit') {
       return this.dialog
-        .open(EnterpriseEditComponent, {
+        .open(EnterpriseDetailComponent, {
+          panelClass: 'custom-dialog-container',
           width: '940px',
           height: '843px',
           data: ev.data,

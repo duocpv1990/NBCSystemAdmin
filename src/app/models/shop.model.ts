@@ -130,7 +130,7 @@ export class ShopModel {
             {
                 id: 'CompanyId',
                 label: 'Tên doanh nghiệp',
-                name: 'Name',
+                name: 'CompanyId',
                 type: 'select',
             },
 

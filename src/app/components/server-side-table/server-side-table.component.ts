@@ -34,13 +34,16 @@ export class ServerSideTableComponent implements OnChanges {
 
   @Output() paginationChange = new EventEmitter();
   @Output() eventTrigger = new EventEmitter();
-  constructor() {}
+  isShow = false;
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void { }
+
   ngOnChanges() {
-    console.log(this.pagination);
-
     if (this.items) {
+      console.log('items', this.items);
+
       this.sizes = [
         ...this.items.map((a) => {
           let i;
@@ -66,6 +69,7 @@ export class ServerSideTableComponent implements OnChanges {
         }),
       ];
     }
+
   }
 
   checkAll(ev) {
@@ -91,7 +95,7 @@ export class ServerSideTableComponent implements OnChanges {
         .indexOf(a);
       this.sizes[idx].isChecked = ev.target.checked;
     });
-    // this.sizes.forEach((x) => (x.isChecked = ev.target.checked));
+    this.isShow = this.sizes.some(item => item.isChecked == true);
   }
 
   checkOne(ev) {
@@ -101,8 +105,7 @@ export class ServerSideTableComponent implements OnChanges {
       })
       .indexOf(+ev.target.value);
     this.sizes[idx].isChecked = ev.target.checked;
-
-    console.log(this.sizes);
+    this.isShow = this.sizes.some(item => item.isChecked == true);
   }
 
   isAllChecked() {
@@ -196,4 +199,4 @@ export class ServerSideTableComponent implements OnChanges {
   ],
   exports: [ServerSideTableComponent],
 })
-export class ServerSideTableModule {}
+export class ServerSideTableModule { }

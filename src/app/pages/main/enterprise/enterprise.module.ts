@@ -28,6 +28,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { RoleDirectiveModule } from 'src/app/utils/directives/role.directive';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { EnterpriseDetailComponent } from './enterprise-detail/enterprise-detail.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { CareHistoryComponent } from './enterprise-detail/care-history/care-history.component';
+import { UseServiceComponent } from './enterprise-detail/use-service/use-service.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +42,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     EnterpriseCreateComponent,
     DeleteEnterpriseComponent,
     EnterpriseEditComponent,
+    EnterpriseDetailComponent,
+    CareHistoryComponent,
+    UseServiceComponent,
   ],
   imports: [
     CommonModule,
@@ -60,7 +69,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     RoleDirectiveModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule
   ],
   exports: [EnterpriseComponent],
 })
-export class EnterpriseModule {}
+export class EnterpriseModule { }

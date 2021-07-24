@@ -1,228 +1,129 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  NgModule,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, NgModule, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { BaseUploadComponent, S3FileService } from '@consult-indochina/common';
-import { CertService } from 'src/app/services/cert.service';
-import { CompanyService } from 'src/app/services/company.service';
+
 import { AddCertificateComponent } from '../dialog/add-certificate/add-certificate.component';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+  styleUrls: ['./edit.component.scss']
 })
-export class EditComponent extends BaseUploadComponent implements OnInit {
+export class EditComponent extends BaseUploadComponent implements OnInit, OnChanges {
   @Input() data: any;
   @Input() option: any;
   @Input() arrayButton: any;
-  @Input() typeForms: string;
   @Input() dataModel?: any;
+  @Input() listCertification: any;
   @Output() callback = new EventEmitter<any>();
+  @Output() selectChange = new EventEmitter<any>();
 
   html: '';
+
   model: any = {};
   imagePath;
-  imgURL;
-  avatarUrl;
-  backgroundURL;
-  certList = [];
+  fileAvatar: any;
+  fileBackground: any;
   listMedia: any = [];
-
-
+  imgURL;
+  listComplete: any = [];
+  listSearch: any = [];
+  timer;
+  certificationDetail: any = [];
   constructor(
-    private dialog: MatDialog,
     public s3Service: S3FileService,
-    private certService: CertService,
-    private companyService: CompanyService
+    private dialog: MatDialog,
+
   ) {
     super(s3Service);
   }
+  ngOnChanges(): void {
+    this.model = this.dataModel || {};
+    this.certificationDetail = this.listCertification;
+    console.log(this.model);
+    console.log(this.certificationDetail);
+
+
+    if (this.model.listMedia) {
+      this.model.listMedia.forEach(x => {
+        if (x.Type == 1) {
+          this.model.MediaURL = x.MediaURL;
+        }
+        if (x.Type == 2) {
+          this.model.BackgroundURL = x.MediaURL
+        }
+      });
+    }
+  }
+
 
   ngOnInit() {
-    setTimeout(() => {
-      this.model = this.dataModel;
-      switch (this.typeForms) {
-        case 'enterprise':
-          this.certList = this.dataModel.CompanyCertifications;
-          this.dataModel.CompanyMedias.forEach((el) => {
-            if (el.Type == 1) {
-              this.avatarUrl = el.MediaURL;
-            } else {
-              this.backgroundURL = el.MediaURL;
-            }
-          });
-          break;
-        case 'distributor':
-          this.dataModel.DistributorMedias.forEach((el) => {
-            if (el.Type == 1) {
-              this.avatarUrl = el.MediaURL;
-            } else {
-              this.backgroundURL = el.MediaURL;
-            }
-          });
-          break;
-        case 'store':
-          this.dataModel.StoreMedias.forEach((el) => {
-            if (el.Type == 1) {
-              this.avatarUrl = el.MediaURL;
-            } else {
-              this.backgroundURL = el.MediaURL;
-            }
-          });
-          break;
-      }
-
-
-    }, 100);
+    // this.timer = this.enterpriseService.getListCompany("", "", 1, 1, 50).subscribe(res => {
+    //   this.listComplete = res;
+    // });
 
   }
-
-
-
-  chooseLocation(event, check) {
-    this.callback.emit({
-      check: check,
-      value: event,
-    });
+  selectCompany(value) {
+    this.model.CompanyId = value.CompanyId;
+    this.model.CompanyName = value.Name;
+    this.listSearch.length = 0;
   }
-
+  autocomplete(name) {
+    if (!name) return this.listSearch.length = 0;
+    this.listSearch = this.listComplete.filter(x => x.Name.toLowerCase().indexOf(name.toLowerCase()) > -1);
+  }
   preview(files, value) {
-    if (!files) return;
-    switch (this.typeForms) {
-      case 'enterprise':
-        this.model.companyMedias = [];
-        break;
-      case 'distributor':
-        this.model.distributorMedias = [];
-        break;
-      case 'store':
-        this.model.storeMedias = [];
-        break;
-    }
-
-    this.fileLinkList = [];
     if (value === 'avatar') {
-
-      this.selectImage(files).subscribe(
-        (res) => { },
-        (err) => { },
-        () => {
-          console.log(this.imageLinkUpload);
-          this.avatarUrl = this.imageLinkUpload;
-          switch (this.typeForms) {
-            case 'enterprise':
-              this.model.companyMedias.push({
-                MediaURL: this.imageLinkUpload,
-                Type: 1,
-                Status: 1,
-              });
-              break;
-            case 'distributor':
-              let model = {
-                MediaURL: this.imageLinkUpload,
-                Type: 1,
-                Status: 1,
-              }
-              this.listMedia.push(model);
-              console.log(this.listMedia);
-
-              break;
-            case 'store':
-              this.model.storeMedias.push({
-                MediaURL: this.imageLinkUpload,
-                Type: 1,
-                Status: 1,
-              });
-              break;
-          }
-        }
-      );
-    } else if (value === 'background') {
-
-      this.selectImage(files).subscribe(
-        (res) => { },
-        (err) => { },
-        () => {
-          console.log(this.imageLinkUpload);
-          this.backgroundURL = this.imageLinkUpload;
-          switch (this.typeForms) {
-            case 'enterprise':
-              this.model.companyMedias.push({
-                MediaURL: this.imageLinkUpload,
-                Type: 2,
-                Status: 1,
-              });
-              break;
-            case 'distributor':
-
-              let background = {
-                MediaURL: this.imageLinkUpload,
-                Type: 2,
-                Status: 1,
-              };
-              this.listMedia.push(background);
-              console.log(this.listMedia);
-
-              break;
-            case 'store':
-              this.model.storeMedias.push({
-                MediaURL: this.imageLinkUpload,
-                Type: 2,
-                Status: 1,
-              });
-              break;
-          }
-        }
-      );
+      if (files.length === 0)
+        return;
+      let reader = new FileReader();
+      this.imagePath = files;
+      reader.readAsDataURL(files[0]);
+      reader.onload = (_event) => {
+        this.model.MediaURL = reader.result;
+        this.fileAvatar = files;
+        this.model.FileAvatar = files;
+      }
     }
+    else if (value === 'background') {
+      if (files.length === 0)
+        return;
+      let reader = new FileReader();
+      this.imagePath = files;
+      reader.readAsDataURL(files[0]);
+      reader.onload = (_event) => {
+        this.model.BackgroundURL = reader.result;
+        this.fileBackground = files;
+        this.model.FileBackground = files;
+      }
+    }
+
   }
+  handleSelectChange(ev, check) {
+    this.selectChange.emit({
+      value: ev,
+      check: check
+    })
 
-
-  onCallBackData = () => { };
+  }
+  onCallBackData = () => { }
 
   onClickButton = (i) => {
-    this.model.Type = 1;
-    if (this.typeForms == 'enterprise') {
-      this.model.CertificationIdList = this.certList;
+    if (i.class === "btn-save") {
+      i.data = this.model;
+      this.callback.emit(i);
     }
-    i.data = this.model;
-    this.callback.emit(i);
-  };
-
-  addCertificate() {
-    this.companyService
-      .get('certificate', {
-        companyId: this.dataModel.CompanyId,
-      })
-      .subscribe((res: any) => {
-        this.dialog
-          .open(AddCertificateComponent, {
-            data: res.payload,
-          })
-          .afterClosed()
-          .subscribe((res) => {
-            console.log(res);
-            if (res.type == 'save') {
-              this.certService.create(res.data).subscribe((res: any) => {
-                console.log(res);
-                this.certList.push(res.payload);
-              });
-            }
-          });
-      });
+    else {
+      this.callback.emit(i);
+    }
   }
+
 }
+
 
 @NgModule({
   declarations: [EditComponent],

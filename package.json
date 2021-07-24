@@ -24,6 +24,7 @@
     "@angular/router": "~11.2.7",
     "@consult-indochina/auth": "^2.0.2",
     "@consult-indochina/common": "^1.1.1",
+    "@kolkov/angular-editor": "^1.2.0",
     "@ng-dynamic-forms/core": "^13.0.0",
     "@ng-dynamic-forms/ui-basic": "^13.0.0",
     "angular2-text-mask": "^9.0.0",

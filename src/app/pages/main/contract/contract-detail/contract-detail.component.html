@@ -1,0 +1,278 @@
+<div class="title">
+    THÔNG TIN HỢP ĐỒNG
+</div>
+<form class="container-fluid contract-container" [formGroup]="contractForm">
+    <div class="row">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN DOANH NGHIỆP
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Tên doanh nghiệp * </span>
+                    <input class="form-control" type="text" formControlName="name" readonly>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Mã số thuế </span>
+                    <input class="form-control" type="text" formControlName="taxCode" readonly>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Địa chỉ </span>
+                    <input class="form-control" type="text" formControlName="address" readonly>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Số điện thoại </span>
+                    <input class="form-control" type="text" formControlName="phone" readonly>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Email </span>
+                    <input class="form-control" type="text" formControlName="email" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN NGƯỜI ĐẠI DIỆN
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Tên người đại diện * </span>
+                    <input class="form-control" type="text" formControlName="representative" readonly>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Số điện thoại người đại diện * </span>
+                    <input class="form-control" type="text" formControlName="representativePhone" readonly>
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Email người đại diện *</span>
+                    <input class="form-control" type="text" formControlName="representativeEmail" readonly>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Chức vụ </span>
+                    <input class="form-control" type="text" formControlName="position" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN HỢP ĐỒNG
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Ngày ký </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ngày bắt đầu </span>
+                    <input class="form-control" type="date">
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Ngày kết thúc</span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Ngày hết hạn </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Loại hợp đồng </span>
+                    <select class="form-control">
+                        <option value="1">Ký mới</option>
+                        <option value="2">Nâng cấp</option>
+                        <option value="3">Tái ký</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                GIÁ TRỊ HỢP ĐỒNG
+            </div>
+
+            <div class="service-package">
+                <table class="table table-borderless text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" *ngFor="let col of displayedColumns">
+                                {{col}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of packageData">
+                            <td>
+                                <div>
+                                    {{item.package}}
+                                </div>
+
+                            </td>
+                            <td>
+                                <div>
+                                    {{item.month}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{item.value | number: '1.0-0'}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{item.vat}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{item.discount | number: '1.0-0'}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{item.promotionTime}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{item.total | number: '1.0-0'}}
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                CHI TIẾT HỢP ĐỒNG
+            </div>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">ID </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Loại hợp đồng </span>
+                    <input class="form-control" type="text">
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Trạng thái</span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Người duyệt </span>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                LỊCH SỬ THAY ĐỔI
+            </div>
+
+            <div class="service-package">
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" *ngFor="let col of displayedHistoryColumns">
+                                {{col}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    07:00:00 07/07/2021
+                                </div>
+
+                            </td>
+                            <td>
+                                <div>
+                                    Nguyễn Văn Sơn
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    Sửa hợp đồng
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                GHI CHÚ
+            </div>
+
+            <div class="grid note">
+                <div class="grid-item">
+                    <span class="form-span">Tài liệu đính kèm</span>
+                </div>
+                <div class="grid-item">
+                    <input type="file">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Nhận xét</span>
+                </div>
+                <div class="grid-item">
+                    <angular-editor [config]="editorConfig"></angular-editor>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col d-flex justify-content-center">
+
+            <div class="option-btn d-flex justify-content-between">
+                <button class="btn btn-primary">
+                    Xác nhận thanh toán
+                </button>
+
+                <button class="btn btn-danger">
+                    Hoàn duyệt
+                </button>
+
+                <button class="btn btn-dark">
+                    Hủy hợp đồng
+                </button>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</form>

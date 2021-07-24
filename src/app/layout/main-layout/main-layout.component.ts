@@ -23,22 +23,34 @@ export class MainLayoutComponent implements OnInit {
       },
       {
         icon: 'assets/img/enterprise-code.svg',
-        name: 'Doanh nghiệp',
-        linkURL: 'enterprise',
+        name: 'Khách hàng',
+        linkURL: 'customer',
         subs: []
       },
       {
-        icon: 'assets/img/distributor.svg',
-        name: 'Nhà phân phối',
-        linkURL: 'distributor',
+        icon: 'assets/img/contract-icon.svg',
+        name: 'Hợp đồng',
+        linkURL: 'contract',
         subs: []
       },
-      {
-        icon: 'assets/img/shop.svg',
-        name: 'Điểm bán',
-        linkURL: 'shop',
-        subs: []
-      },
+      // {
+      //   icon: 'assets/img/enterprise-code.svg',
+      //   name: 'Doanh nghiệp',
+      //   linkURL: 'enterprise',
+      //   subs: []
+      // },
+      // {
+      //   icon: 'assets/img/distributor.svg',
+      //   name: 'Nhà phân phối',
+      //   linkURL: 'distributor',
+      //   subs: []
+      // },
+      // {
+      //   icon: 'assets/img/shop.svg',
+      //   name: 'Điểm bán',
+      //   linkURL: 'shop',
+      //   subs: []
+      // },
       {
         icon: 'assets/img/bag.svg',
         name: 'Sản phẩm',
@@ -58,7 +70,8 @@ export class MainLayoutComponent implements OnInit {
         subs: [
           { name: 'Danh sách tài khoản', path: 'setting/account-list' },
           { name: 'Nhóm quyền', path: 'setting/privileges' },
-          { name: 'Phân quyền', path: 'setting/authorization' }
+          { name: 'Phân quyền', path: 'setting/authorization' },
+          { name: 'Lý do', path: 'setting/reason' }
         ]
       },
 

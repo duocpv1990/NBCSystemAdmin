@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
+import { PrivilegeService } from 'src/app/services/privilege.service';
 
 @Component({
   selector: 'app-account-update',
@@ -31,16 +32,20 @@ export class AccountUpdateComponent implements OnInit {
   createdBy = '';
   roleId = '';
   accounts = [];
+  roles = [];
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AccountUpdateComponent>,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private privilegeService: PrivilegeService
   ) { }
 
   ngOnInit(): void {
     this.listCreate = this.conFig.create;
     this.getAccounts();
+    this.getRoles();
   }
 
   getAccounts() {
@@ -49,6 +54,18 @@ export class AccountUpdateComponent implements OnInit {
       this.dataModel = this.accounts.find(item => item.UserProfileId == this.data.UserProfileId);
       console.log('dataModel', this.dataModel);
 
+    });
+  }
+
+  getRoles() {
+    this.privilegeService.getRoles(this.pageNumber, this.pageSize, '', '', this.createdBy, this.name).subscribe(res => {
+      this.roles = res.payload.reverse();
+      this.listCreate[4].data = this.roles.map((role) => {
+        return {
+          name: role.Name,
+          value: role.RoleId,
+        };
+      });
     });
   }
 

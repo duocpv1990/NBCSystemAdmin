@@ -2,33 +2,42 @@
   <div class="title">
     {{ option?.title }}
   </div>
-  <div class="subtitle">
-    THÔNG TIN CHUNG
-  </div>
+  <div class="subtitle">THÔNG TIN CHUNG</div>
   <div class="layout">
     <div class="content row align-items-center" *ngFor="let item of data">
-      <div class="label" *ngIf="item.type !== 'img' && item.type !== 'button'">{{ item?.label }}</div>
+      <div class="label" *ngIf="item.type !== 'img' && item.type !== 'button'">
+        {{ item?.label }} <span *ngIf="item.required">(<span class="required">*</span>)</span>
+      </div>
       <div class="input-text" [class]="item.class">
+        <div *ngIf="item.type === 'autocomplete'">
+          <input (input)="autocomplete($event.target.value)" [(ngModel)]="model.CompanyName" type="text" name="" id="">
+          <div class="list-complete" *ngIf="listSearch !== []">
+            <div class="select-name" (click)="selectCompany(company)" *ngFor="let company of listSearch">
+              {{company.Name}}</div>
+          </div>
+        </div>
         <div *ngIf="
-              item.type === 'text' ||
-              item.type === 'number' ||
-              item.type === 'file'
-            ">
+            item.type === 'text' ||
+            item.type === 'number' ||
+            item.type === 'file'
+          ">
           <input type="{{ item.type }}" id="{{ item.id }}" name="{{ item.name }}" [(ngModel)]="model[item.id]" />
         </div>
         <div *ngIf="item.type === 'select'">
           <select [(ngModel)]="model[item.id]">
             <option *ngFor="let i of item.data" [value]="i.value">
-              {{ i.name}}
+              {{ i.name }}
             </option>
           </select>
         </div>
-
-        <div *ngIf="item.ward === 'Nation' || item.ward === 'Province' || 
-                   item.ward === 'District'">
-          <select [(ngModel)]="model[item.id]" (change)="chooseLocation($event.target.value, item.ward)">
+        <div *ngIf="
+            item.ward === 'Nation' ||
+            item.ward === 'Province' ||
+            item.ward === 'District'
+          ">
+          <select [(ngModel)]="model[item.id]" (change)="handleSelectChange($event.target.value, item.ward)">
             <option *ngFor="let i of item.data" [value]="i.value">
-              {{ i.name}}
+              {{ i.name }}
             </option>
           </select>
         </div>
@@ -57,15 +66,15 @@
   </div>
   <div class="upload-img">
     <div class="content row align-items-center" [hidden]="item.type !== 'img'" *ngFor="let item of data">
-      <div class="label">{{ item?.label }}</div>
+      <div class="label">{{ item?.label }} <span *ngIf="item.required">(<span class="required">*</span>)</span></div>
       <div class="input-text" [class]="item.class">
         <div class="img" *ngIf="item.type === 'img'">
           <div class="label-upload-img">
             <label class="" for="{{ item.id }}">
               <mat-icon class="add-photo">add_a_photo</mat-icon>
             </label>
-            <img [src]="avatarUrl" height="200" *ngIf="item.name === 'avatar'" />
-            <img [src]="backgroundURL" height="200" *ngIf="item.name === 'background'" />
+            <img [src]="model.MediaURL" height="200" *ngIf="item.name === 'avatar' && model.MediaURL" />
+            <img [src]="model.BackgroundURL" height="200" *ngIf="item.name === 'background' && model.BackgroundURL" />
           </div>
           <input id="{{ item.id }}" #file hidden type="file" accept="image/*"
             (change)="preview(file.files, item.name)" />
@@ -75,10 +84,35 @@
   </div>
   <div class="add-new">
     <div class="content row align-items-center" [hidden]="item.type !== 'button'" *ngFor="let item of data">
-      <div class="label">{{ item?.label }}</div>
+      <div class="label">
+        {{ item?.label }}
+      </div>
       <button class="btn-add-new" (click)="addCertificate()">Thêm mới</button>
     </div>
   </div>
+  <br>
+  <div *ngIf="option.check === 'enterprise' || option.check === 'production'">
+    <div class="certification" *ngFor="let item of certificationDetail">
+      <div class="box-content">
+        <label for="">Tên chứng nhận: </label> <span>{{item.Name}}</span>
+      </div>
+      <div class="box-content">
+        <label for="">Trạng thái: </label> <span>{{item.Type === 1 ? 'Hiển thị' : 'Không hiển thị'}}</span>
+      </div>
+      <div class="box-content">
+        <label for="">Ngày hết hạn: </label> <span>{{item.ExpiredDate | date: "dd/MM/yyyy"}}</span>
+      </div>
+      <div class="box-content">
+        <label for="">Hình ảnh chứng nhận: </label>
+        <div class="list-img">
+          <a *ngFor="let i of item.CertificationMedias" [href]="i.MediaURL" target="_blank"
+            class="text">{{i.MediaURL}}</a>
+        </div>
+      </div>
+      <div class="box-content"></div>
+    </div>
+  </div>
+
   <div class="group-btn">
     <button *ngFor="let i of arrayButton; let index = index" class="btn mbf-btn" [class]="i.class"
       (click)="onClickButton(i)">

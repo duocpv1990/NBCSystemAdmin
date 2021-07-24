@@ -26,7 +26,7 @@ export class AuthorizationComponent implements OnInit {
 
   constructor(
     private privilegeService: PrivilegeService,
-
+    // public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
