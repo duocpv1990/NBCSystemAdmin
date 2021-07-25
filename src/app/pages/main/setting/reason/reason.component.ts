@@ -75,8 +75,8 @@ export class ReasonComponent implements OnInit {
     switch (ev.type) {
       case 'create':
         this.dialog.open(ReasonAddComponent, {
-          width: '940px',
-          height: '588px'
+          width: '500px',
+          height: '400px'
         }).afterClosed().subscribe(result => {
 
         });
@@ -91,8 +91,8 @@ export class ReasonComponent implements OnInit {
         break;
       case 'edit':
         this.dialog.open(ReasonUpdateComponent, {
-          width: '940px',
-          height: '588px',
+          width: '500px',
+          height: '400px',
           data: ev.item
         }).afterClosed().subscribe(result => {
 
