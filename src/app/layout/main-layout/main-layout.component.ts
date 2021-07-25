@@ -71,7 +71,11 @@ export class MainLayoutComponent implements OnInit {
           { name: 'Danh sách tài khoản', path: 'setting/account-list' },
           { name: 'Nhóm quyền', path: 'setting/privileges' },
           { name: 'Phân quyền', path: 'setting/authorization' },
-          { name: 'Lý do', path: 'setting/reason' }
+          { name: 'Lý do', path: 'setting/reason' },
+          { name: 'Doanh nghiệp nổi bật', path: 'setting/outstanding-enterprise' },
+          { name: 'Sản phẩm nổi bật', path: 'setting/outstanding-production' },
+          { name: 'Banner', path: 'setting/banner' },
+
         ]
       },
 

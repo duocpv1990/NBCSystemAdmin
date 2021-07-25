@@ -22,6 +22,9 @@ import { ReasonComponent } from './reason/reason.component';
 import { ReasonAddComponent } from './reason/reason-add/reason-add.component';
 import { ReasonUpdateComponent } from './reason/reason-update/reason-update.component';
 import { ReasonDeleteComponent } from './reason/reason-delete/reason-delete.component';
+import { OutstandingEnterpriseComponent } from './outstanding-enterprise/outstanding-enterprise.component';
+import { OutstandingProductComponent } from './outstanding-product/outstanding-product.component';
+import { SettingBannerComponent } from './setting-banner/setting-banner.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { ReasonDeleteComponent } from './reason/reason-delete/reason-delete.comp
     ReasonComponent,
     ReasonAddComponent,
     ReasonUpdateComponent,
-    ReasonDeleteComponent
+    ReasonDeleteComponent,
+    OutstandingEnterpriseComponent,
+    OutstandingProductComponent,
+    SettingBannerComponent
   ],
   imports: [
     CommonModule,
