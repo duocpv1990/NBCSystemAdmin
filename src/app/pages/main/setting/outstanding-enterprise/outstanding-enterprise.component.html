@@ -1,0 +1,7 @@
+<div class="content-title">Doanh nghiệp nổi bật</div>
+
+<app-filter [(listFilter)]="listFilter" (callback)="handleFilterCallback($event)">
+</app-filter>
+
+<app-table [tableData]="dataTable" [data]="dataSub" [listActive]="listActive" (callback)="handleCallbackTable($event)">
+</app-table>

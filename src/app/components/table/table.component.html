@@ -2,8 +2,11 @@
   <div class="row btn-header">
     <div class="group-btn">
       <div class="group-btn-item" *ngFor="let i of listActive">
+        <button *ngIf="i.type !== 'create' && i.type !== 'delete' " class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
+          {{ i?.text }}
+        </button>
         <span *ngIf="showDelete">
-          <button *ngIf="i.type !== 'create'" class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
+          <button *ngIf="i.type !== 'create' && i.type !== 'export' " class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
             {{ i?.text }}
           </button>
         </span>
