@@ -64,6 +64,12 @@ export class MainLayoutComponent implements OnInit {
         subs: []
       },
       {
+        icon: 'assets/svg/news.svg',
+        name: 'Tin tức',
+        linkURL: 'news',
+        subs: []
+      },
+      {
         icon: 'assets/img/icon-setting.svg',
         name: 'Cài đặt',
         linkURL: 'setting',

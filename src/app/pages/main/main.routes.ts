@@ -40,6 +40,11 @@ export const mainRoutes: Routes = [
           import('./service-package/service-package.module').then((m) => m.ServicePackageModule),
       },
       {
+        path: 'news',
+        loadChildren: () =>
+          import('./news/news.module').then((m) => m.NewsModule),
+      },
+      {
         path: 'setting',
         loadChildren: () =>
           import('./setting/setting.module').then((m) => m.SettingModule),

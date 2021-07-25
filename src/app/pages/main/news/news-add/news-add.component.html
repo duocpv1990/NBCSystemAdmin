@@ -1,0 +1,112 @@
+<div class="title">
+    THÊM MỚI TIN TỨC
+</div>
+<div class="container-fluid form-container">
+    <div class="row">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN BÀI VIẾT
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Tiêu đề (*) </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Trạng thái (*) </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ngày xuất bản (*) </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ngày hạ bài </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ảnh đại diện (*) </span>
+                    <div class="upload-img">
+                        <div class="content row align-items-center">
+
+                            <div class="input-text">
+                                <div class="img">
+                                    <div class="label-upload-img">
+                                        <label class="" for="image">
+                                            <mat-icon class="add-photo">add_a_photo</mat-icon>
+                                        </label>
+                                        <img [src]="avatarUrl" height="200" />
+
+                                    </div>
+                                    <input id="image" #file hidden type="file" accept="image/*"
+                                        (change)="getSignedUrl(file.files)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN KHÁC
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Meta title </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Meta description </span>
+                    <input class="form-control" type="text">
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Meta keywords</span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span"> Tags </span>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                GIỚI THIỆU TỔNG QUAN
+            </div>
+            <angular-editor [config]="editorConfig"></angular-editor>
+        </div>
+    </div>
+
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                CHI TIẾT BÀI VIẾT
+            </div>
+
+            <angular-editor [config]="editorConfig"></angular-editor>
+
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col text-center">
+            <button class="btn-cancel">
+                Hủy bỏ
+            </button>
+            <button class="btn-save">
+                Lưu
+            </button>
+
+        </div>
+    </div>
+
+</div>
