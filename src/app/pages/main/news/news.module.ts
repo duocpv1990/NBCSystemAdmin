@@ -12,6 +12,7 @@ import { NewsDeleteComponent } from './news-delete/news-delete.component';
 import { FilterBaseModule } from 'src/app/components/filter/filter.component';
 import { TableBaseModule } from 'src/app/components/table/table.component';
 import { MatIconModule } from '@angular/material/icon';
+import { DeleteModule } from 'src/app/components/dialog/delete/delete.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
     FilterBaseModule,
     TableBaseModule,
     AngularEditorModule,
-    MatIconModule
+    MatIconModule,
+    DeleteModule
   ]
 })
 export class NewsModule { }

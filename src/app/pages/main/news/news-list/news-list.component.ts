@@ -75,7 +75,7 @@ export class NewsListComponent implements OnInit {
     console.log(ev);
     switch (ev.type) {
       case 'create':
-        this.router.navigate(['news/create'])
+        this.router.navigate(['news/create']);
         break;
       case 'import':
         this.dialog.open(ImportExcelComponent, {
@@ -86,13 +86,7 @@ export class NewsListComponent implements OnInit {
         });
         break;
       case 'edit':
-        this.dialog.open(NewsUpdateComponent, {
-          width: '940px',
-          height: '588px',
-          data: ev.item
-        }).afterClosed().subscribe(result => {
-
-        });
+        this.router.navigate(['news/update'])
         break;
       case 'delete':
         this.dialog.open(NewsDeleteComponent, {
