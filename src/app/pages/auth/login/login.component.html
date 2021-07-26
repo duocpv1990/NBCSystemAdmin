@@ -1,12 +1,33 @@
 <div class="login">
-    <div class="login-text-header">
-        Đăng nhập
-    </div>
-    <app-login-form (onForgotPW)="routeTo($event)" [loginError]="errorLogin" (onSubmit)="login($event)" [loginFormData]="data">
+    <form class="sign-in-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="username">
+        </div>
 
-    </app-login-form>
-    <a class="login-link" routerLink="/forgot">Quên mật khẩu</a>
+        <div class="mb-3 password-form">
+            <label class="form-label">Mật khẩu</label>
+            <input [type]="type" class="form-control" formControlName="password">
+            <div class="forgot-password">
+                <a class="login-link" routerLink="/forgot">Quên mật khẩu</a>
+            </div>
+
+            <button class="show-hide" *ngIf="type == 'password'" (click)="showPassword()">
+                <span class="material-icons">
+                    visibility
+                </span>
+            </button>
+            <button class="show-hide" *ngIf="type !== 'password'" (click)="hiddenPassword()">
+                <span class="material-icons">
+                    visibility_off
+                </span>
+            </button>
+        </div>
+
+        <div class="mb-3 text-center">
+            <button class="btn btn-login" type="submit" [disabled]="!loginForm.valid"> Đăng nhập </button>
+        </div>
+    </form>
+
 
 </div>
-
-<!-- (onForgotPW)="routeTo($event)" (onSubmit)="login($event)" [loginFormTitle]="'Đăng nhập'" -->

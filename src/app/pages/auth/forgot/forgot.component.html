@@ -1,10 +1,15 @@
 <div class="login">
-    <div class="login-text-header">
-        Bạn quên mật khẩu
-    </div>
-    <app-login-form (onForgotPW)="routeTo($event)" (onSubmit)="forgot($event)" [loginFormData]="data" [btnTitle]="'Lấy lại mật khẩu'">
 
-    </app-login-form>
-    <a class="login-link" routerLink="/login">Đăng nhập</a>
+    <form class="sign-in-form">
+        <div class="mb-3">
+            <label class="form-label">Nhập Email đang sử dụng</label>
+            <input type="text" class="form-control" formControlName="username">
+        </div>
+
+        <div class="mb-3 text-center">
+            <button class="btn btn-login" type="submit"> Khôi phục </button>
+        </div>
+
+    </form>
 
 </div>

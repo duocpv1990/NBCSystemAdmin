@@ -1,0 +1,31 @@
+.login {
+  width: 25rem;
+  .sign-in-form {
+    width: 100%;
+    .btn-login {
+      background: var(--color-list-nav);
+      color: var(--color-secondary);
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    .show-hide {
+      position: absolute;
+      right: 10px;
+      top: 37px;
+      border: none;
+      background: none;
+    }
+
+    .password-form {
+      position: relative;
+    }
+
+    .forgot-password {
+      margin-top: 4%;
+      text-align: end;
+    }
+  }
+}

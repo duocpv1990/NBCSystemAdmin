@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { CiAuthService } from '@consult-indochina/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,28 +10,30 @@ import { CiAuthService } from '@consult-indochina/auth';
 })
 export class LoginComponent implements OnInit {
   errorLogin: any;
+  loginForm: FormGroup;
+  type = 'password';
+
+
   constructor(
     private router: Router,
     private localStorage: LocalStorageService,
-    private authService: AuthenticationService,
-    private ciAuthService: CiAuthService
+    private ciAuthService: CiAuthService,
+    private fb: FormBuilder
   ) { }
 
-  data = {
-    type: {
-      phone: 'phone',
-      password: 'password',
-    },
-  };
+  ngOnInit(): void {
+    this.formInit();
+  }
 
-  ngOnInit(): void { }
+  formInit() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+  }
 
-  login(ev) {
-    let loginValue = {
-      Username: ev.username,
-      Password: ev.password,
-    }
-    this.ciAuthService.login(loginValue).subscribe(
+  onSubmit() {
+    this.ciAuthService.login(this.loginForm.value).subscribe(
       (res) => {
         this.localStorage.set('access_token', res);
         this.router.navigate(['home']);
@@ -43,7 +45,13 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  routeTo(e) {
-    console.log(e);
+
+
+  showPassword() {
+    this.type = 'text';
+  }
+
+  hiddenPassword() {
+    this.type = 'password';
   }
 }
