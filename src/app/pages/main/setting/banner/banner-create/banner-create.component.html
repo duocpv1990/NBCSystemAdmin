@@ -1,0 +1,76 @@
+<div class="title">
+    THÊM MỚI BANNER
+</div>
+<div class="container-fluid form-container">
+    <div class="row">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN BANNER
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Tên banner (*) </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Vị trí banner (*) </span>
+                    <select class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ngày xuất bản (*) </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Ngày hạ banner </span>
+                    <input class="form-control" type="date">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Upload tài liệu </span>
+                    <br>
+                    <input #fileObject type="file" (change)="getSignedUrl(fileObject.files)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="sub-title">
+                THÔNG TIN KHÁC
+            </div>
+            <div class="grid">
+                <div class="grid-item">
+                    <span class="form-span">Thứ tự </span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="grid-item">
+                    <span class="form-span">Tình trạng </span>
+                    <select class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="grid-item">
+                    <span class="form-span">Đường link</span>
+                    <input class="form-control" type="text">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col text-center">
+            <button class="btn-cancel">
+                Hủy bỏ
+            </button>
+            <button class="btn-save">
+                Lưu
+            </button>
+
+        </div>
+    </div>
+
+</div>

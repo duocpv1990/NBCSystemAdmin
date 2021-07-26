@@ -6,7 +6,6 @@ import { AuthorizationComponent } from './authorization/authorization.component'
 import { ReasonComponent } from './reason/reason.component';
 import { OutstandingEnterpriseComponent } from "./outstanding-enterprise/outstanding-enterprise.component";
 import { OutstandingProductComponent } from "./outstanding-product/outstanding-product.component";
-import { SettingBannerComponent } from "./setting-banner/setting-banner.component";
 
 export const settingRoute: Routes = [
     {
@@ -41,7 +40,7 @@ export const settingRoute: Routes = [
             },
             {
                 path: 'banner',
-                component: SettingBannerComponent
+                loadChildren: () => import('./banner/banner.module').then((m) => m.BannerModule)
             },
             {
                 path: '',

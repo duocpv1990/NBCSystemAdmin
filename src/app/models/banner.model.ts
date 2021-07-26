@@ -4,7 +4,7 @@ import { FilterModel } from "./base/filter.model";
 
 export class BannerModel {
 
-  
+
     public get filter(): Array<FilterModel> {
         return [
             {
@@ -74,16 +74,16 @@ export class BannerModel {
                 type: 'text',
             },
             {
-                id: '',
+                id: 'Index',
                 name: 'Thứ tự hiển thị',
                 width: 100,
-                type: 'input',
+                type: 'text',
             },
             {
-                id: 'position',
-                name: 'vị trí',
+                id: 'Position',
+                name: 'Vị trí',
                 width: 100,
-                type: 'input',
+                type: 'text',
             },
             {
                 id: 'CreatedName',
@@ -110,7 +110,7 @@ export class BannerModel {
                 type: 'text',
             },
             {
-                id: 'EndDate',
+                id: 'Type',
                 name: 'Tình trạng',
                 width: 100,
                 type: 'text',
