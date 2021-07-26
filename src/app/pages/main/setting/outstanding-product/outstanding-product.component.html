@@ -3,6 +3,5 @@
 <app-filter [(listFilter)]="listFilter" (callback)="handleFilterCallback($event)">
 </app-filter>
 
-<app-table [tableData]="dataTable" [data]="dataSub" [listActive]="listActive" (callback)="handleCallbackTable($event)">
+<app-table [tableData]="dataTable" [data]="products" [listActive]="listActive" (callback)="handleCallbackTable($event)">
 </app-table>
-

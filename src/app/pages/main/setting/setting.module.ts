@@ -25,6 +25,15 @@ import { ReasonDeleteComponent } from './reason/reason-delete/reason-delete.comp
 import { OutstandingEnterpriseComponent } from './outstanding-enterprise/outstanding-enterprise.component';
 import { OutstandingProductComponent } from './outstanding-product/outstanding-product.component';
 import { SettingBannerComponent } from './setting-banner/setting-banner.component';
+import { OutstandingEnterpriseDeleteComponent } from './outstanding-enterprise/outstanding-enterprise-delete/outstanding-enterprise-delete.component';
+import { OutstandingEnterpriseCreateComponent } from './outstanding-enterprise/outstanding-enterprise-create/outstanding-enterprise-create.component';
+import { OutstandingEnterpriseUpdateComponent } from './outstanding-enterprise/outstanding-enterprise-update/outstanding-enterprise-update.component';
+import { OutstandingProductCreateComponent } from './outstanding-product/outstanding-product-create/outstanding-product-create.component';
+import { OutstandingProductUpdateComponent } from './outstanding-product/outstanding-product-update/outstanding-product-update.component';
+import { OutstandingProductDeleteComponent } from './outstanding-product/outstanding-product-delete/outstanding-product-delete.component';
+import { BannerCreateComponent } from './setting-banner/banner-create/banner-create.component';
+import { BannerDeleteComponent } from './setting-banner/banner-delete/banner-delete.component';
+import { BannerUpdateComponent } from './setting-banner/banner-update/banner-update.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +53,16 @@ import { SettingBannerComponent } from './setting-banner/setting-banner.componen
     ReasonDeleteComponent,
     OutstandingEnterpriseComponent,
     OutstandingProductComponent,
-    SettingBannerComponent
+    SettingBannerComponent,
+    OutstandingEnterpriseDeleteComponent,
+    OutstandingEnterpriseCreateComponent,
+    OutstandingEnterpriseUpdateComponent,
+    OutstandingProductCreateComponent,
+    OutstandingProductUpdateComponent,
+    OutstandingProductDeleteComponent,
+    BannerCreateComponent,
+    BannerDeleteComponent,
+    BannerUpdateComponent
   ],
   imports: [
     CommonModule,
