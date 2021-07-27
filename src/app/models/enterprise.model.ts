@@ -39,12 +39,12 @@ export class EnterPriseModel {
         width: 100,
         type: 'checkbox',
       },
-      {
-        id: 'index',
-        name: 'STT',
-        width: 100,
-        type: 'text',
-      },
+      // {
+      //   id: 'index',
+      //   name: 'STT',
+      //   width: 100,
+      //   type: 'text',
+      // },
       {
         id: 'CompanyCode',
         name: 'Mã doanh nghiệp',

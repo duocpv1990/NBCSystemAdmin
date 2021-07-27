@@ -78,8 +78,7 @@ export const MY_FORMATS = {
 })
 export class EnterpriseCreateComponent
   extends BaseUploadComponent
-  implements OnInit
-{
+  implements OnInit {
   conFig = new Product();
   dataModel = {};
   option = {
@@ -150,8 +149,8 @@ export class EnterpriseCreateComponent
       PhoneNumber: [''],
       Email: [''],
       Website: [''],
-      Type: [0],
-      Status: [0],
+      Type: [1],
+      Status: [1],
       CertificationIdList: [[]],
       companyMedias: [],
     });
@@ -207,7 +206,7 @@ export class EnterpriseCreateComponent
     });
   }
 
-  cancel = () => {};
+  cancel = () => { };
 
   save = (value) => {
     this.dataModel = value;

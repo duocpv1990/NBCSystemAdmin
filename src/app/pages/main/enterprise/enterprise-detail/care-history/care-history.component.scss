@@ -6,10 +6,29 @@
   span {
     font-weight: 600;
   }
+  .comment {
+    color: var(--color-button-blue);
+  }
 }
 
 .enterprise-container {
   overflow-y: auto;
   height: 100vh;
   padding-bottom: 40vh;
+}
+
+.btn-block {
+  width: 100%;
+  text-align: center;
+  margin-top: 2%;
+  .btn {
+    width: 160px;
+  }
+  .close-btn {
+    background: #d6d6d6;
+  }
+  .add-btn {
+    background: var(--color-list-nav);
+    color: #fff;
+  }
 }

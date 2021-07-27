@@ -17,3 +17,19 @@
     }
   }
 }
+
+.btn-block {
+  width: 100%;
+  text-align: center;
+  margin-top: 2%;
+  .btn {
+    width: 160px;
+  }
+  .close-btn {
+    background: #d6d6d6;
+  }
+  .add-btn {
+    background: var(--color-list-nav);
+    color: #fff;
+  }
+}

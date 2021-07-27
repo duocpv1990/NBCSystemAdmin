@@ -29,23 +29,24 @@ export class EnterpriseListComponent implements OnInit {
   pageSize = 10000;
   companies = [];
   configHeader = [
-    { key: 'index', label: 'STT' },
+    // { key: 'index', label: 'STT' },
     {
       key: 'CompanyCode',
       label: 'Mã doanh nghiệp',
     },
     {
       key: 'GLN',
-      label: 'Mã địa điểm toàn cầu',
+      label: 'Mã địa điểm toàn cầu GLN',
     },
     {
       key: 'Name',
       label: 'Tên doanh nghiệp',
     },
-    {
-      key: 'Status',
-      label: 'Trạng thái',
-    },
+
+    // {
+    //   key: 'Status',
+    //   label: 'Trạng thái',
+    // },
     {
       key: 'Type',
       label: 'Trình trạng',
@@ -59,6 +60,10 @@ export class EnterpriseListComponent implements OnInit {
     new DynamicInputModel({
       id: 'companyCode',
       label: 'Mã doanh nghiệp',
+    }),
+    new DynamicInputModel({
+      id: 'GLN',
+      label: 'Mã địa điểm toàn cầu',
     }),
     new DynamicSelectModel({
       id: 'status',
@@ -156,9 +161,11 @@ export class EnterpriseListComponent implements OnInit {
         delete el.CreatedOn;
         delete el.UpdatedOn;
         delete el.CertificateNumber;
+        delete el.Status
       });
 
       this.dataSub = res.payload;
+      console.log('data', this.dataSub);
 
       this.pagination = {
         itemsPerPage: this.filter.pageSize,

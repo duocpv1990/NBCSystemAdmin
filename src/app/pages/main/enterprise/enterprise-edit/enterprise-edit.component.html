@@ -102,7 +102,43 @@
     </div>
   </div>
   <div class="group_form mt-5">
-    <h3 class="mb-5">GIẤY CHỨNG CHỈ, CHỨNG NHẬN<span class="add_btn" (click)="addNewCert()">Thêm mới</span></h3>
+    <h3>THÔNG TIN NGƯỜI ĐẠI DIỆN</h3>
+    <div class="grid_form">
+      <div class="form_item">
+        <h5>Tên người đại diện (*) </h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Số điện thoại người đại diện (*)</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Email người đại diện (*) </h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Số CCCD/CMND người đại diện (*)</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="" required>
+        </mat-form-field>
+      </div>
+      <div class="form_item">
+        <h5>Địa chỉ tiếp nhận hồ sơ</h5>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+          <input matInput formControlName="" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <div class="group_form mt-5">
+    <h3 class="mb-5">GIẤY CHỨNG NHẬN<span class="add_btn" (click)="addNewCert()">Thêm mới</span></h3>
     <ng-container *ngIf="bindingCertList.length > 0">
       <div class="cert_area" *ngFor="let cert of bindingCertList">
         <div class="value_area">

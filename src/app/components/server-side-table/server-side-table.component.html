@@ -58,7 +58,7 @@
                         (change)="checkAll($event)" />
                 </th>
 
-                <th>STT</th>
+                <!-- <th>STT</th> -->
                 <ng-container *ngFor="let head of items[0] | keys">
                     <th
                         *ngIf="head !== 'ProductId' && head !== 'DistributorId' && head !== 'CompanyId' && head !== 'StoreId'">
@@ -76,7 +76,7 @@
                         <input type="checkbox" class="checkbox" (click)="$event.stopPropagation()" #checkItem
                             name="sizecb[]" [value]="item[list]" (change)="checkOne($event)" />
                     </td>
-                    <td *ngIf="ix ===0 ">{{i + 1}}</td>
+                    <!-- <td *ngIf="ix === 0">{{i + 1}}</td> -->
                     <td
                         *ngIf="list !== 'ProductId' && list !== 'DistributorId' && list !== 'CompanyId' && list !== 'StoreId'">
                         <span

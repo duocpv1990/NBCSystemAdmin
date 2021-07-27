@@ -2,32 +2,38 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <div class="title">THÊM MỚI CHỨNG CHỈ</div>
+                <div class="title">THÊM MỚI CHỨNG NHẬN</div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label>Tên chứng nhận</label>
-                <input type="text"
-                       class="form-control"
-                       [(ngModel)]="model.Name">
+                <label>Tên chứng nhận *</label>
+                <input type="text" class="form-control" [(ngModel)]="model.Name">
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label>Trạng thái</label>
-                <select [value]="1"
-                        class="form-select form-control"
-                        [(ngModel)]="model.Status">
-                    <option value="1"> Hiển thị </option>
-                    <!-- <option value="0"> Hiển thị </option> -->
-                </select>
+                <label>Tổ chức cấp phát chứng nhận *</label>
+                <input type="text" class="form-control" [(ngModel)]="model.Name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Ngày có hiệu lực *</label>
+                <input type="date" class="form-control">
             </div>
             <div class="col">
                 <label>Ngày hết hạn</label>
-                <input [(ngModel)]="model.ExpiredDate"
-                       type="date"
-                       class="form-control">
+                <input [(ngModel)]="model.ExpiredDate" type="date" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Trạng thái</label>
+                <select [value]="1" class="form-select form-control" [(ngModel)]="model.Status">
+                    <option value="1"> Hiển thị </option>
+                    <!-- <option value="0"> Hiển thị </option> -->
+                </select>
             </div>
         </div>
         <div class="row">
@@ -38,23 +44,17 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="radio"
-                       name="certificateImage"
-                       id="browser"
-                       value="browser"
-                       checked>
+                <input type="radio" name="certificateImage" id="browser" value="browser" checked>
                 &nbsp;
                 <label for="browser">Tải ảnh từ máy</label>
                 <div class="upload-block">
-                    <label for="upload"
-                           class="upload-btn">
+                    <label for="upload" class="upload-btn">
                         <span class="material-icons">
                             add
                         </span>
                     </label>
                     <div class="imagePicking imageForm">
-                        <ul class="list-group"
-                            *ngFor="let fileName of fileNames; let i = index">
+                        <ul class="list-group" *ngFor="let fileName of fileNames; let i = index">
 
                             <li class="list-item">
                                 {{ fileName }}
@@ -62,39 +62,24 @@
                         </ul>
 
                     </div>
-                    <input #upload
-                           type="file"
-                           accept="image/*"
-                           id="upload"
-                           multiple
-                           (change)="onSelectFile(upload.files)"
-                           required
-                           hidden />
+                    <input #upload type="file" accept="image/*" id="upload" multiple
+                        (change)="onSelectFile(upload.files)" required hidden />
                 </div>
 
             </div>
             <div class="col">
-                <input type="radio"
-                       [(ngModel)]="certificationType"
-                       name="certificateImage"
-                       id="link"
-                       value="link">
+                <input type="radio" [(ngModel)]="certificationType" name="certificateImage" id="link" value="link">
                 &nbsp;
                 <label for="link">Đường link</label>
-                <input type="text"
-                       [(ngModel)]="certificationMediaLink"
-                       class="form-control"
-                       placeholder="Nhập URL">
+                <input type="text" [(ngModel)]="certificationMediaLink" class="form-control" placeholder="Nhập URL">
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="button-block">
-                    <button (click)="closeDialog('cancel')"
-                            class="action-btn cancel-btn">Hủy bỏ</button>
+                    <button (click)="closeDialog('cancel')" class="action-btn cancel-btn">Hủy bỏ</button>
                     &nbsp;
-                    <button (click)="closeDialog('save')"
-                            class="action-btn save-btn">Lưu</button>
+                    <button (click)="closeDialog('save')" class="action-btn save-btn">Lưu</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 .btn-create {
   width: 150px;
   height: 40px;
-  background-color: #1894ff;
+  background-color: var(--color-list-nav);
   color: white;
   margin-right: 5px;
   border: none;
@@ -12,8 +12,8 @@
   height: 40px;
   padding: 0 20px;
   width: 120px;
-  color: #ff1818;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #ff1818;
   border: 1px solid #ff1818;
   border-radius: 10px;
   cursor: pointer;
