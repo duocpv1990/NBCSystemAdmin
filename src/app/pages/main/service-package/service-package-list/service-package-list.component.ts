@@ -67,8 +67,8 @@ export class ServicePackageListComponent implements OnInit {
     console.log(ev);
     if (ev.type === 'create') {
       return this.dialog.open(ServicePackageAddComponent, {
-        width: '700px',
-        height: '250px',
+        width: '500px',
+        height: '600px',
       }).afterClosed().subscribe(result => {
       });
     }

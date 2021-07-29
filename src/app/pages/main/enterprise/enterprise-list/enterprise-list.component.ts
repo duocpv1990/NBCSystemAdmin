@@ -42,11 +42,15 @@ export class EnterpriseListComponent implements OnInit {
       key: 'Name',
       label: 'Tên doanh nghiệp',
     },
+    {
+      key: 'ServicePackage',
+      label: 'Gói dịch vụ',
+    },
 
-    // {
-    //   key: 'Status',
-    //   label: 'Trạng thái',
-    // },
+    {
+      key: 'Approve',
+      label: 'Phê duyệt',
+    },
     {
       key: 'Type',
       label: 'Trình trạng',
@@ -109,7 +113,7 @@ export class EnterpriseListComponent implements OnInit {
     itemsPerPage: 10,
     currentPage: 1,
     totalItems: null,
-    id: 'distributor',
+    id: 'company',
   };
 
   filter = {
@@ -161,7 +165,9 @@ export class EnterpriseListComponent implements OnInit {
         delete el.CreatedOn;
         delete el.UpdatedOn;
         delete el.CertificateNumber;
-        delete el.Status
+        delete el.Status;
+        el.ServicePackage = 'Gói MBTT cơ bản - 5 mã';
+        el.Approve = '';
       });
 
       this.dataSub = res.payload;

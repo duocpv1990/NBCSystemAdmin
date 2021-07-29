@@ -1,65 +1,52 @@
+<div class="title">THÊM MỚI SẢN PHẨM </div>
 <form [formGroup]="productForms">
     <div class="group_form">
         <h3>THÔNG TIN CHUNG</h3>
         <div class="grid_form">
             <div class="form_item">
                 <h5>Mã số sản phẩm toàn cầu (GTIN) (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input matInput
-                           formControlName="ProductCode"
-                           required>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput formControlName="ProductCode" required>
                 </mat-form-field>
             </div>
             <div class="form_item">
                 <h5>Tên sản phẩm (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input matInput
-                           formControlName="Name"
-                           required>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput formControlName="Name" required>
                 </mat-form-field>
             </div>
             <div class="form_item ">
                 <h5>Giá niêm yết </h5>
                 <div class="price_input">
-                    <mat-form-field class="col-span-full"
-                                    appearance="outline"
-                                    [hideRequiredMarker]="false">
-                        <input matInput
-                               type="number"
-                               formControlName="Price"
-                               required>
+                    <mat-form-field class="col-span-full" appearance="outline" [hideRequiredMarker]="false">
+                        <input matInput type="number" formControlName="Price" required>
                     </mat-form-field>
-                    <mat-form-field class="col-span-1"
-                                    appearance="outline"
-                                    [hideRequiredMarker]="false">
-                        <input matInput
-                               [disabled]="true"
-                               [value]="'VNĐ'">
-                    </mat-form-field>
+                    <button class="btn">VNĐ</button>
                 </div>
 
             </div>
             <div class="form_item">
                 <h5>Ngành hàng (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
                     <mat-select formControlName="CategoryId">
-                        <mat-option [value]="item.CategoryId"
-                                    *ngFor="let item of category$ | async"> {{item.Name}} </mat-option>
+                        <mat-option [value]="item.CategoryId" *ngFor="let item of category$ | async"> {{item.Name}}
+                        </mat-option>
 
                     </mat-select>
                 </mat-form-field>
             </div>
+            <div class="form_item">
+                <h5>Doanh nghiệp (<span>*</span>)</h5>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput required>
+                </mat-form-field>
+            </div>
             <div class="form_item col-span-full">
                 <h5>Thị trường mục tiêu (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <mat-select formControlName="TargetMarketIdList"
-                                multiple>
-                        <mat-option [value]="item.TargetMarketId"
-                                    *ngFor="let item of targetMarket$ | async"> {{item.Name}} </mat-option>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <mat-select formControlName="TargetMarketIdList" multiple>
+                        <mat-option [value]="item.TargetMarketId" *ngFor="let item of targetMarket$ | async">
+                            {{item.Name}} </mat-option>
 
                     </mat-select>
                 </mat-form-field>
@@ -67,50 +54,27 @@
             <div class="form_item col-span-full">
                 <h5>Ảnh đại diện (<span>*</span>)</h5>
                 <div class="select_img">
-                    <img *ngFor="let item of fileLinkList;let i = index; trackBy trackByFunc"
-                         [src]="item"
-                         alt=""
-                         [style.width.%]="100"
-                         [style.height]="'auto'">
-                    <img [style.width.px]="74"
-                         [style.height.px]="74"
-                         src="assets/selectimage.svg"
-                         (click)="uploadFile.click()"
-                         alt="">
-                    <input #uploadFile
-                           type="file"
-                           accept="image/*"
-                           multiple
-                           (change)="uploadFilesS3(uploadFile.files)"
-                           required
-                           hidden />
+                    <img *ngFor="let item of fileLinkList;let i = index; trackBy trackByFunc" [src]="item" alt=""
+                        [style.width.%]="100" [style.height]="'auto'">
+                    <img [style.width.px]="74" [style.height.px]="74" src="assets/selectimage.svg"
+                        (click)="uploadFile.click()" alt="">
+                    <input #uploadFile type="file" accept="image/*" multiple (change)="uploadFilesS3(uploadFile.files)"
+                        required hidden />
                 </div>
             </div>
         </div>
     </div>
-    <div class="group_form"
-         formArrayName="DistributorProducts">
+    <!-- <div class="group_form" formArrayName="DistributorProducts">
         <h3>KÊNH PHÂN PHỐI</h3>
-        <div class="grid_form2"
-             *ngFor="let child of distributorProducts.controls; let i = index"
-             [formGroupName]="i">
+        <div class="grid_form2" *ngFor="let child of distributorProducts.controls; let i = index" [formGroupName]="i">
             <div class="form_item col-span-full">
                 <h5>Nhà phân phối (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input type="text"
-                           #distributeProduct
-                           placeholder="Pick one"
-                           aria-label="Number"
-                           matInput
-                           required
-                           formControlName="DistributorId"
-                           [matAutocomplete]="auto">
-                    <mat-autocomplete autoActiveFirstOption
-                                      (optionSelected)="disSelected($event,i)"
-                                      #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of distributors | async"
-                                    [value]="option.DistributorId">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input type="text" #distributeProduct placeholder="Pick one" aria-label="Number" matInput required
+                        formControlName="DistributorId" [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption (optionSelected)="disSelected($event,i)"
+                        #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of distributors | async" [value]="option.DistributorId">
                             {{option.Name}}
                         </mat-option>
                     </mat-autocomplete>
@@ -118,29 +82,19 @@
             </div>
             <div class="form_item col-span-full">
                 <h5>Điểm bán (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <mat-chip-list #chipList2
-                                   aria-label="Fruit selection">
-                        <mat-chip *ngFor="let distributor of selectedDistributorsProduct[i]"
-                                  [selectable]="selectable"
-                                  [removable]="removable"
-                                  (removed)="removeDis(distributor,i)">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <mat-chip-list #chipList2 aria-label="Fruit selection">
+                        <mat-chip *ngFor="let distributor of selectedDistributorsProduct[i]" [selectable]="selectable"
+                            [removable]="removable" (removed)="removeDis(distributor,i)">
                             {{distributor?.Name}}
-                            <mat-icon matChipRemove
-                                      *ngIf="removable">cancel</mat-icon>
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
-                        <input [matChipInputFor]="chipList2"
-                               [matAutocomplete]="auto2"
-                               #selectedDistributorsProductInput
-                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                               [matChipInputAddOnBlur]="addOnBlur"
-                               (matChipInputTokenEnd)="addDis($event,i)">
+                        <input [matChipInputFor]="chipList2" [matAutocomplete]="auto2" #selectedDistributorsProductInput
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addDis($event,i)">
                         <mat-autocomplete autoActiveFirstOption
-                                          (optionSelected)="selected($event,i,distributorsProduct[i])"
-                                          #auto2="matAutocomplete">
-                            <mat-option *ngFor="let option of distributorsProduct"
-                                        [value]="option">
+                            (optionSelected)="selected($event,i,distributorsProduct[i])" #auto2="matAutocomplete">
+                            <mat-option *ngFor="let option of distributorsProduct" [value]="option">
                                 {{option.Name}}
                             </mat-option>
 
@@ -154,13 +108,11 @@
             </div>
         </div>
 
-    </div>
-    <div class="group_form">
-        <h3>GIẤY CHỨNG NHẬN <span class="add_btn"
-                  (click)="addNewCert()">Thêm mới</span></h3>
+    </div> -->
+    <div class="group_form mt-3">
+        <h3>GIẤY CHỨNG NHẬN <span class="add_btn" (click)="addNewCert()">Thêm mới</span></h3>
         <ng-container *ngIf="bindingCertList.length > 0">
-            <div class="cert_area"
-                 *ngFor="let cert of bindingCertList">
+            <div class="cert_area" *ngFor="let cert of bindingCertList">
                 <div class="value_area">
                     <strong>
                         <p>Tên chứng nhận</p>
@@ -184,10 +136,8 @@
                         <p>Hình ảnh giấy chứng nhận</p>
                     </strong>
                     <div class="filename">
-                        <img [style.width.px]="70"
-                             [style.margin-right.px]="4"
-                             *ngFor="let item of cert.CertificationMedia"
-                             [src]="item.MediaURL" />
+                        <img [style.width.px]="70" [style.margin-right.px]="4"
+                            *ngFor="let item of cert.CertificationMedia" [src]="item.MediaURL" />
                     </div>
                 </div>
             </div>
@@ -195,101 +145,76 @@
 
 
     </div>
-    <div class="group_form">
+    <div class="group_form mt-5">
         <h3>THÔNG TIN CHI TIẾT</h3>
         <div class="grid_form">
             <div class="form_item">
                 <h5>Thành phần (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <mat-chip-list #chipList
-                                   aria-label="Thêm vào thành phần"
-                                   formControlName="Ingradient">
-                        <mat-chip *ngFor="let ingradient of ingradients"
-                                  [selectable]="selectable"
-                                  [removable]="removable"
-                                  (removed)="remove(ingradient)">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <mat-chip-list #chipList aria-label="Thêm vào thành phần" formControlName="Ingradient">
+                        <mat-chip *ngFor="let ingradient of ingradients" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove(ingradient)">
                             {{ingradient}}
-                            <mat-icon matChipRemove
-                                      *ngIf="removable">cancel</mat-icon>
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
-                        <input placeholder="Thêm vào thành phần..."
-                               [matChipInputFor]="chipList"
-                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                               [matChipInputAddOnBlur]="addOnBlur"
-                               (matChipInputTokenEnd)="add($event)">
+                        <input placeholder="Thêm vào thành phần..." [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                 </mat-form-field>
             </div>
             <div class="form_item">
-                <h5>Nhãn hiệu (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input matInput
-                           formControlName="Label"
-                           required>
+                <h5>Thương hiệu (<span>*</span>)</h5>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput formControlName="Label" required>
                 </mat-form-field>
             </div>
             <div class="form_item">
                 <h5>Khối lượng/dung tích sản phẩm (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input matInput
-                           type="number"
-                           formControlName="Capacity"
-                           required>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput type="number" formControlName="Capacity" required>
                 </mat-form-field>
             </div>
             <div class="form_item">
                 <h5>Đơn vị (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input matInput
-                           formControlName="Unit"
-                           required>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput formControlName="Unit" required>
                 </mat-form-field>
             </div>
-            <div class="form_item">
+            <!-- <div class="form_item">
                 <h5>Ngày sản xuất (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
 
-                    <input matInput
-                           [matDatepicker]="dp"
-                           formControlName="ManufacturedOn">
-                    <mat-datepicker-toggle matSuffix
-                                           [for]="dp"></mat-datepicker-toggle>
+                    <input matInput [matDatepicker]="dp" formControlName="ManufacturedOn">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                     <mat-datepicker #dp></mat-datepicker>
 
                 </mat-form-field>
+            </div> -->
+            <div class="form_item">
+                <h5>Nơi sản xuất (<span>*</span>)</h5>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput>
+                </mat-form-field>
             </div>
             <div class="form_item">
-                <h5>Thời gian sử dụng (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <input matInput
-                           [matDatepicker]="dp2"
-                           formControlName="ExpiredOn">
-                    <mat-datepicker-toggle matSuffix
-                                           [for]="dp2"></mat-datepicker-toggle>
+                <h5>Thời hạn sử dụng (<span>*</span>)</h5>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <input matInput [matDatepicker]="dp2" formControlName="ExpiredOn">
+                    <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
                     <mat-datepicker #dp2></mat-datepicker>
                 </mat-form-field>
             </div>
             <div class="form_item col-span-full">
                 <h5>Hướng dẫn sử dụng (<span>*</span>)</h5>
-                <mat-form-field appearance="outline"
-                                [hideRequiredMarker]="false">
-                    <textarea matInput
-                              formControlName="Manual"
-                              required></textarea>
+                <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                    <textarea matInput formControlName="Manual" required></textarea>
                 </mat-form-field>
             </div>
         </div>
     </div>
     <div class="actionbtn">
-        <button class="btn-cancel"
-                (click)="closeDialog()">Hủy bỏ</button>
-        <button class="btn-save"
-                (click)="submitForm()">Lưu</button>
+        <button class="btn-cancel" (click)="closeDialog()">Hủy bỏ</button>
+        <button class="btn-save" (click)="submitForm()">Lưu</button>
     </div>
 </form>

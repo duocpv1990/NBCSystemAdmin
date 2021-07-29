@@ -19,6 +19,12 @@ export class ServicePackage {
                 data: [],
                 condition: 'product-name'
             },
+            {
+                Text: 'Người sửa đổi',
+                type: 'text',
+                data: [],
+                condition: 'product-name'
+            },
 
             {
                 Text: 'Tình trạng',
@@ -63,13 +69,13 @@ export class ServicePackage {
 
             {
                 id: 'lastEditDate',
-                name: 'Ngày sửa đổi cuối cùng',
+                name: 'Ngày sửa',
                 width: 200,
                 type: 'text',
             },
             {
                 id: 'lastEditPerson',
-                name: 'Người sửa đổi cuối cùng',
+                name: 'Người sửa',
                 width: 200,
                 type: 'text',
             },
@@ -89,7 +95,7 @@ export class ServicePackage {
                 id: 'action',
                 name: 'Hành động',
                 width: 200,
-                type: 'text',
+                type: 'setting',
             },
 
 

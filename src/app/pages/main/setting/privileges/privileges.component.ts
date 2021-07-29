@@ -94,8 +94,8 @@ export class PrivilegesComponent implements OnInit {
         height: '250px',
         data: {
           item: ev.item,
-          title: "Xoá Tài khoản",
-          content: "Bạn có muốn xoá Tài khoản trên hệ thống?"
+          title: "XÓA NHÓM QUYỀN",
+          content: "Bạn có muốn xoá Nhóm quyền trên hệ thống?"
         }
       }).afterClosed().subscribe(result => {
         this.getRoles();

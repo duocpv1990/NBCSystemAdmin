@@ -37,6 +37,7 @@ export class NewsListComponent implements OnInit {
       PublishDate: '24/07/2021',
       PostRemoveDate: '26/07/2021',
       Editer: 'Admin',
+      Status: 'Hoạt động'
     }
   ];
   timer;

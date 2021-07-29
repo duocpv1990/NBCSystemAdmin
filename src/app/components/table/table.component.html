@@ -2,11 +2,13 @@
   <div class="row btn-header">
     <div class="group-btn">
       <div class="group-btn-item" *ngFor="let i of listActive">
-        <button *ngIf="i.type !== 'create' && i.type !== 'delete' " class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
+        <button *ngIf="i.type !== 'create' && i.type !== 'delete' " class="btn" [class]="i.class"
+          (click)="onClickBtnActive(i)">
           {{ i?.text }}
         </button>
         <span *ngIf="showDelete">
-          <button *ngIf="i.type !== 'create' && i.type !== 'export' " class="btn" [class]="i.class" (click)="onClickBtnActive(i)">
+          <button *ngIf="i.type !== 'create' && i.type !== 'export' " class="btn" [class]="i.class"
+            (click)="onClickBtnActive(i)">
             {{ i?.text }}
           </button>
         </span>
@@ -76,12 +78,22 @@
               {{ item[i.id] | date: "dd-MM-yyyy" }}
             </span>
             <span *ngIf="i.type === 'setting'">
-              <button (click)="onClickSetting(item, 'edit')" class="btn-table">
-                <img src="assets/svg/nbc-edit.svg" alt="" srcset="" />
+              <button [matMenuTriggerFor]="setting" class="setting-btn">
+                <span class="material-icons">
+                  settings
+                </span>
               </button>
-              <button (click)="onClickSetting(item, 'delete')" class="btn-table">
-                <img src="assets/svg/nbc-delete.svg" alt="" srcset="" />
-              </button>
+              <mat-menu #setting="matMenu">
+                <button mat-menu-item (click)="onClickSetting(item, 'edit')" class="btn-table">
+                  <!-- <img src="assets/svg/nbc-edit.svg" alt="" srcset="" /> -->
+                  Sửa
+                </button>
+                <button mat-menu-item (click)="onClickSetting(item, 'delete')" class="btn-table">
+                  <!-- <img src="assets/svg/nbc-delete.svg" alt="" srcset="" /> -->
+                  Xóa
+                </button>
+              </mat-menu>
+
             </span>
           </td>
         </tr>

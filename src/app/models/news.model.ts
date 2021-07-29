@@ -85,6 +85,12 @@ export class NewsModel {
                 type: 'text',
             },
             {
+                id: 'Status',
+                name: 'Tình trạng',
+                width: 200,
+                type: 'text',
+            },
+            {
                 id: 'noun',
                 name: 'Hành động',
                 width: 200,

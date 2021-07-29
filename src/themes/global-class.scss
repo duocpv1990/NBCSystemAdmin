@@ -322,3 +322,7 @@
     background: #1894ff;
   }
 }
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+}

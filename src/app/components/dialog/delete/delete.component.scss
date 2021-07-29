@@ -7,37 +7,37 @@
     font-weight: bold;
     padding: 15px;
   }
-  .content{
-      font-size: 20px;
-      font-weight: 500;
-      padding: 0 20px;
+  .content {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0 20px;
   }
-  .btn-group{
-      margin-top: 4rem;
-      .confirm{
-        width: 140px;
-        height: 50px;
-        outline: none;
-        cursor: pointer;
-        background-color: #1894FF;
-        text-align: center;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 10px;
-        margin-right: 20px;
-      }
-      .cancel{
-        width: 140px;
-        height: 50px;
-        outline: none;
-        cursor: pointer;
-        background-color: #D6D6D6;
-        text-align: center;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 10px;
-      }
+  .btn-group {
+    margin-top: 4rem;
+    .confirm {
+      width: 140px;
+      height: 50px;
+      outline: none;
+      cursor: pointer;
+      background-color: var(--color-list-nav);
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin-right: 20px;
+    }
+    .cancel {
+      width: 140px;
+      height: 50px;
+      outline: none;
+      cursor: pointer;
+      background-color: #d6d6d6;
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+    }
   }
 }

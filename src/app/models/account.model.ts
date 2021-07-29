@@ -55,12 +55,12 @@ export class Account {
                 width: 200,
                 type: 'text'
             },
-            {
-                id: 'Username',
-                name: 'Tên đăng nhập',
-                width: 200,
-                type: 'text',
-            },
+            // {
+            //     id: 'Username',
+            //     name: 'Tên đăng nhập',
+            //     width: 200,
+            //     type: 'text',
+            // },
             {
                 id: 'Phone',
                 name: 'Số điện thoại',
@@ -139,27 +139,21 @@ export class Account {
     public get create(): Array<CreateModel> {
         return [
             {
-                id: 'Username',
-                label: 'Tên đăng nhập',
-                name: 'Username',
-                type: 'text'
-            },
-            // {
-            //     id: 'Password',
-            //     label: 'Mật khẩu',
-            //     name: 'Password',
-            //     type: 'text'
-            // },
-            {
                 id: 'Email',
                 label: 'Email',
                 name: 'Email',
                 type: 'text'
             },
+            // {
+            //     id: 'Username',
+            //     label: 'Tên đăng nhập',
+            //     name: 'Username',
+            //     type: 'text'
+            // },
             {
-                id: 'PhoneNumber',
-                label: 'Số điện thoại',
-                name: 'PhoneNumber',
+                id: 'Password',
+                label: 'Mật khẩu',
+                name: 'Password',
                 type: 'text'
             },
             {
@@ -168,6 +162,13 @@ export class Account {
                 name: 'FullName',
                 type: 'text'
             },
+            {
+                id: 'PhoneNumber',
+                label: 'Số điện thoại',
+                name: 'PhoneNumber',
+                type: 'text'
+            },
+
             {
                 id: 'RoleId',
                 label: 'Nhóm quyền',

@@ -80,15 +80,22 @@
                     <td
                         *ngIf="list !== 'ProductId' && list !== 'DistributorId' && list !== 'CompanyId' && list !== 'StoreId'">
                         <span
-                            *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type' && list !=='UpdatedOn'">{{item[list]}}</span>
+                            *ngIf="list !== 'MediaURL' && list !== 'Status'  && list !== 'Type' && list !=='UpdatedOn'">
+                            {{item[list]}}
+                        </span>
+
                         <span *ngIf="list === 'Status' && pagination.id == 'product'" [style.cursor]="'pointer'"
                             (click)="updateStatus(item[list],item.ProductId);$event.stopPropagation()"
-                            [class]="item[list] == 1?'success':'danger'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
-                            duyệt'}}</span>
+                            [class]="item[list] == 1?'success':'danger'">
+                            {{item[list] == 1 ? 'Chưa duyệt':'Đã duyệt'}}
+                        </span>
+
                         <span [style.cursor]="'pointer'" *ngIf="list === 'Type'  && (item.DistributorId)"
                             (click)="updateType(item[list],item.DistributorId);$event.stopPropagation()"
-                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
-                            động'}}</span>
+                            [class]="item[list] == 1?'danger':'success'">
+                            {{item[list] == 1 ? 'Không hoạt động':'Hoạt động'}}
+                        </span>
+
                         <span [style.cursor]="'pointer'" *ngIf="list === 'Status'  && (item.CompanyId)"
                             (click)="updateStatus(item[list],item.CompanyId);$event.stopPropagation()"
                             [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
@@ -101,13 +108,21 @@
                             (click)="updateType(item[list],item.StoreId);$event.stopPropagation()"
                             [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ?
                             'Offline':'Online'}}</span>
+
                         <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.CompanyId"
+                            [class]="item[list] == 1?'danger':'success'">
+                            {{item[list] == 1 ? 'Chưa duyệt':'Đã duyệt'}}
+                        </span>
+                        <span [style.cursor]="'pointer'" *ngIf="list === 'Approve' && item.CompanyId"
                             (click)="updateType(item[list],item.CompanyId);$event.stopPropagation()"
-                            [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Chưa duyệt':'Đã
-                            duyệt'}}</span>
+                            [class]="item[list] == 1?'danger':'success'">
+                            {{item[list] == 1 ? 'Hoàn duyệt':'Phê duyệt'}}
+                        </span>
+
                         <span *ngIf="list ==='UpdatedOn'">{{item[list] | date:'dd/MM/yyyy hh:mm'}}</span>
 
                         <img *ngIf="list === 'MediaURL'" [style.width.px]="50" src="{{item[list]}}" alt="">
+
                     </td>
                 </ng-container>
             </tr>

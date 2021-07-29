@@ -10,6 +10,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-table',
@@ -29,7 +31,7 @@ export class TableComponent implements OnInit, OnChanges {
   showDelete = false;
   listSelectAll: any = [];
 
-  constructor() {}
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges) {
     this.totalPage = Math.ceil(this.data.length / this.pageSive);
@@ -161,7 +163,7 @@ export class TableComponent implements OnInit, OnChanges {
 
 @NgModule({
   declarations: [TableComponent],
-  imports: [CommonModule, MatMenuModule],
+  imports: [CommonModule, MatMenuModule, MatDividerModule, MatListModule],
   exports: [TableComponent],
 })
-export class TableBaseModule {}
+export class TableBaseModule { }

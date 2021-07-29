@@ -21,7 +21,7 @@ export class PrivilegeAddComponent implements OnInit {
   },
   {
     class: 'btn-save',
-    text: 'Lưu'
+    text: 'Xác nhận'
   }];
   listCreate = [];
 
