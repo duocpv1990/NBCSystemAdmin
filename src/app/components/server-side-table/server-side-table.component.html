@@ -93,10 +93,10 @@
                             (click)="updateStatus(item[list],item.CompanyId);$event.stopPropagation()"
                             [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không hoạt động':'Hoạt
                             động'}}</span>
-                        <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.ProductId"
+                        <!-- <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.ProductId"
                             (click)="updateType(item[list],item.ProductId);$event.stopPropagation()"
                             [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ? 'Không cho quét':'Cho
-                            quét'}}</span>
+                            quét'}}</span> -->
                         <span [style.cursor]="'pointer'" *ngIf="list === 'Type' && item.StoreId"
                             (click)="updateType(item[list],item.StoreId);$event.stopPropagation()"
                             [class]="item[list] == 1?'danger':'success'">{{item[list] == 1 ?

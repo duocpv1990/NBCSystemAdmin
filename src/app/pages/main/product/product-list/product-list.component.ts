@@ -44,31 +44,22 @@ export class ProductListComponent implements OnInit {
 
   formModel = [
     new DynamicInputModel({
-      id: 'productCode',
-      label: 'Mã sản phẩm',
-    }),
-    new DynamicInputModel({
       id: 'name',
       label: 'Tên sản phẩm',
     }),
     new DynamicInputModel({
       id: 'companyName',
-      label: 'Công ty sở hữu',
+      label: 'Doanh nghiệp',
     }),
-    new DynamicSelectModel({
-      id: 'authorize',
-      label: 'Quyền quản lý',
-      value: '1',
-      options: [
-        {
-          value: '1',
-          label: 'Tất cả',
-        },
-      ],
+    new DynamicInputModel({
+      id: 'productCode',
+      label: 'Mã vạch',
     }),
+
+
     new DynamicSelectModel({
       id: 'status',
-      label: 'Trạng thái',
+      label: 'Tình trạng',
       value: '',
       options: [
         {
@@ -85,25 +76,25 @@ export class ProductListComponent implements OnInit {
         },
       ],
     }),
-    new DynamicSelectModel({
-      id: 'type',
-      label: 'Trạng thái thông tin',
-      value: '',
-      options: [
-        {
-          value: '',
-          label: 'Tất cả',
-        },
-        {
-          value: '2',
-          label: 'Cho quét',
-        },
-        {
-          value: '1',
-          label: 'Không cho quét',
-        },
-      ],
-    }),
+    // new DynamicSelectModel({
+    //   id: 'type',
+    //   label: 'Trạng thái thông tin',
+    //   value: '',
+    //   options: [
+    //     {
+    //       value: '',
+    //       label: 'Tất cả',
+    //     },
+    //     {
+    //       value: '2',
+    //       label: 'Cho quét',
+    //     },
+    //     {
+    //       value: '1',
+    //       label: 'Không cho quét',
+    //     },
+    //   ],
+    // }),
   ];
   pageNum = 1;
   pageSize = 10;
@@ -115,7 +106,7 @@ export class ProductListComponent implements OnInit {
     },
     {
       key: 'Status',
-      label: 'Tình trạng',
+      label: 'Trạng thái',
     },
     {
       key: 'ScanNumber',
@@ -127,7 +118,7 @@ export class ProductListComponent implements OnInit {
     },
     {
       key: 'ProductCode',
-      label: 'Mã sản phẩm',
+      label: 'Mã vạch',
     },
     {
       key: 'Price',
@@ -137,10 +128,11 @@ export class ProductListComponent implements OnInit {
       key: 'Name',
       label: 'Tên sản phẩm',
     },
-    {
-      key: 'Type',
-      label: 'Trạng thái quét',
-    },
+    // {
+    //   key: 'Type',
+    //   label: 'Trạng thái quét',
+    // },
+
   ];
   pagination = {
     itemsPerPage: 10,

@@ -103,3 +103,7 @@ textarea {
     width: 35%;
   }
 }
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+}

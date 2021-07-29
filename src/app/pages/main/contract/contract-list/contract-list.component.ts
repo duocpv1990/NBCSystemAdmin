@@ -67,6 +67,34 @@ export class ContractListComponent implements OnInit {
     this.tableData = this.config.collums;
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
+    this.listFilter[2].data = [
+      {
+        name: 'Gói MBTT - 5 mã',
+        value: 1
+      },
+      {
+        name: 'Gói MBTT - 10 mã',
+        value: 2
+      }
+    ];
+    this.listFilter[6].data = [
+      {
+        name: 'Đã duyệt',
+        value: 1
+      },
+      {
+        name: 'Chưa duyệt',
+        value: 2
+      },
+      {
+        name: 'Đã thanh toán',
+        value: 3
+      },
+      {
+        name: 'Đã hủy',
+        value: 4
+      }
+    ]
   }
 
 
