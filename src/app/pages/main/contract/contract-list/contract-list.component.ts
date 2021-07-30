@@ -75,6 +75,14 @@ export class ContractListComponent implements OnInit {
       {
         name: 'Gói MBTT - 10 mã',
         value: 2
+      },
+      {
+        name: 'Gói MBTT - 15 mã',
+        value: 2
+      },
+      {
+        name: 'Gói MBTT - 20 mã',
+        value: 3
       }
     ];
     this.listFilter[6].data = [

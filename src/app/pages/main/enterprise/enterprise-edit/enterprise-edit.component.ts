@@ -164,6 +164,8 @@ export class EnterpriseEditComponent
   getDetailCompany(id) {
     this.companySerice.getCompany(id).subscribe((res) => {
       console.log(res);
+      this.imgAvatar = res.CompanyMedias[0].MediaURL;
+      this.imgBg = res.CompanyMedias[1].MediaURL;
       this.detailCopany = res;
       this.productForms.get('Name').setValue(res.Name);
       this.productForms.get('Description').setValue(res.Description);

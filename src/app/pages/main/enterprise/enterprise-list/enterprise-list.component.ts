@@ -10,6 +10,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { EnterpriseCreateComponent } from '../enterprise-create/enterprise-create.component';
 import { EnterpriseEditComponent } from '../enterprise-edit/enterprise-edit.component';
 import { EnterpriseDetailComponent } from '../enterprise-detail/enterprise-detail.component';
+import { DeleteEnterpriseComponent } from '../delete-enterprise/delete-enterprise.component';
 
 @Component({
   selector: 'app-enterprise-list',
@@ -194,7 +195,9 @@ export class EnterpriseListComponent implements OnInit {
           height: '843px',
         })
         .afterClosed()
-        .subscribe((result) => { });
+        .subscribe((result) => {
+          this.getCompanies();
+        });
     }
     if (ev.type === 'import') {
       return this.dialog
@@ -203,7 +206,9 @@ export class EnterpriseListComponent implements OnInit {
           height: '350px',
         })
         .afterClosed()
-        .subscribe((result) => { });
+        .subscribe((result) => {
+          this.getCompanies();
+        });
     }
     if (ev.type === 'edit') {
       return this.dialog
@@ -219,16 +224,19 @@ export class EnterpriseListComponent implements OnInit {
         });
     }
     if (ev.type === 'delete') {
-      from(ev.dataDelete)
-        .pipe(
-          filter((res: any) => res.isChecked === true),
-          concatMap((res) => this.companyService.deleteCompany(res.id))
-        )
-        .subscribe({
-          complete: () => {
-            this.getCompanies();
-          },
+      return this.dialog.open(DeleteEnterpriseComponent, {
+        width: '400px',
+        height: '250px',
+        data: {
+          item: ev.dataDelete,
+          title: "Xoá khách hàng",
+          content: "Bạn có muốn xoá khách hàng trên hệ thống?"
+        }
+      }).afterClosed()
+        .subscribe((result) => {
+          this.getCompanies();
         });
+
     }
     if (ev.type === 'update-type') {
       this.companyService
