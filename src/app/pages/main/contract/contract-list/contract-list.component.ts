@@ -33,7 +33,8 @@ export class ContractListComponent implements OnInit {
       Creater: 'Nguyễn Văn Sơn',
       Type: 1,
       ApprovedbBy: 'Nguyễn Văn Sơn',
-      Status: 1
+      Status: 2,
+      Approve: 2
     },
     {
       ID: 456,
@@ -41,9 +42,10 @@ export class ContractListComponent implements OnInit {
       ServicePackage: 'Gói MBTT cơ bản - 5 mã',
       Value: '20.000.000',
       Creater: 'Nguyễn Văn Sơn',
-      Type: 1,
+      Type: 2,
       ApprovedbBy: 'Nguyễn Văn Sơn',
-      Status: 1
+      Status: 1,
+      Approve: 1
     },
     {
       ID: 789,
@@ -51,9 +53,10 @@ export class ContractListComponent implements OnInit {
       ServicePackage: 'Gói MBTT cơ bản - 5 mã',
       Value: '20.000.000',
       Creater: 'Nguyễn Văn Sơn',
-      Type: 1,
+      Type: 3,
       ApprovedbBy: 'Nguyễn Văn Sơn',
-      Status: 1
+      Status: 2,
+      Approve: 2
     }
   ];
 
@@ -82,6 +85,20 @@ export class ContractListComponent implements OnInit {
       },
       {
         name: 'Gói MBTT - 20 mã',
+        value: 3
+      }
+    ];
+    this.listFilter[5].data = [
+      {
+        name: 'Ký mới',
+        value: 1
+      },
+      {
+        name: 'Nâng cấp',
+        value: 2
+      },
+      {
+        name: 'Tái ký',
         value: 3
       }
     ];
@@ -118,7 +135,7 @@ export class ContractListComponent implements OnInit {
   }
 
   handleCallbackTable(ev) {
-    console.log(ev);
+    console.log(ev.item);
     switch (ev.type) {
       case 'create':
         this.router.navigate(['contract/create']);
@@ -127,8 +144,8 @@ export class ContractListComponent implements OnInit {
         this.exportExcel();
         break;
       case 'route':
-        this.router.navigate([`contract/${ev.item.ID}`])
-
+        localStorage.setItem('contractStatus', ev.item.Status);
+        this.router.navigate([`contract/${ev.item.ID}`]);
     }
   }
 

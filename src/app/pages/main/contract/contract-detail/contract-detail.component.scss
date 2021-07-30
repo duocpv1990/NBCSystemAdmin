@@ -107,3 +107,12 @@ textarea {
 .breadcrumb-item + .breadcrumb-item::before {
   content: ">";
 }
+
+.btn-approve {
+  background: #002c6c;
+  color: #fff;
+}
+.btn-edit {
+  background: #4d8ce6;
+  color: #fff;
+}

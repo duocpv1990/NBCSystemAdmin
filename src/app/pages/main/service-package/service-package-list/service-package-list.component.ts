@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ImportExcelComponent } from 'src/app/components/dialog/import-excel/import-excel.component';
 import { ServicePackage } from 'src/app/models/service-package.model';
 import { ServicePackageAddComponent } from '../service-package-add/service-package-add.component';
+import { ServicePackageDeleteComponent } from '../service-package-delete/service-package-delete.component';
+import { ServicePackageUpdateComponent } from '../service-package-update/service-package-update.component';
 
 @Component({
   selector: 'app-service-package-list',
@@ -37,6 +40,16 @@ export class ServicePackageListComponent implements OnInit {
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
     this.dataSub = this.data;
+    this.listFilter[3].data = [
+      {
+        name: 'Hoạt động',
+        value: 1
+      },
+      {
+        name: 'Khóa',
+        value: 0
+      }
+    ];
   }
 
   handleCallback(ev) {
@@ -72,33 +85,33 @@ export class ServicePackageListComponent implements OnInit {
       }).afterClosed().subscribe(result => {
       });
     }
-    // if (ev.type === 'import') {
-    //   return this.dialog.open(ImportExcelComponent, {
-    //     width: '500px',
-    //     height: '350px'
-    //   }).afterClosed().subscribe(result => {
-    //   });
-    // }
-    // if (ev.type === 'edit') {
-    //   return this.dialog.open(ProductUpdateComponent, {
-    //     width: '940px',
-    //     height: '843px',
-    //     data: ev.item
-    //   }).afterClosed().subscribe(result => {
-    //   });
-    // }
-    // if (ev.type === 'delete') {
-    //   return this.dialog.open(ProductDeleteComponent, {
-    //     width: '400px',
-    //     height: '250px',
-    //     data: {
-    //       item: ev.item,
-    //       title: "Xoá sản phẩm",
-    //       content: "Bạn có muốn xoá sản phẩm trên hệ thống?"
-    //     }
-    //   }).afterClosed().subscribe(result => {
-    //   });
-    // }
+    if (ev.type === 'import') {
+      return this.dialog.open(ImportExcelComponent, {
+        width: '500px',
+        height: '350px'
+      }).afterClosed().subscribe(result => {
+      });
+    }
+    if (ev.type === 'edit') {
+      return this.dialog.open(ServicePackageUpdateComponent, {
+        width: '500px',
+        height: '600px',
+        data: ev.item
+      }).afterClosed().subscribe(result => {
+      });
+    }
+    if (ev.type === 'delete') {
+      return this.dialog.open(ServicePackageDeleteComponent, {
+        width: '400px',
+        height: '250px',
+        data: {
+          item: ev.item,
+          title: "Xoá gói dịch vụ",
+          content: "Bạn có muốn xoá gói dịch vụ trên hệ thống?"
+        }
+      }).afterClosed().subscribe(result => {
+      });
+    }
   }
 
 }

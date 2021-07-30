@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MatDialog } from '@angular/material/dialog';
+import { ContractApproveComponent } from './contract-approve/contract-approve.component';
+import { ContractDeniComponent } from './contract-deni/contract-deni.component';
 
 @Component({
   selector: 'app-contract-detail',
@@ -76,10 +79,12 @@ export class ContractDetailComponent implements OnInit {
     Position: 'Giám đốc'
   }
 
-  contractForm: FormGroup
+  contractForm: FormGroup;
+  contractStatus = +localStorage.getItem('contractStatus');
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.contractForm = this.fb.group({
       name: '',
@@ -110,6 +115,20 @@ export class ContractDetailComponent implements OnInit {
       representativeEmail: this.contract.RepresentativeEmail,
       position: this.contract.Position
     })
+  }
+
+  approveContract() {
+    this.dialog.open(ContractApproveComponent, {
+      width: '400px',
+      height: '200px'
+    });
+  }
+
+  deniContract() {
+    this.dialog.open(ContractDeniComponent, {
+      width: '500px',
+      height: '400px',
+    });
   }
 
 }

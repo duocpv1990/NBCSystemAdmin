@@ -10,7 +10,7 @@
 .btn-save {
   width: 140px;
   height: 50px;
-  background-color: #1894ff;
+  background-color: var(--color-list-nav);
   border-radius: 10px;
   border: none;
   color: white;
@@ -120,11 +120,14 @@ form {
   gap: 1.25rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   position: relative;
-  .btn {
+  .currency {
     position: absolute;
-    right: 65px;
-    top: 15px;
+    right: 48px;
+    top: 3px;
     font-weight: 600;
+    height: 60px;
+    width: 79px;
+    border: 1px solid #bcbcbc;
   }
 }
 span {

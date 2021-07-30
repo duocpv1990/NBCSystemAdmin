@@ -1,0 +1,26 @@
+.title {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 2%;
+}
+
+.option-btn {
+  padding: 20px;
+  margin-top: 6vh;
+
+  .btn-approve {
+    background: #002c6c;
+    color: #fff;
+  }
+  button:nth-child(2) {
+    background: red;
+    color: #fff;
+  }
+
+  button:nth-child(3) {
+    background: #d6d6d6;
+    color: #fff;
+    border: none;
+  }
+}

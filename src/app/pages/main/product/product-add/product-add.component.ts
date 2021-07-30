@@ -109,6 +109,8 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
   selectedDistributorsProductInput: QueryList<ElementRef>;
   @ViewChildren('distributeProduct')
   selectedDistributeProduct: QueryList<ElementRef>;
+
+
   constructor(
     private certService: CertService,
     private fb: FormBuilder,
@@ -222,7 +224,7 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
     });
   }
 
-  cancel = () => {};
+  cancel = () => { };
 
   save = (value) => {
     this.dataModel = value;
@@ -334,6 +336,7 @@ export class ProductAddComponent extends BaseUploadComponent implements OnInit {
     this.multipleUpload(files).subscribe({
       complete: () => {
         console.log(this.fileLinkList);
+        this.imageUrl = this.fileLinkList[0];
         let completeArr = this.fileLinkList.map((res) => ({
           MediaURL: res,
           Type: 3,

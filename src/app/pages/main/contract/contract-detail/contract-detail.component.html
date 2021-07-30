@@ -271,13 +271,31 @@
     <div class="row mt-5">
         <div class="col d-flex justify-content-center">
 
-            <div class="option-btn d-flex justify-content-between">
-                <button class="btn btn-primary">
+            <div class="option-btn d-flex justify-content-between" *ngIf="contractStatus == 2">
+                <button class="btn btn-approve">
                     Xác nhận thanh toán
                 </button>
 
                 <button class="btn btn-danger">
                     Hoàn duyệt
+                </button>
+
+                <button class="btn btn-dark">
+                    Hủy hợp đồng
+                </button>
+            </div>
+
+            <div class="option-btn d-flex justify-content-between" *ngIf="contractStatus == 1">
+                <button class="btn btn-approve" (click)="approveContract()">
+                    Phê duyệt
+                </button>
+
+                <button class="btn btn-approve" (click)="deniContract()">
+                    Từ chối duyệt
+                </button>
+
+                <button class="btn btn-edit">
+                    Chỉnh sửa
                 </button>
 
                 <button class="btn btn-dark">

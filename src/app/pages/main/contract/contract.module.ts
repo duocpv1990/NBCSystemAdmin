@@ -11,6 +11,9 @@ import { TableBaseModule } from 'src/app/components/table/table.component';
 import { ContractCreateComponent } from './contract-create/contract-create.component';
 import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContractApproveComponent } from './contract-detail/contract-approve/contract-approve.component';
+import { ContractDeniComponent } from './contract-detail/contract-deni/contract-deni.component';
+import { ContractCancelComponent } from './contract-detail/contract-cancel/contract-cancel.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ContractComponent,
     ContractListComponent,
     ContractCreateComponent,
-    ContractDetailComponent
+    ContractDetailComponent,
+    ContractApproveComponent,
+    ContractDeniComponent,
+    ContractCancelComponent
   ],
   imports: [
     CommonModule,

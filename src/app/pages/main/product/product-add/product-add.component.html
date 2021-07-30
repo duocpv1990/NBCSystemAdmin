@@ -21,7 +21,7 @@
                     <mat-form-field class="col-span-full" appearance="outline" [hideRequiredMarker]="false">
                         <input matInput type="number" formControlName="Price" required>
                     </mat-form-field>
-                    <button class="btn">VNĐ</button>
+                    <button class="btn currency">VNĐ</button>
                 </div>
 
             </div>
@@ -54,8 +54,7 @@
             <div class="form_item col-span-full">
                 <h5>Ảnh đại diện (<span>*</span>)</h5>
                 <div class="select_img">
-                    <img *ngFor="let item of fileLinkList;let i = index; trackBy trackByFunc" [src]="item" alt=""
-                        [style.width.%]="100" [style.height]="'auto'">
+                    <img [src]="imageUrl" alt="" [style.width.%]="100" [style.height]="'auto'">
                     <img [style.width.px]="74" [style.height.px]="74" src="assets/selectimage.svg"
                         (click)="uploadFile.click()" alt="">
                     <input #uploadFile type="file" accept="image/*" multiple (change)="uploadFilesS3(uploadFile.files)"
@@ -214,7 +213,8 @@
         </div>
     </div>
     <div class="actionbtn">
-        <button class="btn-cancel" (click)="closeDialog()">Hủy bỏ</button>
         <button class="btn-save" (click)="submitForm()">Lưu</button>
+        <button class="btn-cancel" (click)="closeDialog()">Hủy bỏ</button>
+
     </div>
 </form>

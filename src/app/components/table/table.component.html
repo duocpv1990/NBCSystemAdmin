@@ -63,15 +63,24 @@
               {{ item[i.id]}}
             </span>
             <span *ngIf="i.type === 'type'" (click)="handleRouteLink(item); handleClickRow(item)">
-              <div *ngIf="item[i.id] == 2">Đã duyệt</div>
-              <div *ngIf="item[i.id] == 1">Chưa duyệt</div>
+              <div class="approved" *ngIf="item[i.id] == 2">Đã duyệt</div>
+              <div class="pending" *ngIf="item[i.id] == 1">Chưa duyệt</div>
+            </span>
+            <button class="btn-approve" (click)="onclickApprove(item, 'approve')" *ngIf="i.type === 'approve'">
+              <div *ngIf="item[i.id] == 1">Phê duyệt</div>
+              <div *ngIf="item[i.id] == 2">Hoàn duyệt</div>
+            </button>
+
+            <span *ngIf="i.type === 'ContractType'" (click)="handleRouteLink(item); handleClickRow(item)">
+              <div *ngIf="item[i.id] == 1">Ký mới</div>
+              <div *ngIf="item[i.id] == 2">Nâng cấp</div>
+              <div *ngIf="item[i.id] == 3">Tái ký</div>
             </span>
             <span *ngIf="i.type === 'status'" (click)="handleRouteLink(item); handleClickRow(item)">
               <div *ngIf="item[i.id] == 1">Hoạt động</div>
               <div *ngIf="item[i.id] == 2">Không hoạt động</div>
             </span>
-            <button class="btn-approve" (click)="onclickApprove(item, 'approve')" *ngIf="i.type === 'approve'">Phê
-              duyệt</button>
+
             <span *ngIf="i.type === 'object'" (click)="handleRouteLink(item); handleClickRow(item)">{{
               item[i.id][i.idSub] }}</span>
             <span *ngIf="i.type === 'date'" (click)="handleRouteLink(item); handleClickRow(item)">

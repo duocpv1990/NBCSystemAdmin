@@ -54,6 +54,16 @@ export class NewsListComponent implements OnInit {
     this.dataTable = this.config.collums;
     this.listActive = this.config.btnActice;
     this.dataSub = this.data;
+    this.listFilter[2].data = [
+      {
+        name: 'Hoạt động',
+        value: 1
+      },
+      {
+        name: 'Khóa',
+        value: 0
+      }
+    ];
   }
 
   handleFilterCallback(event) {

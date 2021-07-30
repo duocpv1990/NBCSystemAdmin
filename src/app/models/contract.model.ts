@@ -93,7 +93,7 @@ export class ContractModel {
                 id: 'Type',
                 name: 'Loại hợp đồng',
                 width: 200,
-                type: 'text',
+                type: 'ContractType',
             },
             {
                 id: 'ApprovedbBy',
@@ -106,7 +106,20 @@ export class ContractModel {
                 id: 'Status',
                 name: 'Tình trạng',
                 width: 200,
-                type: 'status',
+                type: 'type',
+            },
+
+            {
+                id: 'Approve',
+                name: 'Phê duyệt',
+                width: 200,
+                type: 'approve',
+            },
+            {
+                id: 'action',
+                name: 'Hành động',
+                width: 200,
+                type: 'setting',
             },
 
         ];
